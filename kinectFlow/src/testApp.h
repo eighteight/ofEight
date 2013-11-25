@@ -25,15 +25,12 @@ class testApp : public ofBaseApp{
         void updateContours();
 		
     ofxKinect kinect;
-    ofxSyphonServer syphon;
+    ofxSyphonServer syphonServer;
     ofxOpticalFlowLK flowSolver;
     
     //contour finder
-    ofxCvColorImage colorImg;
+
     ofxCvContourFinder contourFinder;
-    ofxCvGrayscaleImage grayImage;
-    ofxCvGrayscaleImage grayBg;
     ofxCvGrayscaleImage grayDiff;
-    
     std::vector<ofPolyline> contourPoly;
 };

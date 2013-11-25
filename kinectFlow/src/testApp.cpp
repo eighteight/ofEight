@@ -6,11 +6,10 @@ void testApp::setup(){
     kinect.init(false, false, true);
     flowSolver.setup(kinect.getWidth()/2, kinect.getHeight()/2, 0.5, 3, 10, 1, 7, 1.5, false, false);
     ofBackground(0,0,0);
-    
-    colorImg.allocate(640,480);
-    grayImage.allocate(640,480);
-    grayBg.allocate(640,480);
+
     grayDiff.allocate(640,480);
+    
+    syphonServer.setName("kinectFlow");
 
 }
 
@@ -20,8 +19,6 @@ void testApp::update(){
     kinect.update();
     if ( kinect.isFrameNew() ){
         flowSolver.update(kinect.getDepthPixels(), 640, 480, OF_IMAGE_GRAYSCALE);
-//        grayDiff.absDiff(grayBg, grayImage);
-//        grayDiff.threshold(30);
         grayDiff.setFromPixels(kinect.getDepthPixelsRef());
         grayDiff.threshold(30);
         contourFinder.findContours(grayDiff, 5, (640*480)/4, 2, false, true);
@@ -79,7 +76,7 @@ void testApp::draw(){
         ofEndShape();
     }
     
-
+    syphonServer.publishScreen();
     
     stringstream m;
     m << "fps " << ofGetFrameRate() << endl;

@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/src/main.cpp \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/src/main.cpp \
   ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
   ../../../libs/glew/include/GL/glew.h \
@@ -170,11 +170,11 @@ dependencies: \
   ../../../libs/openFrameworks/video/ofQTKitPlayer.h \
   ../../../libs/openFrameworks/3d/ofCamera.h \
   ../../../libs/openFrameworks/3d/ofEasyCam.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/src/testApp.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxOpticalFlowFarneback/src/ofxOpticalFlowFarneback.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxOpenCv/src/ofxOpenCv.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/src/testApp.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpticalFlowFarneback/src/ofxOpticalFlowFarneback.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpenCv/src/ofxOpenCv.h \
   ../../../addons/ofxOpenCv/src/ofxCvConstants.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxOpenCv/libs/opencv/include/opencv/cv.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpenCv/libs/opencv/include/opencv/cv.h \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/core_c.h \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/types_c.h \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/core.hpp \
@@ -230,12 +230,12 @@ dependencies: \
   ../../../addons/ofxOpenCv/src/ofxCvShortImage.h \
   ../../../addons/ofxOpenCv/src/ofxCvContourFinder.h \
   ../../../addons/ofxOpenCv/src/ofxCvHaarFinder.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxKinect/src/ofxKinect.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxKinect/libs/libfreenect/include/libfreenect.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/src/ofxKinect.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/libs/libfreenect/include/libfreenect.h \
   ../../../addons/ofxKinect/src/ofxBase3DVideo.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxKinect/libs/libusb-1.0/include/libusb-1.0/libusb.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphon.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonClient.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonServer.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonServerDirectory.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/libs/libusb-1.0/include/libusb-1.0/libusb.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphon.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonClient.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonServer.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonServerDirectory.h \
   ../../../libs/openFrameworks/app/ofAppGlutWindow.h

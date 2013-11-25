@@ -1,9 +1,9 @@
 dependencies: \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpenCv/src/ofxCvShortImage.cpp \
   ../../../addons/ofxOpenCv/src/ofxCvGrayscaleImage.h \
   ../../../addons/ofxOpenCv/src/ofxCvImage.h \
   ../../../addons/ofxOpenCv/src/ofxCvConstants.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxOpenCv/libs/opencv/include/opencv/cv.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpenCv/libs/opencv/include/opencv/cv.h \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/core_c.h \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/types_c.h \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/core.hpp \
