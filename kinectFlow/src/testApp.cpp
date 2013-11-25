@@ -28,13 +28,15 @@ void testApp::update(){
 
 void testApp::updateContours(){
     contourPoly.clear();
+    rectangles.clear();
     for (int i = 0; i <contourFinder.nBlobs; i++){
         
         // does blob have any points?
         if(contourFinder.blobs[i].pts.size()>5){
             
             ofPolyline tempPoly;
-            
+            ofRectangle rect = contourFinder.blobs[i].boundingRect;
+            rectangles.push_back(rect);
             tempPoly.addVertices(contourFinder.blobs[i].pts);
             tempPoly.setClosed(true);
             
@@ -74,6 +76,18 @@ void testApp::draw(){
             ofVertex(contourPoly[i].getVertices().at(j).x, contourPoly[i].getVertices().at(j).y);
         }
         ofEndShape();
+    }
+    
+    for (int i = 0; i < rectangles.size(); i++){
+        c.setHsb(i * 64, 255, 255);
+        ofSetColor(c);
+        ofRectangle rect = rectangles[i];
+        
+        rect.x += 320; rect.y += 240;
+        c.setHsb(i * 64, 255, 255);
+        ofSetColor(c);
+        ofRect(rect);
+
     }
     
     syphonServer.publishScreen();

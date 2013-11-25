@@ -33,4 +33,5 @@ class testApp : public ofBaseApp{
     ofxCvContourFinder contourFinder;
     ofxCvGrayscaleImage grayDiff;
     std::vector<ofPolyline> contourPoly;
+    std::vector<ofRectangle> rectangles;
 };

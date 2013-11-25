@@ -135,8 +135,7 @@ void testApp::exit(){
     
     // this often does not work -> it's a known bug -> but calling it on a key press or anywhere that isnt std::aexit() works
     // press 'x' to shutdown cleanly...
-        openNIDevice.stop();
-
+    openNIDevice.stop();
 
 }
 
