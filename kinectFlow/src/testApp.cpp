@@ -9,17 +9,23 @@ void testApp::setup(){
     ofBackground(0,0,0);
 
     grayDiff.allocate(WIDTH,HEIGHT);
-    
+    far = 2550.0;
+    near = 1.;
+    showShape = showFlow = showRect = showDepth = true;
+    setUI();
     syphonServer.setName("kinectFlow");
 }
 
 void testApp::exit(){
+    gui->saveSettings("GUI/guiSettings.xml");
+    delete gui;
     kinect.close();
 }
 
 //--------------------------------------------------------------
 void testApp::update(){
-    kinect.setDepthClipping(0,2550);
+    kinect.setDepthClipping(near,far);
+    // kinect.setDepthClipping(0.0,2550.0);
     kinect.update();
     if ( kinect.isFrameNew() ){
         flowSolver.update(kinect.getDepthPixels(), WIDTH, HEIGHT, OF_IMAGE_GRAYSCALE);
@@ -34,8 +40,7 @@ void testApp::updateContours(){
     contourPoly.clear();
     rectangles.clear();
     for (int i = 0; i <contourFinder.nBlobs; i++){
-        
-        // does blob have any points?
+
         if(contourFinder.blobs[i].pts.size()>5){
             
             ofPolyline tempPoly;
@@ -62,25 +67,11 @@ void testApp::draw(){
     
     ofSetColor(255, 255, 255);
 
-    kinect.drawDepth(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+    if (showDepth) kinect.drawDepth(0,0,ofGetWindowWidth(),ofGetWindowHeight());
     
-    flowSolver.draw(ofGetWindowWidth(),ofGetWindowHeight(), 10, 10);
-    //contourFinder.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
+    if (showFlow) flowSolver.draw(ofGetWindowWidth(),ofGetWindowHeight(), 10, 10);
     
     ofColor c(255, 255, 255);
-    
-    ofScale(2.0, 2.0);
-    for (int i = 0; i < contourPoly.size(); i++){
-        c.setHsb(i * 64, 255, 255);
-        ofSetColor(c);
-        contourPoly[i].draw();
-        
-        ofBeginShape();
-        for( int j = 0; j < contourPoly[i].getVertices().size(); j++) {
-            ofVertex(contourPoly[i].getVertices().at(j).x, contourPoly[i].getVertices().at(j).y);
-        }
-        ofEndShape();
-    }
     
     drawBoundingRects();
     
@@ -97,26 +88,66 @@ void testApp::draw(){
 //    << "flow feedback: " << flowSolver.getFlowFeedback() << " f/F" << endl
 //    << "gaussian filtering: " << flowSolver.getGaussianFiltering() << " g/G";
     
-    ofDrawBitmapString(m.str(), 20, 20);
+    //ofDrawBitmapString(m.str(), 20, 20);
+}
+
+void testApp::setUI(){
+    float xInit = OFX_UI_GLOBAL_WIDGET_SPACING;
+    float length = 255-xInit;
+    float dim = 16; 
+    gui = new ofxUICanvas(0, 0, length+xInit, ofGetHeight());
+    
+    gui->addWidgetDown(new ofxUILabel("NEAR     FAR", OFX_UI_FONT_MEDIUM));
+    
+    gui->addWidgetDown(new ofxUINumberDialer(1., 5000., &near, 1,  "NEAR", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetRight(new ofxUINumberDialer(1., 5000., &far, 1,  "FAR", OFX_UI_FONT_MEDIUM));
+
+    gui->setDrawBack(false);
+
+    gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showFlow, "FLOW", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showShape, "SHAPE", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showRect, "RECT", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showDepth, "DEPTH", OFX_UI_FONT_MEDIUM));
+    
+    ofAddListener(gui->newGUIEvent,this,&testApp::guiEvent);
+    gui->loadSettings("GUI/guiSettings.xml");
+}
+
+void testApp::guiEvent(ofxUIEventArgs &e)
+{
+	string name = e.widget->getName();
 }
 
 void testApp::drawBoundingRects() {
-    float scalex = ofGetWindowWidth()/WIDTH;
-    float scaley = ofGetWindowHeight()/HEIGHT;
+    float scalex = (float)ofGetWindowWidth()/WIDTH;
+    float scaley = (float)ofGetWindowHeight()/HEIGHT;
 
     ofPushStyle();
-	// ---------------------------- draw the bounding rectangle
-	ofSetHexColor(0xDD00CC);
     glPushMatrix();
     glTranslatef( 0, 0, 0.0 );
     glScalef( scalex, scaley, 0.0 );
-    ofColor c(255, 255, 255);
-	for( int i=0; i<rectangles.size(); i++ ) {
-        c.setHsb(i * 64, 255, 255);
-        ofSetColor(c);
-		ofRect( rectangles[i].x, rectangles[i].y,
-               rectangles[i].width, rectangles[i].height );
-	}
+    ofColor c(255, 255, 255, 14);
+    if (showRect){
+        for( int i=0; i<rectangles.size(); i++ ) {
+            c.setHsb(i * 64, 255, 255);
+            ofSetColor(c);
+            ofRect( rectangles[i].x, rectangles[i].y, rectangles[i].width, rectangles[i].height );
+        }
+    }
+    
+    if (showShape){
+        for (int i = 0; i < contourPoly.size(); i++){
+            c.setHsb(255, i * 64, 255);
+            ofSetColor(c);
+            contourPoly[i].draw();
+
+            ofBeginShape();
+            for( int j = 0; j < contourPoly[i].getVertices().size(); j++) {
+                ofVertex(contourPoly[i].getVertices().at(j).x, contourPoly[i].getVertices().at(j).y);
+            }
+            ofEndShape();
+        }
+    }
 	glPopMatrix();
 	ofPopStyle();
 }
@@ -139,6 +170,13 @@ void testApp::keyPressed(int key){
     else if(key == 'F') { flowSolver.setFlowFeedback(true); }
     else if(key == 'g') { flowSolver.setGaussianFiltering(false); }
     else if(key == 'G') { flowSolver.setGaussianFiltering(true); }
+    
+    switch (key)
+	{
+        case 'h':
+            gui->toggleVisible();
+            break;
+    }
 }
 
 //--------------------------------------------------------------

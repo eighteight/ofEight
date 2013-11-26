@@ -1,0 +1,30 @@
+<Widget>
+    <Kind>8</Kind>
+    <Name>NEAR</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>8</Kind>
+    <Name>FAR</Name>
+    <Value>2550.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>FLOW</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>SHAPE</Name>
+    <Value>1</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>RECT</Name>
+    <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>DEPTH</Name>
+    <Value>0</Value>
+</Widget>
