@@ -1,16 +1,20 @@
 #include "testApp.h"
-
+#define WIDTH 640
+#define HEIGHT 480
 //--------------------------------------------------------------
 void testApp::setup(){
-    
+    ofSetFrameRate(30);
     kinect.init(false, false, true);
     flowSolver.setup(kinect.getWidth()/2, kinect.getHeight()/2, 0.5, 3, 10, 1, 7, 1.5, false, false);
     ofBackground(0,0,0);
 
-    grayDiff.allocate(640,480);
+    grayDiff.allocate(WIDTH,HEIGHT);
     
     syphonServer.setName("kinectFlow");
+}
 
+void testApp::exit(){
+    kinect.close();
 }
 
 //--------------------------------------------------------------
@@ -18,10 +22,10 @@ void testApp::update(){
     kinect.setDepthClipping(0,2550);
     kinect.update();
     if ( kinect.isFrameNew() ){
-        flowSolver.update(kinect.getDepthPixels(), 640, 480, OF_IMAGE_GRAYSCALE);
+        flowSolver.update(kinect.getDepthPixels(), WIDTH, HEIGHT, OF_IMAGE_GRAYSCALE);
         grayDiff.setFromPixels(kinect.getDepthPixelsRef());
         grayDiff.threshold(30);
-        contourFinder.findContours(grayDiff, 5, (640*480)/4, 2, false, true);
+        contourFinder.findContours(grayDiff, 5, (WIDTH*HEIGHT)/4, 2, false, true);
         updateContours();
     }
 }
@@ -60,8 +64,8 @@ void testApp::draw(){
 
     kinect.drawDepth(0,0,ofGetWindowWidth(),ofGetWindowHeight());
     
-    flowSolver.draw(ofGetWindowWidth(),ofGetWindowHeight());
-    contourFinder.draw(ofGetWindowWidth(), 0, ofGetWindowWidth(), ofGetWindowHeight());
+    flowSolver.draw(ofGetWindowWidth(),ofGetWindowHeight(), 10, 10);
+    //contourFinder.draw(0, 0, ofGetWindowWidth(), ofGetWindowHeight());
     
     ofColor c(255, 255, 255);
     
@@ -78,17 +82,7 @@ void testApp::draw(){
         ofEndShape();
     }
     
-    for (int i = 0; i < rectangles.size(); i++){
-        c.setHsb(i * 64, 255, 255);
-        ofSetColor(c);
-        ofRectangle rect = rectangles[i];
-        
-        rect.x += 320; rect.y += 240;
-        c.setHsb(i * 64, 255, 255);
-        ofSetColor(c);
-        ofRect(rect);
-
-    }
+    drawBoundingRects();
     
     syphonServer.publishScreen();
     
@@ -104,6 +98,27 @@ void testApp::draw(){
 //    << "gaussian filtering: " << flowSolver.getGaussianFiltering() << " g/G";
     
     ofDrawBitmapString(m.str(), 20, 20);
+}
+
+void testApp::drawBoundingRects() {
+    float scalex = ofGetWindowWidth()/WIDTH;
+    float scaley = ofGetWindowHeight()/HEIGHT;
+
+    ofPushStyle();
+	// ---------------------------- draw the bounding rectangle
+	ofSetHexColor(0xDD00CC);
+    glPushMatrix();
+    glTranslatef( 0, 0, 0.0 );
+    glScalef( scalex, scaley, 0.0 );
+    ofColor c(255, 255, 255);
+	for( int i=0; i<rectangles.size(); i++ ) {
+        c.setHsb(i * 64, 255, 255);
+        ofSetColor(c);
+		ofRect( rectangles[i].x, rectangles[i].y,
+               rectangles[i].width, rectangles[i].height );
+	}
+	glPopMatrix();
+	ofPopStyle();
 }
 
 //--------------------------------------------------------------
