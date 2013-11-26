@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonServer.mm \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonServer.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonServer.mm \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonServer.h \
   ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
   ../../../libs/glew/include/GL/glew.h \
@@ -172,8 +172,8 @@ dependencies: \
   ../../../libs/openFrameworks/video/ofQTKitMovieRenderer.h \
   ../../../libs/openFrameworks/3d/ofCamera.h \
   ../../../libs/openFrameworks/3d/ofEasyCam.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Headers/Syphon.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Headers/SyphonServerDirectory.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Headers/SyphonServer.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Headers/SyphonClient.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Headers/SyphonImage.h
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Headers/Syphon.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Headers/SyphonServerDirectory.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Headers/SyphonServer.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Headers/SyphonClient.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/libs/Syphon/lib/osx/Syphon.framework/Headers/SyphonImage.h

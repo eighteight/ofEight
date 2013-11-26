@@ -171,8 +171,8 @@ dependencies: \
   ../../../libs/openFrameworks/video/ofQTKitPlayer.h \
   ../../../libs/openFrameworks/3d/ofCamera.h \
   ../../../libs/openFrameworks/3d/ofEasyCam.h \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpticalFlowFarneback/src/ofxOpticalFlowFarneback.h \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpenCv/src/ofxOpenCv.h \
+  /Users/vgusev/repos/openFrameworks/addons/ofxOpticalFlowFarneback/src/ofxOpticalFlowFarneback.h \
+  /Users/vgusev/repos/openFrameworks/addons/ofxOpenCv/src/ofxOpenCv.h \
   ../../../addons/ofxOpenCv/src/ofxCvConstants.h \
   /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpenCv/libs/opencv/include/opencv/cv.h \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/core_c.h \
@@ -230,11 +230,76 @@ dependencies: \
   ../../../addons/ofxOpenCv/src/ofxCvShortImage.h \
   ../../../addons/ofxOpenCv/src/ofxCvContourFinder.h \
   ../../../addons/ofxOpenCv/src/ofxCvHaarFinder.h \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/src/ofxKinect.h \
+  /Users/vgusev/repos/openFrameworks/addons/ofxKinect/src/ofxKinect.h \
   /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/libs/libfreenect/include/libfreenect.h \
   ../../../addons/ofxKinect/src/ofxBase3DVideo.h \
   /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/libs/libusb-1.0/include/libusb-1.0/libusb.h \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphon.h \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonClient.h \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonServer.h \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonServerDirectory.h
+  /Users/vgusev/repos/openFrameworks/addons/ofxSyphon/src/ofxSyphon.h \
+  /Users/vgusev/repos/openFrameworks/addons/ofxSyphon/src/ofxSyphonClient.h \
+  /Users/vgusev/repos/openFrameworks/addons/ofxSyphon/src/ofxSyphonServer.h \
+  /Users/vgusev/repos/openFrameworks/addons/ofxSyphon/src/ofxSyphonServerDirectory.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUI.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIOFWrapper.h \
+  /Users/vgusev/repos/openFrameworks/addons/ofxXmlSettings/src/ofxXmlSettings.h \
+  /Users/vgusev/repos/openFrameworks/addons/ofxXmlSettings/libs/tinyxml.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIUtils.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIRectangle.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIWidget.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIWidgetWithLabel.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIEventArgs.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUILabel.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIFPS.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUISlider.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIIntSlider.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIMultiImageSlider.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIImageSlider.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIFPSSlider.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIMinimalSlider.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUICircleSlider.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIBiLabelSlider.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIRangeSlider.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIToggle.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIButton.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUICustomImageButton.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIMultiImageButton.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIMultiImageToggle.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIRadio.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUI2DPad.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUI2DGraph.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUITextInput.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUITextArea.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUINumberDialer.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUILabelButton.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUILabelToggle.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIToggleMatrix.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIImageButton.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIImageToggle.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIRotarySlider.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUISpacer.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIDropDownList.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIWaveform.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUISpectrum.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIMovingGraph.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIValuePlotter.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIImage.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIBaseDraws.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIImageSampler.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUICanvas.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUIScrollableCanvas.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUISuperCanvas.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxUI/src/ofxUITabBar.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/src/ofxOsc.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/src/ofxOscArg.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/src/ofxOscMessage.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/src/ofxOscSender.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/libs/oscpack/src/osc/OscTypes.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/libs/oscpack/src/osc/OscOutboundPacketStream.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/libs/oscpack/src/osc/OscException.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/src/ofxOscBundle.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/src/ofxOscReceiver.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/libs/oscpack/src/osc/OscPacketListener.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/libs/oscpack/src/osc/OscReceivedElements.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/libs/oscpack/src/osc/../ip/PacketListener.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/libs/oscpack/src/ip/UdpSocket.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/libs/oscpack/src/osc/../ip/NetworkingUtils.h \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOsc/libs/oscpack/src/osc/../ip/IpEndpointName.h

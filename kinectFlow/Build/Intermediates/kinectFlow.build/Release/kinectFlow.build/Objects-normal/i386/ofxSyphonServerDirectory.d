@@ -1,6 +1,6 @@
 dependencies: \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonServerDirectory.mm \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxSyphon/src/ofxSyphonServerDirectory.h \
+  /Users/vgusev/repos/openFrameworks/addons/ofxSyphon/src/ofxSyphonServerDirectory.mm \
+  /Users/vgusev/repos/openFrameworks/addons/ofxSyphon/src/ofxSyphonServerDirectory.h \
   ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
   ../../../libs/glew/include/GL/glew.h \

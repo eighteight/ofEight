@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp \
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxXmlSettings/src/ofxXmlSettings.cpp \
   ../../../addons/ofxXmlSettings/src/ofxXmlSettings.h \
   ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
@@ -171,4 +171,4 @@ dependencies: \
   ../../../libs/openFrameworks/video/ofQTKitPlayer.h \
   ../../../libs/openFrameworks/3d/ofCamera.h \
   ../../../libs/openFrameworks/3d/ofEasyCam.h \
-  /Users/vgusev/repos/openFrameworks/apps/eight/kinectFlow/../../../addons/ofxXmlSettings/libs/tinyxml.h
+  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxXmlSettings/libs/tinyxml.h

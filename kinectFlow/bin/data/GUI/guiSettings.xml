@@ -6,25 +6,45 @@
 <Widget>
     <Kind>8</Kind>
     <Name>FAR</Name>
-    <Value>1770.000000000</Value>
+    <Value>1775.000000000</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
     <Name>FLOW</Name>
-    <Value>0</Value>
-</Widget>
-<Widget>
-    <Kind>17</Kind>
-    <Name>SHAPE</Name>
     <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
-    <Name>RECT</Name>
+    <Name>SHAPE</Name>
     <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>SMOOTHSIZE</Name>
+    <Value>1.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>SMOOTHSHAPE</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>25</Kind>
+    <Name>SHAPE SCALE</Name>
+    <Value>0.000000000</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>RECT</Name>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
     <Name>DEPTH</Name>
     <Value>0</Value>
+</Widget>
+<Widget>
+    <Kind>17</Kind>
+    <Name>VIDEO</Name>
+    <Value>1</Value>
 </Widget>

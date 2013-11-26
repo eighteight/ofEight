@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/src/ofxKinect.cpp \
+  /Users/vgusev/repos/openFrameworks/addons/ofxKinect/src/ofxKinect.cpp \
   ../../../addons/ofxKinect/src/ofxKinect.h \
   ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
@@ -175,5 +175,5 @@ dependencies: \
   ../../../addons/ofxKinect/src/ofxBase3DVideo.h \
   /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/libs/libusb-1.0/include/libusb-1.0/libusb.h \
   /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/libs/libfreenect/include/libfreenect-registration.h \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/libs/libfreenect/src/freenect_internal.h \
+  /Users/vgusev/repos/openFrameworks/addons/ofxKinect/libs/libfreenect/src/freenect_internal.h \
   ../../../addons/ofxKinect/libs/libfreenect/src/usb_libusb10.h

@@ -1,10 +1,11 @@
 #include "testApp.h"
 #define WIDTH 640
 #define HEIGHT 480
+#define OSC_ADDRESS "/isadora/1"
 //--------------------------------------------------------------
 void testApp::setup(){
     ofSetFrameRate(30);
-    kinect.init(false, false, true);
+    kinect.init(false, true, true);
     flowSolver.setup(kinect.getWidth()/2, kinect.getHeight()/2, 0.5, 3, 10, 1, 7, 1.5, false, false);
     ofBackground(0,0,0);
 
@@ -14,6 +15,8 @@ void testApp::setup(){
     showShape = showFlow = showRect = showDepth = true;
     setUI();
     syphonServer.setName("kinectFlow");
+    
+   	oscSender.setup("localhost", 3333);
 }
 
 void testApp::exit(){
@@ -33,12 +36,6 @@ void testApp::update(){
         grayDiff.threshold(30);
         contourFinder.findContours(grayDiff, 5, (WIDTH*HEIGHT)/4, 2, false, true);
         
-        cv::Mat img;
-        //cv::cvtColor(...); //not sure where the variables in your example come from
-        std::string store_path("..."); //put your output path here
-        
-        bool write_success = cv::imwrite(store_path, img);
-        
         updateContours();
     }
 }
@@ -53,11 +50,18 @@ void testApp::updateContours(){
             ofPolyline tempPoly;
             ofRectangle rect = contourFinder.blobs[i].boundingRect;
             rectangles.push_back(rect);
-            tempPoly.addVertices(contourFinder.blobs[i].pts);
+            sendMessage(rect);
+
+            vector <ofPoint> pts = contourFinder.blobs[i].pts;
+            for (int j = 0; j < pts.size(); j++){
+                pts[j].x += (rect.x - pts[j].x) * (1.0 - shapeScale);
+            }
+            
+            tempPoly.addVertices(pts);
             tempPoly.setClosed(true);
             
-            // smoothing is set to 200
-            ofPolyline smoothTempPoly = tempPoly.getSmoothed(20, 0.5);
+            // smoothing is set to 200 (20)
+            ofPolyline smoothTempPoly = tempPoly.getSmoothed((int)smoothSize, 0.5);
             
             if(!smoothTempPoly.isClosed()){
                 smoothTempPoly.close();
@@ -69,6 +73,20 @@ void testApp::updateContours(){
     }// smooth blobs
 }
 
+void testApp::sendMessage(ofRectangle rect){
+    sendMessage("/isadora/1", rect.x);
+    sendMessage("/isadora/2", rect.y);
+    sendMessage("/isadora/3", rect.width);
+    sendMessage("/isadora/4", rect.height);
+}
+
+void testApp::sendMessage(string address, float val){
+    ofxOscMessage msg;
+	msg.setAddress(address);
+	msg.addFloatArg(val);
+    oscSender.sendMessage(msg);
+}
+
 //--------------------------------------------------------------
 void testApp::draw(){
     
@@ -77,6 +95,8 @@ void testApp::draw(){
     if (showDepth) kinect.drawDepth(0,0,ofGetWindowWidth(),ofGetWindowHeight());
     
     if (showFlow) flowSolver.draw(ofGetWindowWidth(),ofGetWindowHeight(), 10, 10);
+    
+    if (showVideo && videoTexture.bAllocated()) videoTexture.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
     
     ofColor c(255, 255, 255);
     
@@ -109,20 +129,35 @@ void testApp::setUI(){
     gui->addWidgetDown(new ofxUINumberDialer(1., 5000., &near, 1,  "NEAR", OFX_UI_FONT_MEDIUM));
     gui->addWidgetRight(new ofxUINumberDialer(1., 5000., &far, 1,  "FAR", OFX_UI_FONT_MEDIUM));
 
-    gui->setDrawBack(false);
-
     gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showFlow, "FLOW", OFX_UI_FONT_MEDIUM));
+    
     gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showShape, "SHAPE", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetRight(new ofxUIMinimalSlider(length-xInit, dim, 1.0, 100.0, &smoothSize, "SMOOTHSIZE",OFX_UI_FONT_MEDIUM));
+    gui->addWidgetRight(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 1.0, &smoothShape, "SMOOTHSHAPE",OFX_UI_FONT_MEDIUM));
+    gui->addWidgetRight(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 1.0, &shapeScale, "SHAPE SCALE",OFX_UI_FONT_MEDIUM));
+
     gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showRect, "RECT", OFX_UI_FONT_MEDIUM));
     gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showDepth, "DEPTH", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showVideo, "VIDEO", OFX_UI_FONT_MEDIUM));
+    
+    gui->addSpacer(length, 2);
+
+    gui->addLabelButton("SNAP BACK", false, length-xInit);
+    gui->setDrawBack(false);
     
     ofAddListener(gui->newGUIEvent,this,&testApp::guiEvent);
     gui->loadSettings("GUI/guiSettings.xml");
+    gui->setDrawWidgetPaddingOutline(true);
 }
 
 void testApp::guiEvent(ofxUIEventArgs &e)
 {
 	string name = e.widget->getName();
+    
+    if ("SNAP BACK" == name){
+        videoTexture = kinect.getTextureReference();
+    }
+    if ("SMOOTH" == name) cout<<smoothSize<<endl;
 }
 
 void testApp::drawBoundingRects() {

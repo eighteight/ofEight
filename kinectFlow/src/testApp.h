@@ -6,7 +6,7 @@
 #include "ofxSyphon.h"
 #include "ofxOpenCv.h"
 #include "ofxUI.h"
-#include "ofxOpenCv2.h"
+#include "ofxOsc.h"
 
 class testApp : public ofBaseApp{
 
@@ -28,20 +28,28 @@ class testApp : public ofBaseApp{
     void updateContours();
     void drawBoundingRects();
     void setUI();
+    void sendMessage(string address, float val);
+    void sendMessage(ofRectangle rect);
 		
     ofxKinect kinect;
     ofxSyphonServer syphonServer;
     ofxOpticalFlowLK flowSolver;
+    ofTexture videoTexture;
     
     //contour finder
     ofxCvContourFinder contourFinder;
     ofxCvGrayscaleImage grayDiff;
     std::vector<ofPolyline> contourPoly;
     std::vector<ofRectangle> rectangles;
+    float smoothSize, smoothShape, shapeScale;
     
     //ui
     ofxUICanvas *gui;
     void guiEvent(ofxUIEventArgs &e);
     float near, far;
-    bool showFlow, showShape, showRect, showDepth;
+    bool showFlow, showShape, showRect, showDepth, showVideo;
+    bool takeBackground;
+    
+    //osc
+    ofxOscSender oscSender;
 };

@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpenCv/src/ofxCvImage.cpp \
+  /Users/vgusev/repos/openFrameworks/addons/ofxOpenCv/src/ofxCvImage.cpp \
   ../../../addons/ofxOpenCv/src/ofxCvImage.h \
   ../../../addons/ofxOpenCv/src/ofxCvConstants.h \
   /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpenCv/libs/opencv/include/opencv/cv.h \
