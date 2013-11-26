@@ -32,6 +32,13 @@ void testApp::update(){
         grayDiff.setFromPixels(kinect.getDepthPixelsRef());
         grayDiff.threshold(30);
         contourFinder.findContours(grayDiff, 5, (WIDTH*HEIGHT)/4, 2, false, true);
+        
+        cv::Mat img;
+        //cv::cvtColor(...); //not sure where the variables in your example come from
+        std::string store_path("..."); //put your output path here
+        
+        bool write_success = cv::imwrite(store_path, img);
+        
         updateContours();
     }
 }

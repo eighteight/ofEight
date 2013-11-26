@@ -4,8 +4,9 @@
 #include "ofxOpticalFlowFarneback.h"
 #include "ofxKinect.h"
 #include "ofxSyphon.h"
-#include "ofxCvContourFinder.h"
+#include "ofxOpenCv.h"
 #include "ofxUI.h"
+#include "ofxOpenCv2.h"
 
 class testApp : public ofBaseApp{
 
