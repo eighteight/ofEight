@@ -25,8 +25,7 @@ class testApp : public ofBaseApp{
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
-    void updateContours();
-    void drawBoundingRects();
+
     void setUI();
     void sendMessage(string address, float val);
     void sendMessage(ofRectangle rect);
@@ -34,14 +33,16 @@ class testApp : public ofBaseApp{
     ofxKinect kinect;
     ofxSyphonServer syphonServer;
     ofxOpticalFlowLK flowSolver;
-    ofTexture videoTexture;
+    ofImage videoTexture;
     
     //contour finder
+    void updateContours();
+    void drawShapes();
     ofxCvContourFinder contourFinder;
     ofxCvGrayscaleImage grayDiff;
     std::vector<ofPolyline> contourPoly;
     std::vector<ofRectangle> rectangles;
-    float smoothSize, smoothShape, shapeScale;
+    float smoothSize, smoothShape, shapeScale, depthThreshold;
     
     //ui
     ofxUICanvas *gui;

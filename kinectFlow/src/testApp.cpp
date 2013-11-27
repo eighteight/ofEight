@@ -11,8 +11,14 @@ void testApp::setup(){
 
     grayDiff.allocate(WIDTH,HEIGHT);
     far = 2550.0;
-    near = 1.;
+    near = 500.0;
     showShape = showFlow = showRect = showDepth = true;
+    smoothSize = 20.0;
+    smoothShape = 0.5;
+    shapeScale = 0.5;
+    
+    depthThreshold = 30.;
+    
     setUI();
     syphonServer.setName("kinectFlow");
     
@@ -27,13 +33,12 @@ void testApp::exit(){
 
 //--------------------------------------------------------------
 void testApp::update(){
-    kinect.setDepthClipping(near,far);
     // kinect.setDepthClipping(0.0,2550.0);
     kinect.update();
     if ( kinect.isFrameNew() ){
         flowSolver.update(kinect.getDepthPixels(), WIDTH, HEIGHT, OF_IMAGE_GRAYSCALE);
         grayDiff.setFromPixels(kinect.getDepthPixelsRef());
-        grayDiff.threshold(30);
+        grayDiff.threshold((int)depthThreshold);
         contourFinder.findContours(grayDiff, 5, (WIDTH*HEIGHT)/4, 2, false, true);
         
         updateContours();
@@ -45,7 +50,7 @@ void testApp::updateContours(){
     rectangles.clear();
     for (int i = 0; i <contourFinder.nBlobs; i++){
 
-        if(contourFinder.blobs[i].pts.size()>5){
+        if(contourFinder.blobs[i].pts.size()>0){
             
             ofPolyline tempPoly;
             ofRectangle rect = contourFinder.blobs[i].boundingRect;
@@ -54,14 +59,14 @@ void testApp::updateContours(){
 
             vector <ofPoint> pts = contourFinder.blobs[i].pts;
             for (int j = 0; j < pts.size(); j++){
-                pts[j].x += (rect.x - pts[j].x) * (1.0 - shapeScale);
+                pts[j].x += (contourFinder.blobs[i].centroid.x - pts[j].x) * (1.0 - shapeScale);
             }
             
             tempPoly.addVertices(pts);
             tempPoly.setClosed(true);
             
             // smoothing is set to 200 (20)
-            ofPolyline smoothTempPoly = tempPoly.getSmoothed((int)smoothSize, 0.5);
+            ofPolyline smoothTempPoly = tempPoly.getSmoothed((int)smoothSize, smoothShape);
             
             if(!smoothTempPoly.isClosed()){
                 smoothTempPoly.close();
@@ -91,16 +96,16 @@ void testApp::sendMessage(string address, float val){
 void testApp::draw(){
     
     ofSetColor(255, 255, 255);
-
-    if (showDepth) kinect.drawDepth(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+    if (showVideo && videoTexture.bAllocated()) videoTexture.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+    if (showDepth) grayDiff.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());//kinect.drawDepth(0,0,ofGetWindowWidth(),ofGetWindowHeight());
     
     if (showFlow) flowSolver.draw(ofGetWindowWidth(),ofGetWindowHeight(), 10, 10);
     
-    if (showVideo && videoTexture.bAllocated()) videoTexture.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+
     
     ofColor c(255, 255, 255);
     
-    drawBoundingRects();
+    drawShapes();
     
     syphonServer.publishScreen();
     
@@ -126,18 +131,23 @@ void testApp::setUI(){
     
     gui->addWidgetDown(new ofxUILabel("NEAR     FAR", OFX_UI_FONT_MEDIUM));
     
-    gui->addWidgetDown(new ofxUINumberDialer(1., 5000., &near, 1,  "NEAR", OFX_UI_FONT_MEDIUM));
-    gui->addWidgetRight(new ofxUINumberDialer(1., 5000., &far, 1,  "FAR", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUINumberDialer(500., 4000., &near, 1,  "NEAR", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetRight(new ofxUINumberDialer(500., 8000., &far, 1,  "FAR", OFX_UI_FONT_MEDIUM));
 
+    gui->addSpacer(length, 2);
     gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showFlow, "FLOW", OFX_UI_FONT_MEDIUM));
-    
+    gui->addSpacer(length, 2);
     gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showShape, "SHAPE", OFX_UI_FONT_MEDIUM));
-    gui->addWidgetRight(new ofxUIMinimalSlider(length-xInit, dim, 1.0, 100.0, &smoothSize, "SMOOTHSIZE",OFX_UI_FONT_MEDIUM));
-    gui->addWidgetRight(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 1.0, &smoothShape, "SMOOTHSHAPE",OFX_UI_FONT_MEDIUM));
-    gui->addWidgetRight(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 1.0, &shapeScale, "SHAPE SCALE",OFX_UI_FONT_MEDIUM));
-
+    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 1.0, 200.0, &smoothSize, "SMOOTHSIZE",OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 1.0, &smoothShape, "SMOOTHSHAPE",OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 1.0, &shapeScale, "SHAPE SCALE",OFX_UI_FONT_MEDIUM));
+    
+    gui->addSpacer(length, 2);
     gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showRect, "RECT", OFX_UI_FONT_MEDIUM));
+    gui->addSpacer(length, 2);
     gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showDepth, "DEPTH", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 1.0, 255.0, &depthThreshold, "D THRESHOLD",OFX_UI_FONT_MEDIUM));
+    gui->addSpacer(length, 2);    
     gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showVideo, "VIDEO", OFX_UI_FONT_MEDIUM));
     
     gui->addSpacer(length, 2);
@@ -155,12 +165,15 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 	string name = e.widget->getName();
     
     if ("SNAP BACK" == name){
-        videoTexture = kinect.getTextureReference();
+        videoTexture.setFromPixels( kinect.getPixelsRef());
     }
-    if ("SMOOTH" == name) cout<<smoothSize<<endl;
+    if ("FAR" == name || "NEAR" == name) {
+        kinect.setDepthClipping(near,far);
+    }
+
 }
 
-void testApp::drawBoundingRects() {
+void testApp::drawShapes() {
     float scalex = (float)ofGetWindowWidth()/WIDTH;
     float scaley = (float)ofGetWindowHeight()/HEIGHT;
 
