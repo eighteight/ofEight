@@ -11,13 +11,13 @@ using namespace cv;
 void FaceTrackBox2dApp::setup() {
 	ofSetVerticalSync(true);
     bPaused = false;
-	movieWidth = 1024;
-    movieHeight = 768;
+	movieWidth = 640;
+    movieHeight = 480;
     
     cam.initGrabber(movieWidth, movieHeight);
     
     ofSetWindowTitle("FaceTrackBox2d");
-    ofSetWindowShape(movieWidth, ofGetScreenHeight());
+    ofSetWindowShape(movieWidth, movieHeight);
     
 	tracker.setup();
     
