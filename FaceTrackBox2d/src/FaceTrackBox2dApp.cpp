@@ -34,7 +34,24 @@ void FaceTrackBox2dApp::setup() {
 	box2d.setGravity(0, 20);
 	box2d.createGround();
 	box2d.setFPS(30.0);
-    box2d.setBounds(ofPoint(0,0), ofPoint(movieWidth,movieHeight+200));
+    box2d.setBounds(ofPoint(0,0), ofPoint(movieWidth,movieHeight));
+}
+
+void FaceTrackBox2dApp::updateBox2d(){
+    // add some circles every so often
+	if((int)ofRandom(0, 10) == 0) {
+        ofPtr<ofxBox2dCircle> circle = ofPtr<ofxBox2dCircle>(new ofxBox2dCircle);
+        circle->setPhysics(0.3, 0.5, 0.1);
+		circle->setup(box2d.getWorld(), (ofGetWidth()/2)+ofRandom(-20, 20), -20, ofRandom(5, 10));
+		circles.push_back(circle);
+	}
+	
+    // remove shapes offscreen
+    ofRemove(circles, shouldRemove);
+    // ofRemove(polyShapes, shouldRemove);
+    
+    
+	box2d.update();
 }
 
 void FaceTrackBox2dApp::drawBox2d() {
@@ -68,6 +85,39 @@ void FaceTrackBox2dApp::drawBox2d() {
     ofSetHexColor(0x444342);
 	ofDrawBitmapString(info, 10, 15);
 }
+
+void FaceTrackBox2dApp::draw() {
+	ofSetColor(255);
+	cam.draw(0, 0);
+    
+	if(tracker.getFound()) {
+        
+		if(bDrawMesh) {
+			ofSetLineWidth(1);
+			tracker.getImageMesh().drawWireframe();
+			ofPushView();
+			ofSetupScreenOrtho(sourceWidth, sourceHeight, OF_ORIENTATION_UNKNOWN, true, -1000, 1000);
+			ofVec2f pos = tracker.getPosition();
+			ofTranslate(pos.x, pos.y);
+			applyMatrix(rotationMatrix);
+			ofScale(10,10,10);
+			ofDrawAxis(scale);
+			ofPopView();
+            ofDrawBitmapStringHighlight("beautiful face", 10, 20);
+		}
+	} else {
+		ofDrawBitmapStringHighlight("no face here", 10, 20);
+	}
+    
+    drawBox2d();
+    
+    
+	if(bPaused) {
+		ofSetColor(255, 0, 0);
+		ofDrawBitmapStringHighlight( "paused", 10, 32);
+	}
+}
+
 
 void FaceTrackBox2dApp::clearBundle() {
 	bundle.clear();
@@ -120,8 +170,7 @@ void FaceTrackBox2dApp::update() {
             tracker.update(toCv(cam));
             polyShapes.clear();
             if(tracker.getFound()) {
-                ofPolyline outline = tracker.getImageFeature(ofxFaceTracker::FACE_OUTLINE);
-                //vector <ofPoint> pts = tracker.getObjectPoints();//loadPoints("shape.dat");
+                ofPolyline outline = tracker.getImageFeature(ofxFaceTracker::JAW);
                 ofPtr<ofxBox2dPolygon> poly = ofPtr<ofxBox2dPolygon>(new ofxBox2dPolygon);
                 poly.get()->addVertices(outline.getVertices());
                 poly.get()->setPhysics(1.0, 0.3, 0.3);
@@ -163,56 +212,6 @@ void FaceTrackBox2dApp::updateOsc(ofxFaceTracker& tracker){
     addMessage("/gesture/nostrils", tracker.getGesture(ofxFaceTracker::NOSTRIL_FLARE));
 }
 
-void FaceTrackBox2dApp::updateBox2d(){
-    // add some circles every so often
-	if((int)ofRandom(0, 10) == 0) {
-        ofPtr<ofxBox2dCircle> circle = ofPtr<ofxBox2dCircle>(new ofxBox2dCircle);
-        circle->setPhysics(0.3, 0.5, 0.1);
-		circle->setup(box2d.getWorld(), (ofGetWidth()/2)+ofRandom(-20, 20), -20, ofRandom(5, 10));
-		circles.push_back(circle);
-	}
-	
-    // remove shapes offscreen
-    ofRemove(circles, shouldRemove);
-    // ofRemove(polyShapes, shouldRemove);
-    
-    
-	box2d.update();
-}
-
-void FaceTrackBox2dApp::draw() {
-	ofSetColor(255);
-	cam.draw(0, 0);
-
-	if(tracker.getFound()) {
-
-		if(bDrawMesh) {
-			ofSetLineWidth(1);
-            
-			tracker.getImageMesh().drawWireframe();
-		
-			ofPushView();
-			ofSetupScreenOrtho(sourceWidth, sourceHeight, OF_ORIENTATION_UNKNOWN, true, -1000, 1000);
-			ofVec2f pos = tracker.getPosition();
-			ofTranslate(pos.x, pos.y);
-			applyMatrix(rotationMatrix);
-			ofScale(10,10,10);
-			ofDrawAxis(scale);
-			ofPopView();
-            ofDrawBitmapStringHighlight("beautiful face", 10, 20);
-		}
-	} else {
-		ofDrawBitmapStringHighlight("no face here", 10, 20);
-	}
-    
-    drawBox2d();
-    
-    
-	if(bPaused) {
-		ofSetColor(255, 0, 0);
-		ofDrawBitmapStringHighlight( "paused", 10, 32);
-	}
-}
 
 void FaceTrackBox2dApp::keyPressed(int key) {
 	switch(key) {
