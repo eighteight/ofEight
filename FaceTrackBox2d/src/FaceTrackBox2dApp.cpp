@@ -1,7 +1,7 @@
 #include "FaceTrackBox2dApp.h"
 
 static bool shouldRemove(ofPtr<ofxBox2dBaseShape>shape) {
-    return !ofRectangle(0, -400, ofGetWidth(), ofGetHeight()+400).inside(shape.get()->getPosition());
+    return !ofRectangle(0, -400, ofGetWidth(), ofGetHeight()+400).inside(shape->getPosition());
 }
 
 using namespace ofxCv;
@@ -10,7 +10,6 @@ using namespace cv;
 
 void FaceTrackBox2dApp::setup() {
 	ofSetVerticalSync(true);
-    bPaused = false;
 	movieWidth = 640;
     movieHeight = 480;
     
@@ -34,7 +33,10 @@ void FaceTrackBox2dApp::setup() {
 	box2d.setGravity(0, 20);
 	box2d.createGround();
 	box2d.setFPS(30.0);
-    box2d.setBounds(ofPoint(0,0), ofPoint(movieWidth,movieHeight));
+    
+    edge.setPhysics(0.0, 0.5, 0.5);
+	edge.create(box2d.getWorld());
+    edge.setClosed(false);
 }
 
 void FaceTrackBox2dApp::updateBox2d(){
@@ -49,8 +51,7 @@ void FaceTrackBox2dApp::updateBox2d(){
     // remove shapes offscreen
     ofRemove(circles, shouldRemove);
     // ofRemove(polyShapes, shouldRemove);
-    
-    
+
 	box2d.update();
 }
 
@@ -59,26 +60,18 @@ void FaceTrackBox2dApp::drawBox2d() {
 	for (int i=0; i<circles.size(); i++) {
 		ofFill();
 		ofSetHexColor(0xc0dd3b);
-		circles[i].get()->draw();
+		circles[i]->draw();
 	}
 	
-	ofSetHexColor(0x444342);
-	ofFill();
-	shape.draw();
-	
-	ofSetHexColor(0x444342);
-	ofNoFill();
-	for (int i=0; i<polyShapes.size(); i++) {
-		polyShapes[i].get()->draw();
-        
-        ofCircle(polyShapes[i].get()->getPosition(), 3);
-	}
+    ofSetColor(255, 0, 0);
+    edge.updateShape();
+    edge.draw();
 
 	// some debug information
 	string info = "Draw a shape with the mouse\n";
 	info += "Press 1 to add some circles\n";
 	info += "Press c to clear everything\n";
-	info += "Press t to break object up into triangles/convex poly: "+string(breakupIntoTriangles?"true":"false")+"\n";
+
     info += "Total Bodies: "+ofToString(box2d.getBodyCount())+"\n";
 	info += "Total Joints: "+ofToString(box2d.getJointCount())+"\n\n";
 	info += "FPS: "+ofToString(ofGetFrameRate())+"\n";
@@ -91,7 +84,6 @@ void FaceTrackBox2dApp::draw() {
 	cam.draw(0, 0);
     
 	if(tracker.getFound()) {
-        
 		if(bDrawMesh) {
 			ofSetLineWidth(1);
 			tracker.getImageMesh().drawWireframe();
@@ -108,14 +100,7 @@ void FaceTrackBox2dApp::draw() {
 	} else {
 		ofDrawBitmapStringHighlight("no face here", 10, 20);
 	}
-    
     drawBox2d();
-    
-    
-	if(bPaused) {
-		ofSetColor(255, 0, 0);
-		ofDrawBitmapStringHighlight( "paused", 10, 32);
-	}
 }
 
 
@@ -168,17 +153,13 @@ void FaceTrackBox2dApp::update() {
         
         try{
             tracker.update(toCv(cam));
-            polyShapes.clear();
+            edge.clear();
             if(tracker.getFound()) {
                 ofPolyline outline = tracker.getImageFeature(ofxFaceTracker::JAW);
-                ofPtr<ofxBox2dPolygon> poly = ofPtr<ofxBox2dPolygon>(new ofxBox2dPolygon);
-                poly.get()->addVertices(outline.getVertices());
-                poly.get()->setPhysics(1.0, 0.3, 0.3);
-                poly.get()->create(box2d.getWorld());
-                polyShapes.push_back(poly);
-                
+                outline.simplify();
+                edge.addVertices(outline.getVertices());
+                edge.create(box2d.getWorld());                
                 updateOsc(tracker);
-
                 
             } else {
                 addMessage("/found", 0);
@@ -221,20 +202,9 @@ void FaceTrackBox2dApp::keyPressed(int key) {
 		case 'm':
 			bDrawMesh = !bDrawMesh;
 			break;
-		case 'p':
-			bPaused = !bPaused;
-			break;
 		case OF_KEY_UP:
 			break;
 		case OF_KEY_DOWN:
 			break;
-        case 358: //left
-            frameCount++;
-            frameCount = frameCount >= numImages ? numImages - 1: frameCount;
-            break;
-        case 356: //right
-            frameCount--;
-            frameCount = frameCount < 0 ? 0 : frameCount;
-            break;
 	}
 }

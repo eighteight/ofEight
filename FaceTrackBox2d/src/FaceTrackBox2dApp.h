@@ -41,8 +41,6 @@ public:
 	void draw();
 	void keyPressed(int key);
 
-	bool bPaused;
-
 	int movieWidth, movieHeight;
 	int sourceWidth, sourceHeight;
 
@@ -60,19 +58,14 @@ public:
     void reset();
     
     ofVideoGrabber cam;
-
-    vector<string> urls;
-    int numImages;
-    int frameCount, oldFrameCount;
     
     //osc
     void updateOsc(ofxFaceTracker& tracker);
     //box2d
     ofxBox2d                            box2d;
     vector <ofPtr<ofxBox2dCircle> >     circles;
-	vector <ofPtr<ofxBox2dPolygon> >	polyShapes;
-    ofPolyline                          shape;
-    bool                                breakupIntoTriangles;
+
+    ofxBox2dEdge                        edge;
     void updateBox2d();
     void drawBox2d();
 
