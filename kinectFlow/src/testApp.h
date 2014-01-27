@@ -53,4 +53,8 @@ class testApp : public ofBaseApp{
     
     //osc
     ofxOscSender oscSender;
+    
+    //mesh
+    ofMesh mesh;
+    void drawPointCloud();
 };

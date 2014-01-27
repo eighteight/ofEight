@@ -107,6 +107,8 @@ void testApp::draw(){
     
     drawShapes();
     
+    drawPointCloud();
+    
     syphonServer.publishScreen();
     
     stringstream m;
@@ -205,6 +207,37 @@ void testApp::drawShapes() {
     }
 	glPopMatrix();
 	ofPopStyle();
+}
+
+void testApp::drawPointCloud(){
+        ofMesh mesh;
+        mesh.setMode(OF_PRIMITIVE_POINTS);
+        int step = 2;
+        ofColor c(255, 255, 255, 14);
+        for (int i = 0; i < contourPoly.size(); i++){
+            c.setHsb(255, 255, i * 64);
+
+            for(int y = 0; y < HEIGHT; y += step) {
+                for(int x = 0; x < WIDTH; x += step) {
+                    ofPoint point (x,y);
+                    if(kinect.getDistanceAt(x, y) > 0 && contourPoly[i].inside(point)) {
+                        mesh.addColor(kinect.getColorAt(x,y));
+                        mesh.addVertex(kinect.getWorldCoordinateAt(x, y));
+                    }
+                }
+            }
+        }
+    
+        glPointSize(1);
+        ofPushMatrix();
+        // the projected points are 'upside down' and 'backwards'
+        ofScale(1, 1, -1);
+        ofTranslate(0, 0, -1000); // center the points a bit
+        glEnable(GL_DEPTH_TEST);
+        mesh.drawVertices();
+        glDisable(GL_DEPTH_TEST);
+        ofPopMatrix();
+
 }
 
 //--------------------------------------------------------------

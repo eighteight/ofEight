@@ -16,27 +16,27 @@
 <Widget>
     <Kind>17</Kind>
     <Name>SHAPE</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>SMOOTHSIZE</Name>
-    <Value>25.975708008</Value>
+    <Value>44.506072998</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>SMOOTHSHAPE</Name>
-    <Value>0.761133611</Value>
+    <Value>0.093117408</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>SHAPE SCALE</Name>
-    <Value>1.000000000</Value>
+    <Value>0.242914975</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
     <Name>RECT</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
@@ -46,7 +46,7 @@
 <Widget>
     <Kind>25</Kind>
     <Name>D THRESHOLD</Name>
-    <Value>149.080978394</Value>
+    <Value>74.012145996</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
