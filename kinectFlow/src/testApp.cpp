@@ -96,20 +96,20 @@ void testApp::sendMessage(string address, float val){
 void testApp::draw(){
     
     ofSetColor(255, 255, 255);
-    if (showVideo && videoTexture.bAllocated()) videoTexture.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+    if (showVideo) {
+        kinect.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());
+    }
     if (showDepth) grayDiff.draw(0,0,ofGetWindowWidth(),ofGetWindowHeight());//kinect.drawDepth(0,0,ofGetWindowWidth(),ofGetWindowHeight());
     
     if (showFlow) flowSolver.draw(ofGetWindowWidth(),ofGetWindowHeight(), 10, 10);
-    
 
-    
     ofColor c(255, 255, 255);
     
     drawShapes();
     
     drawPointCloud();
     
-    syphonServer.publishScreen();
+    syphonServer.publishTexture(&kinect.getDepthTextureReference());
     
     stringstream m;
     m << "fps " << ofGetFrameRate() << endl;
@@ -167,7 +167,7 @@ void testApp::guiEvent(ofxUIEventArgs &e)
 	string name = e.widget->getName();
     
     if ("SNAP BACK" == name){
-        videoTexture.setFromPixels( kinect.getPixelsRef());
+        videoTexture = kinect.getTextureReference();
     }
     if ("FAR" == name || "NEAR" == name) {
         kinect.setDepthClipping(near,far);

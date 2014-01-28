@@ -33,7 +33,7 @@ class testApp : public ofBaseApp{
     ofxKinect kinect;
     ofxSyphonServer syphonServer;
     ofxOpticalFlowLK flowSolver;
-    ofImage videoTexture;
+    ofTexture videoTexture;
     
     //contour finder
     void updateContours();

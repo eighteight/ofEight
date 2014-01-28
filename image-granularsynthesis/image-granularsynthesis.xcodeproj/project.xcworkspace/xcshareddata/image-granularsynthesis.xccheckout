@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>CAE969C3-782F-438C-8360-9F8E0502D97A</string>
+	<key>IDESourceControlProjectName</key>
+	<string>image-granularsynthesis</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>06DFF051-E7BA-49A2-91E2-6CE82A69944C</key>
+		<string>https://github.com/eighteight/ofEight.git</string>
+		<key>5652A8D7-EA0E-43FD-9448-A1153119828D</key>
+		<string>https://github.com/openframeworks/openFrameworks.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>apps/ofEight/image-granularsynthesis/image-granularsynthesis.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>06DFF051-E7BA-49A2-91E2-6CE82A69944C</key>
+		<string>../../..</string>
+		<key>5652A8D7-EA0E-43FD-9448-A1153119828D</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/eighteight/ofEight.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5652A8D7-EA0E-43FD-9448-A1153119828D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>06DFF051-E7BA-49A2-91E2-6CE82A69944C</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofEight</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5652A8D7-EA0E-43FD-9448-A1153119828D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>openFrameworks</string>
+		</dict>
+	</array>
+</dict>
+</plist>

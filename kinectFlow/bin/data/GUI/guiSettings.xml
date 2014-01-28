@@ -6,7 +6,7 @@
 <Widget>
     <Kind>8</Kind>
     <Name>FAR</Name>
-    <Value>5500.000000000</Value>
+    <Value>3400.000000000</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
@@ -36,20 +36,20 @@
 <Widget>
     <Kind>17</Kind>
     <Name>RECT</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
     <Name>DEPTH</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>D THRESHOLD</Name>
-    <Value>74.012145996</Value>
+    <Value>51.388660431</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
     <Name>VIDEO</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
