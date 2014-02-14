@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>E7453F94-C82A-41C2-A39B-AD22E5268D27</string>
+	<key>IDESourceControlProjectName</key>
+	<string>openNI2Example</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>B66C682F-2390-4F5A-A0AD-E2F82D31DDF3</key>
+		<string>https://github.com/openframeworks/openFrameworks.git</string>
+		<key>CFF83400-ABE5-401C-923D-82BA7EDFD159</key>
+		<string>https://github.com/arturoc/ofxOpenNI2.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>apps/eight/openNI2Example/openNI2Example.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>B66C682F-2390-4F5A-A0AD-E2F82D31DDF3</key>
+		<string>../../../../..</string>
+		<key>CFF83400-ABE5-401C-923D-82BA7EDFD159</key>
+		<string>../../../../../addons/ofxOpenNI2</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/openframeworks/openFrameworks.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>B66C682F-2390-4F5A-A0AD-E2F82D31DDF3</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>CFF83400-ABE5-401C-923D-82BA7EDFD159</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxOpenNI2</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>B66C682F-2390-4F5A-A0AD-E2F82D31DDF3</string>
+			<key>IDESourceControlWCCName</key>
+			<string>openFrameworks</string>
+		</dict>
+	</array>
+</dict>
+</plist>
