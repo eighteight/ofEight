@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F6B9B6DC-BD8A-4A28-9FB3-0C3FB8AE9C26</string>
+	<key>IDESourceControlProjectName</key>
+	<string>example-Edges</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2927B106-E081-440C-B71F-35B1859C7051</key>
+		<string>https://github.com/eighteight/ofEight.git</string>
+		<key>E9E9BED5-8D19-4EAF-82F4-217CF5A7FC31</key>
+		<string>https://github.com/openframeworks/openFrameworks.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>apps/ofEight/EdgesBox2d/example-Edges.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2927B106-E081-440C-B71F-35B1859C7051</key>
+		<string>../../..</string>
+		<key>E9E9BED5-8D19-4EAF-82F4-217CF5A7FC31</key>
+		<string>../../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/eighteight/ofEight.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E9E9BED5-8D19-4EAF-82F4-217CF5A7FC31</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2927B106-E081-440C-B71F-35B1859C7051</string>
+			<key>IDESourceControlWCCName</key>
+			<string>oFeight</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E9E9BED5-8D19-4EAF-82F4-217CF5A7FC31</string>
+			<key>IDESourceControlWCCName</key>
+			<string>openFrameworks</string>
+		</dict>
+	</array>
+</dict>
+</plist>
