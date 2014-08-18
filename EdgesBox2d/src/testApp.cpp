@@ -122,9 +122,8 @@ void testApp::update() {
 	}
     
    for (int i=0; i<circles.size(); i++) {
-        circles[i].get()->addForce(ofVec2f(-smoothedVol,-smoothedVol), circles[i].get()->getWidth()*500.);
+        circles[i].get()->addForce(ofVec2f(-smoothedVol,-smoothedVol), circles[i].get()->getWidth()*250.);
     }
-    cout<<smoothedVol<<endl;
 	box2d.update();	
 }
 

@@ -1,0 +1,3 @@
+ofxThermitrack
+ofxTuio
+ofxXmlSettings

@@ -18,6 +18,11 @@ void testApp::setup(){
     shapeScale = 0.5;
     
     depthThreshold = 30.;
+    trackedCirclesMax = 4;
+    trackedCircles = 1;
+    trackedCirclesInt = (int) trackedCircles;
+    circleHistory.reserve((int)trackedCirclesMax);
+    circleAverage.reserve((int)trackedCirclesMax);
     
     setUI();
     syphonServer.setName("kinectFlow");
@@ -43,18 +48,33 @@ void testApp::update(){
         
         updateContours();
     }
+
+    //kinect.setDepthClipping(near, near + (far-near)*scaledVol*10);
 }
 
 void testApp::updateContours(){
+    
     contourPoly.clear();
     rectangles.clear();
-    for (int i = 0; i <contourFinder.nBlobs; i++){
+    trackedCirclesInt = (int)trackedCircles;
+    if (trackedCirclesInt>contourFinder.nBlobs) trackedCirclesInt = contourFinder.nBlobs;
+    for (int i = 0; i <contourFinder.nBlobs && i < trackedCirclesInt; i++){
 
         if(contourFinder.blobs[i].pts.size()>0){
             
             ofPolyline tempPoly;
             ofRectangle rect = contourFinder.blobs[i].boundingRect;
             rectangles.push_back(rect);
+            
+            if (circleHistory.size() <= i){
+                circleHistory.push_back(vector<ofPoint>());
+            }
+            circleHistory[i].push_back(rect.getCenter());
+            //if we are bigger the the size we want to record - lets drop the oldest value
+            if( circleHistory[i].size() >= historySize ){
+                circleHistory[i].erase(circleHistory[i].begin(), circleHistory[i].begin()+1);
+            }
+
             sendMessage(rect);
 
             vector <ofPoint> pts = contourFinder.blobs[i].pts;
@@ -71,18 +91,32 @@ void testApp::updateContours(){
             if(!smoothTempPoly.isClosed()){
                 smoothTempPoly.close();
             }
-
             contourPoly.push_back(smoothTempPoly);
         }
-        
-    }// smooth blobs
+    }
+    
+    averageCircles();
+}
+
+void testApp::averageCircles(){
+    vector<ofPoint> tmp;
+    tmp.reserve(trackedCirclesInt);
+    for (int i = 0; i < trackedCirclesInt; i++){
+        tmp[i] = ofPoint(0,0,0);
+    }
+    for (int i = 0; i < trackedCirclesInt; i++){
+        for (int j = 0; j < circleHistory[i].size(); j++){
+            tmp[i] += circleHistory[i][j];
+        }
+        circleAverage[i] = tmp[i]/circleHistory[i].size();
+    }
 }
 
 void testApp::sendMessage(ofRectangle rect){
-    sendMessage("/isadora/1", rect.x);
-    sendMessage("/isadora/2", rect.y);
-    sendMessage("/isadora/3", rect.width);
-    sendMessage("/isadora/4", rect.height);
+    for (int i = 0; i < trackedCirclesInt; i++){
+        sendMessage("/isadora/"+ofToString(i), circleAverage[i].x);
+        sendMessage("/isadora/"+ofToString(i+1), circleAverage[i].y);
+    }
 }
 
 void testApp::sendMessage(string address, float val){
@@ -107,9 +141,9 @@ void testApp::draw(){
     
     drawShapes();
     
-    drawPointCloud();
+    //drawPointCloud();
     
-    syphonServer.publishTexture(&kinect.getDepthTextureReference());
+    syphonServer.publishScreen();//Texture(&kinect.getDepthTextureReference());
     
     stringstream m;
     m << "fps " << ofGetFrameRate() << endl;
@@ -133,19 +167,25 @@ void testApp::setUI(){
     
     gui->addWidgetDown(new ofxUILabel("NEAR     FAR", OFX_UI_FONT_MEDIUM));
     
-    gui->addWidgetDown(new ofxUINumberDialer(500., 4000., &near, 1,  "NEAR", OFX_UI_FONT_MEDIUM));
-    gui->addWidgetRight(new ofxUINumberDialer(500., 8000., &far, 1,  "FAR", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUINumberDialer(500., 8000., &near, 1,  "NEAR", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetRight(new ofxUINumberDialer(500., 10000., &far, 1,  "FAR", OFX_UI_FONT_MEDIUM));
 
-    gui->addSpacer(length, 2);
-    gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showFlow, "FLOW", OFX_UI_FONT_MEDIUM));
-    gui->addSpacer(length, 2);
-    gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showShape, "SHAPE", OFX_UI_FONT_MEDIUM));
-    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 1.0, 200.0, &smoothSize, "SMOOTHSIZE",OFX_UI_FONT_MEDIUM));
-    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 1.0, &smoothShape, "SMOOTHSHAPE",OFX_UI_FONT_MEDIUM));
-    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 1.0, &shapeScale, "SHAPE SCALE",OFX_UI_FONT_MEDIUM));
+//    gui->addSpacer(length, 2);
+//    gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showFlow, "FLOW", OFX_UI_FONT_MEDIUM));
+    showFlow = false;
+//    gui->addSpacer(length, 2);
+//    gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showShape, "SHAPE", OFX_UI_FONT_MEDIUM));
+    showShape = false;
+//    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 1.0, 200.0, &smoothSize, "SMOOTHSIZE",OFX_UI_FONT_MEDIUM));
+//    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 1.0, &smoothShape, "SMOOTHSHAPE",OFX_UI_FONT_MEDIUM));
+//    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 1.0, &shapeScale, "SHAPE SCALE",OFX_UI_FONT_MEDIUM));
     
     gui->addSpacer(length, 2);
-    gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showRect, "RECT", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showRect, "CIRCLE", OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 1.0, &circleScale, "CIRCLE SCALE",OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 400.0, &historySize, "HISTORY SIZE",OFX_UI_FONT_MEDIUM));
+    gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 0.0, 4.0, &trackedCircles, "CIRCLE NUM",OFX_UI_FONT_MEDIUM));
+    
     gui->addSpacer(length, 2);
     gui->addWidgetDown(new ofxUILabelToggle(dim, dim, &showDepth, "DEPTH", OFX_UI_FONT_MEDIUM));
     gui->addWidgetDown(new ofxUIMinimalSlider(length-xInit, dim, 1.0, 255.0, &depthThreshold, "D THRESHOLD",OFX_UI_FONT_MEDIUM));
@@ -154,8 +194,8 @@ void testApp::setUI(){
     
     gui->addSpacer(length, 2);
 
-    gui->addLabelButton("SNAP BACK", false, length-xInit);
-    gui->setDrawBack(false);
+//    gui->addLabelButton("SNAP BACK", false, length-xInit);
+//    gui->setDrawBack(false);
     
     ofAddListener(gui->newGUIEvent,this,&testApp::guiEvent);
     gui->loadSettings("GUI/guiSettings.xml");
@@ -183,12 +223,12 @@ void testApp::drawShapes() {
     glPushMatrix();
     glTranslatef( 0, 0, 0.0 );
     glScalef( scalex, scaley, 0.0 );
-    ofColor c(255, 255, 255, 14);
+    ofColor c(255, 255, 255, 255);
     if (showRect){
-        for( int i=0; i<rectangles.size(); i++ ) {
-            c.setHsb(i * 64, 255, 255);
+        for( int i=0; i<trackedCirclesInt; i++ ) {
+            //c.setHsb(255, 255, 255);
             ofSetColor(c);
-            ofRect( rectangles[i].x, rectangles[i].y, rectangles[i].width, rectangles[i].height );
+            ofCircle(circleAverage[i].x, circleAverage[i].y, circleScale*WIDTH);
         }
     }
     
@@ -266,6 +306,7 @@ void testApp::keyPressed(int key){
             break;
     }
 }
+
 
 //--------------------------------------------------------------
 void testApp::keyReleased(int key){

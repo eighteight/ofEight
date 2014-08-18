@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>76981111-BC4B-4353-8B68-736F1A2F6CCF</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AudioEdgesBox2d</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2927B106-E081-440C-B71F-35B1859C7051</key>
+		<string>https://github.com/eighteight/ofEight.git</string>
+		<key>E9E9BED5-8D19-4EAF-82F4-217CF5A7FC31</key>
+		<string>https://github.com/openframeworks/openFrameworks.git</string>
+		<key>EF29768E-BB28-48CB-84F7-D47AB9915A86</key>
+		<string>git://github.com/vanderlin/ofxBox2d.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>apps/ofEight/EdgesBox2d/AudioEdgesBox2d.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2927B106-E081-440C-B71F-35B1859C7051</key>
+		<string>../../..</string>
+		<key>E9E9BED5-8D19-4EAF-82F4-217CF5A7FC31</key>
+		<string>../../../../..</string>
+		<key>EF29768E-BB28-48CB-84F7-D47AB9915A86</key>
+		<string>../../../../../addons/ofxBox2d</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/eighteight/ofEight.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>E9E9BED5-8D19-4EAF-82F4-217CF5A7FC31</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2927B106-E081-440C-B71F-35B1859C7051</string>
+			<key>IDESourceControlWCCName</key>
+			<string>oFeight</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EF29768E-BB28-48CB-84F7-D47AB9915A86</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxBox2d</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>E9E9BED5-8D19-4EAF-82F4-217CF5A7FC31</string>
+			<key>IDESourceControlWCCName</key>
+			<string>openFrameworks</string>
+		</dict>
+	</array>
+</dict>
+</plist>

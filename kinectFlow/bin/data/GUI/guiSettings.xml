@@ -1,52 +1,42 @@
 <Widget>
     <Kind>8</Kind>
     <Name>NEAR</Name>
-    <Value>500.000000000</Value>
+    <Value>8000.000000000</Value>
 </Widget>
 <Widget>
     <Kind>8</Kind>
     <Name>FAR</Name>
-    <Value>8000.000000000</Value>
+    <Value>10000.000000000</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
-    <Name>FLOW</Name>
-    <Value>1</Value>
-</Widget>
-<Widget>
-    <Kind>17</Kind>
-    <Name>SHAPE</Name>
+    <Name>CIRCLE</Name>
     <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
-    <Name>SMOOTHSIZE</Name>
-    <Value>44.506072998</Value>
+    <Name>CIRCLE SCALE</Name>
+    <Value>0.097165994</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
-    <Name>SMOOTHSHAPE</Name>
-    <Value>0.093117408</Value>
+    <Name>HISTORY SIZE</Name>
+    <Value>51.821865082</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
-    <Name>SHAPE SCALE</Name>
-    <Value>0.242914975</Value>
-</Widget>
-<Widget>
-    <Kind>17</Kind>
-    <Name>RECT</Name>
-    <Value>1</Value>
+    <Name>CIRCLE NUM</Name>
+    <Value>1.085020185</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
     <Name>DEPTH</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>D THRESHOLD</Name>
-    <Value>51.388660431</Value>
+    <Value>39.048583984</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>

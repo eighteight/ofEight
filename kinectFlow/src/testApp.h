@@ -42,7 +42,11 @@ class testApp : public ofBaseApp{
     ofxCvGrayscaleImage grayDiff;
     std::vector<ofPolyline> contourPoly;
     std::vector<ofRectangle> rectangles;
-    float smoothSize, smoothShape, shapeScale, depthThreshold;
+    float smoothSize, smoothShape, shapeScale, depthThreshold, circleScale;
+    float trackedCircles;
+    int trackedCirclesMax, trackedCirclesInt;
+    
+    void averageCircles();
     
     //ui
     ofxUICanvas *gui;
@@ -57,4 +61,9 @@ class testApp : public ofBaseApp{
     //mesh
     ofMesh mesh;
     void drawPointCloud();
+    
+    vector <vector<ofPoint> > circleHistory;
+    vector <ofPoint> circleAverage;
+    float historySize;
+
 };

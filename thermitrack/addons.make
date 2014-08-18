@@ -1,0 +1,5 @@
+ofxOsc
+ofxThermitrack
+ofxTuioWrapper
+ofxXmlSettings
+ofxTuio
