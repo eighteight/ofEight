@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpenCv/src/ofxCvHaarFinder.cpp \
+  /Users/vgusev/repos/openFrameworks/addons/ofxOpenCv/src/ofxCvHaarFinder.cpp \
   ../../../addons/ofxOpenCv/src/ofxCvHaarFinder.h \
   ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \

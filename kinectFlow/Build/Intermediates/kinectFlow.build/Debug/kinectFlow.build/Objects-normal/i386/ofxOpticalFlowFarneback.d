@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpticalFlowFarneback/src/ofxOpticalFlowFarneback.cpp \
+  /Users/vgusev/repos/openFrameworks/addons/ofxOpticalFlowFarneback/src/ofxOpticalFlowFarneback.cpp \
   ../../../addons/ofxOpticalFlowFarneback/src/ofxOpticalFlowFarneback.h \
   ../../../libs/openFrameworks/ofMain.h \
   ../../../libs/openFrameworks/utils/ofConstants.h \
@@ -171,7 +171,7 @@ dependencies: \
   ../../../libs/openFrameworks/video/ofQTKitPlayer.h \
   ../../../libs/openFrameworks/3d/ofCamera.h \
   ../../../libs/openFrameworks/3d/ofEasyCam.h \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpenCv/src/ofxOpenCv.h \
+  /Users/vgusev/repos/openFrameworks/addons/ofxOpenCv/src/ofxOpenCv.h \
   ../../../addons/ofxOpenCv/src/ofxCvConstants.h \
   /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxOpenCv/libs/opencv/include/opencv/cv.h \
   ../../../addons/ofxOpenCv/libs/opencv/include/opencv2/core/core_c.h \

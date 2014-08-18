@@ -1,5 +1,5 @@
 dependencies: \
-  /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/libs/libfreenect/src/cameras.c \
+  /Users/vgusev/repos/openFrameworks/addons/ofxKinect/libs/libfreenect/src/cameras.c \
   ../../../addons/ofxKinect/libs/libfreenect/src/freenect_internal.h \
   /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/libs/libfreenect/include/libfreenect.h \
   /Users/vgusev/repos/openFrameworks/apps/oFeight/kinectFlow/../../../addons/ofxKinect/libs/libfreenect/include/libfreenect-registration.h \
