@@ -79,6 +79,7 @@ dependencies: \
   ../../../libs/poco/include/Poco/Mutex_POSIX.h \
   ../../../libs/openFrameworks/utils/ofSystemUtils.h \
   ../../../libs/openFrameworks/utils/ofThread.h \
+  ../../../libs/poco/include/Poco/AtomicCounter.h \
   ../../../libs/poco/include/Poco/Thread.h \
   ../../../libs/poco/include/Poco/Thread_POSIX.h \
   ../../../libs/poco/include/Poco/Runnable.h \
@@ -86,7 +87,6 @@ dependencies: \
   ../../../libs/poco/include/Poco/Event.h \
   ../../../libs/poco/include/Poco/Event_POSIX.h \
   ../../../libs/poco/include/Poco/RefCountedObject.h \
-  ../../../libs/poco/include/Poco/AtomicCounter.h \
   ../../../libs/poco/include/Poco/AutoPtr.h \
   ../../../libs/openFrameworks/utils/ofURLFileLoader.h \
   ../../../libs/openFrameworks/events/ofEvents.h \
@@ -108,8 +108,6 @@ dependencies: \
   ../../../libs/poco/include/Poco/PriorityExpire.h \
   ../../../libs/poco/include/Poco/FunctionPriorityDelegate.h \
   ../../../libs/openFrameworks/events/ofDelegate.h \
-  ../../../libs/poco/include/Poco/Condition.h \
-  ../../../libs/poco/include/Poco/ScopedUnlock.h \
   ../../../libs/openFrameworks/utils/ofUtils.h \
   ../../../libs/poco/include/Poco/Path.h \
   ../../../libs/openFrameworks/types/ofBaseTypes.h \
@@ -120,6 +118,9 @@ dependencies: \
   ../../../libs/openFrameworks/math/ofMatrix4x4.h \
   ../../../libs/openFrameworks/math/ofQuaternion.h \
   ../../../libs/openFrameworks/utils/ofXml.h \
+  ../../../libs/openFrameworks/types/ofParameter.h \
+  ../../../libs/openFrameworks/types/ofParameterGroup.h \
+  ../../../libs/poco/include/Poco/Any.h \
   ../../../libs/poco/include/Poco/DOM/Document.h \
   ../../../libs/poco/include/Poco/XML/XML.h \
   ../../../libs/poco/include/Poco/DOM/AbstractContainerNode.h \
@@ -165,9 +166,6 @@ dependencies: \
   ../../../libs/poco/include/Poco/DOM/NamedNodeMap.h \
   ../../../libs/poco/include/Poco/DOM/ChildNodesList.h \
   ../../../libs/poco/include/Poco/DOM/NodeList.h \
-  ../../../libs/openFrameworks/types/ofParameter.h \
-  ../../../libs/openFrameworks/types/ofParameterGroup.h \
-  ../../../libs/poco/include/Poco/Any.h \
   ../../../libs/openFrameworks/math/ofVectorMath.h \
   ../../../libs/openFrameworks/math/ofMatrix3x3.h \
   ../../../libs/openFrameworks/communication/ofSerial.h \

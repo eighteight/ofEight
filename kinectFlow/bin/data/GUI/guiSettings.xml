@@ -1,7 +1,7 @@
 <Widget>
     <Kind>8</Kind>
     <Name>NEAR</Name>
-    <Value>8000.000000000</Value>
+    <Value>7775.000000000</Value>
 </Widget>
 <Widget>
     <Kind>8</Kind>
@@ -16,17 +16,17 @@
 <Widget>
     <Kind>25</Kind>
     <Name>CIRCLE SCALE</Name>
-    <Value>0.097165994</Value>
+    <Value>0.307692319</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>HISTORY SIZE</Name>
-    <Value>51.821865082</Value>
+    <Value>400.000000000</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
     <Name>CIRCLE NUM</Name>
-    <Value>1.085020185</Value>
+    <Value>1.036437273</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
@@ -36,10 +36,10 @@
 <Widget>
     <Kind>25</Kind>
     <Name>D THRESHOLD</Name>
-    <Value>39.048583984</Value>
+    <Value>46.246963501</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
     <Name>VIDEO</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
