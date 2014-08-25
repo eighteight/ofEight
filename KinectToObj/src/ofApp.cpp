@@ -33,6 +33,12 @@ void ofApp::setup(){
 	postFx.createPass<FxaaPass>();
     
     isSaving = false;
+    
+    rgbSyphonServer.setName("KinectToObjRGB");
+	depthSyphonServer.setName("KinectToObjDepth");
+    
+    light.setDirectional();
+    light.lookAt(ofVec3f(ofGetWidth()/2, ofGetHeight()/2, 0));
 }
 
 
@@ -171,13 +177,15 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofBackground(219, 214, 217);
+    ofEnableLighting();
+	ofBackground(0, 0, 0);
+    light.enable();
 	//glEnable(GL_DEPTH_TEST);
     
 	ofPushMatrix();
     
 	cam.begin();
-	cam.setScale(1,-1,1);
+	cam.setScale(1,1,1);
     
 	ofSetColor(255,255,255);
 	ofTranslate(0, -80,1100);
@@ -198,13 +206,15 @@ void ofApp::draw(){
     ofSetColor(124,136,128,255);
 	
 	ofPushMatrix();
-	ofTranslate(0, 0,0.5);
+	ofTranslate(0, 0, 0.5);
 	wireframeMesh.drawWireframe();
 	ofPopMatrix();
 	cam.end();
 	ofPopMatrix();
     
 	postFx.end();
+
+    rgbSyphonServer.publishScreen();
     
 	if(showGui) {
         
@@ -224,7 +234,7 @@ void ofApp::keyPressed(int key){
 		showGui = !showGui;
 	}
     
-    if (key = 's'){
+    if (key == 's'){
         isSaving = !isSaving;
     }
 }

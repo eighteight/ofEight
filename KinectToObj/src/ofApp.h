@@ -7,6 +7,8 @@
 #include "ofxPostProcessing.h"
 #include "ObjExporter.h"
 #include "ofxObjLoader.h"
+#include "ofxSyphon.h"
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -49,8 +51,13 @@ class ofApp : public ofBaseApp{
     
 	ofImage blob;
     
-    std::shared_ptr<ObjExporter>        objExporter;
+    std::shared_ptr<ObjExporter>  objExporter;
     
     bool isSaving;
+    
+    ofxSyphonServer rgbSyphonServer;
+	ofxSyphonServer depthSyphonServer;
+    
+    ofLight light;
 		
 };
