@@ -11,7 +11,7 @@
 <Widget>
     <Kind>17</Kind>
     <Name>CIRCLE</Name>
-    <Value>1</Value>
+    <Value>0</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
@@ -26,12 +26,12 @@
 <Widget>
     <Kind>25</Kind>
     <Name>CIRCLE NUM</Name>
-    <Value>1.036437273</Value>
+    <Value>0.842105269</Value>
 </Widget>
 <Widget>
     <Kind>17</Kind>
     <Name>DEPTH</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
 <Widget>
     <Kind>25</Kind>
@@ -41,5 +41,5 @@
 <Widget>
     <Kind>17</Kind>
     <Name>VIDEO</Name>
-    <Value>0</Value>
+    <Value>1</Value>
 </Widget>
