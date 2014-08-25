@@ -4,7 +4,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    
+    //glEnable(GL_DEPTH_TEST);
     objExporter = std::shared_ptr<ObjExporter>(new ObjExporter("illusions", 640, 480));
     ofSetFrameRate(30);
     kinect.init();
@@ -37,8 +37,35 @@ void ofApp::setup(){
     rgbSyphonServer.setName("KinectToObjRGB");
 	depthSyphonServer.setName("KinectToObjDepth");
     
-    light.setDirectional();
-    light.lookAt(ofVec3f(ofGetWidth()/2, ofGetHeight()/2, 0));
+    ///////
+    ///setup light
+    ofEnableLighting();
+    GLfloat light_ambient[] = { 0.0, 0.2, 0.0, 1.0 };
+    GLfloat light_diffuse[] = { 0.0, 1.0, 0.0, 1.0 };
+    GLfloat light_specular[] = { 0.0, 1.0, 0.0, 1.0 };
+    GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+    
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    
+    glEnable(GL_LIGHT0);
+    
+    GLfloat light_ambient1[] = { 0.0, 0.0, 0.2, 1.0 };
+    GLfloat light_diffuse1[] = { 0.0, 0.0, 1.0, 1.0 };
+    GLfloat light_specular1[] = { 0.0, 0.0, 1.0, 1.0 };
+    GLfloat light_position1[] = { -1.0, 1.0, 1.0, 0.0 };
+    
+    glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient1);
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse1);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular1);
+    glLightfv(GL_LIGHT1, GL_POSITION, light_position1);
+    
+    glEnable(GL_LIGHT1);
+    
+    
+    
 }
 
 
@@ -179,13 +206,24 @@ void ofApp::update(){
 void ofApp::draw(){
     ofEnableLighting();
 	ofBackground(0, 0, 0);
-    light.enable();
-	//glEnable(GL_DEPTH_TEST);
+
+	glEnable(GL_DEPTH_TEST);
     
 	ofPushMatrix();
-    
+
 	cam.begin();
-	cam.setScale(1,1,1);
+    /////////
+    //rotate light around origin ofviewspace
+    float xx=0;
+    float yy=sin(ofGetElapsedTimef()*0.4)*150;
+    float zz=cos(ofGetElapsedTimef()*0.4)*150;
+    
+    GLfloat light_position[] = { xx, yy, zz, 0.0 };
+    GLfloat light_position1[] = { xx, yy, -zz, 0.0 };
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    glLightfv(GL_LIGHT1, GL_POSITION, light_position1);
+    ///////
+    cam.setScale(1,1,1);
     
 	ofSetColor(255,255,255);
 	ofTranslate(0, -80,1100);
@@ -224,6 +262,8 @@ void ofApp::draw(){
 		ofPopStyle();
 	}
 	ofSetColor(255, 255, 255);
+    
+    ofDisableLighting();
     
 }
 
