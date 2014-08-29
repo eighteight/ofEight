@@ -177,7 +177,7 @@ void ofApp::draw(){
 	ofPushMatrix();
     
 	cam.begin();
-	cam.setScale(1,-1,1);
+	cam.setScale(1,1,1);
     
 	ofSetColor(255,255,255);
 	ofTranslate(0, -80,1100);

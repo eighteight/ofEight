@@ -4,6 +4,11 @@
 #include "ofxKinectV2.h"
 #include "ofxGui.h"
 
+
+#include "ofxDelaunay.h"
+#include "ofxPostProcessing.h"
+#include "ofxObjLoader.h"
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -22,10 +27,26 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 
         ofxPanel panel;
+    	bool showGui;
         ofxSlider <int> minDistance;
         ofxSlider <int> maxDistance;
+    	ofxSlider<int> pointSkip;
+        ofxSlider<float> noiseAmount;
+    	ofxToggle useRealColors;
+    	ofxSlider<int> colorAlpha;
     
         ofxKinectV2 kinect;
         ofTexture texDepth;
-        ofTexture texRGB; 
+        ofTexture texRGB;
+    
+    
+        ofEasyCam cam;
+        
+        ofxPostProcessing postFx;
+        ofMesh convertedMesh;
+        ofMesh wireframeMesh;
+        
+        ofxDelaunay del;
+        
+        ofImage blob;
 };

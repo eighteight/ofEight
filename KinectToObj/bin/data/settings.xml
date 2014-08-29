@@ -1,7 +1,7 @@
 <group>
 	<Noise_Amount>0</Noise_Amount>
-	<Point_Skip>5</Point_Skip>
+	<Point_Skip>3</Point_Skip>
 	<Real_Colors>1</Real_Colors>
-	<Color_Alpha>108</Color_Alpha>
+	<Color_Alpha>224</Color_Alpha>
 <group/>
 </group>
