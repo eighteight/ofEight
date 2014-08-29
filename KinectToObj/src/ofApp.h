@@ -7,12 +7,15 @@
 #include "ofxPostProcessing.h"
 #include "ObjExporter.h"
 #include "ofxObjLoader.h"
+#include "ofxSyphon.h"
+
 class ofApp : public ofBaseApp{
 
 	public:
     void setup();
     void update();
     void draw();
+    void exit();
     
     void keyPressed(int key);
     void keyReleased(int key);
@@ -23,8 +26,6 @@ class ofApp : public ofBaseApp{
     void windowResized(int w, int h);
     void dragEvent(ofDragInfo dragInfo);
     void gotMessage(ofMessage msg);
-    
-	void exit();
     
 	ofxKinect kinect;
 	
@@ -49,8 +50,11 @@ class ofApp : public ofBaseApp{
     
 	ofImage blob;
     
-    std::shared_ptr<ObjExporter>        objExporter;
+    std::shared_ptr<ObjExporter>  objExporter;
     
     bool isSaving;
+    
+    ofxSyphonServer rgbSyphonServer;
+	ofxSyphonServer depthSyphonServer;
 		
 };

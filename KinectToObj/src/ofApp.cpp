@@ -4,7 +4,7 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-    
+    //glEnable(GL_DEPTH_TEST);
     objExporter = std::shared_ptr<ObjExporter>(new ObjExporter("illusions", 640, 480));
     ofSetFrameRate(30);
     kinect.init();
@@ -33,6 +33,39 @@ void ofApp::setup(){
 	postFx.createPass<FxaaPass>();
     
     isSaving = false;
+    
+    rgbSyphonServer.setName("KinectToObjRGB");
+	depthSyphonServer.setName("KinectToObjDepth");
+    
+    ///////
+    ///setup light
+    ofEnableLighting();
+    GLfloat light_ambient[] = { 0.0, 0.2, 0.0, 1.0 };
+    GLfloat light_diffuse[] = { 0.0, 1.0, 0.0, 1.0 };
+    GLfloat light_specular[] = { 0.0, 1.0, 0.0, 1.0 };
+    GLfloat light_position[] = { 1.0, 1.0, 1.0, 0.0 };
+    
+    glLightfv(GL_LIGHT0, GL_AMBIENT, light_ambient);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, light_diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, light_specular);
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    
+    glEnable(GL_LIGHT0);
+    
+    GLfloat light_ambient1[] = { 0.0, 0.0, 0.2, 1.0 };
+    GLfloat light_diffuse1[] = { 0.0, 0.0, 1.0, 1.0 };
+    GLfloat light_specular1[] = { 0.0, 0.0, 1.0, 1.0 };
+    GLfloat light_position1[] = { -1.0, 1.0, 1.0, 0.0 };
+    
+    glLightfv(GL_LIGHT1, GL_AMBIENT, light_ambient1);
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, light_diffuse1);
+    glLightfv(GL_LIGHT1, GL_SPECULAR, light_specular1);
+    glLightfv(GL_LIGHT1, GL_POSITION, light_position1);
+    
+    glEnable(GL_LIGHT1);
+    
+    
+    
 }
 
 
@@ -171,13 +204,30 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofBackground(219, 214, 217);
-	//glEnable(GL_DEPTH_TEST);
+    ofEnableLighting();
+	ofBackground(0, 0, 0);
+
+	glEnable(GL_DEPTH_TEST);
     
 	ofPushMatrix();
-    
+
 	cam.begin();
+<<<<<<< HEAD
 	cam.setScale(1,1,1);
+=======
+    /////////
+    //rotate light around origin ofviewspace
+    float xx=0;
+    float yy=sin(ofGetElapsedTimef()*0.4)*150;
+    float zz=cos(ofGetElapsedTimef()*0.4)*150;
+    
+    GLfloat light_position[] = { xx, yy, zz, 0.0 };
+    GLfloat light_position1[] = { xx, yy, -zz, 0.0 };
+    glLightfv(GL_LIGHT0, GL_POSITION, light_position);
+    glLightfv(GL_LIGHT1, GL_POSITION, light_position1);
+    ///////
+    cam.setScale(1,1,1);
+>>>>>>> 2c3eaf7922bf85759f88a9e459ca35a71fd18900
     
 	ofSetColor(255,255,255);
 	ofTranslate(0, -80,1100);
@@ -198,13 +248,15 @@ void ofApp::draw(){
     ofSetColor(124,136,128,255);
 	
 	ofPushMatrix();
-	ofTranslate(0, 0,0.5);
+	ofTranslate(0, 0, 0.5);
 	wireframeMesh.drawWireframe();
 	ofPopMatrix();
 	cam.end();
 	ofPopMatrix();
     
 	postFx.end();
+
+    rgbSyphonServer.publishScreen();
     
 	if(showGui) {
         
@@ -215,6 +267,8 @@ void ofApp::draw(){
 	}
 	ofSetColor(255, 255, 255);
     
+    ofDisableLighting();
+    
 }
 
 //--------------------------------------------------------------
@@ -224,7 +278,7 @@ void ofApp::keyPressed(int key){
 		showGui = !showGui;
 	}
     
-    if (key = 's'){
+    if (key == 's'){
         isSaving = !isSaving;
     }
 }
