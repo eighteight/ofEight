@@ -32,6 +32,10 @@ void ofApp::setup(){
 	postFx.createPass<FxaaPass>();
     
     pointSkip = 200;
+    
+    syphonServerRGB.setName("kinectRGB");
+    syphonServerDepth.setName("kinectDepth");
+    
 }
 
 //--------------------------------------------------------------
@@ -171,6 +175,14 @@ void ofApp::update(){
 void ofApp::draw(){
     texDepth.draw(10, 100);
     texRGB.draw(10, 110 + texDepth.getHeight(), 1920/4, 1080/4);
+    
+    if (texRGB.isAllocated()) {
+        syphonServerRGB.publishTexture(&texRGB);
+    }
+    
+    if (texDepth.isAllocated()){
+        syphonServerDepth.publishTexture(&texDepth);
+    }
     
     panel.draw();
 }

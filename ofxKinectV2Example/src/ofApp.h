@@ -8,6 +8,7 @@
 #include "ofxDelaunay.h"
 #include "ofxPostProcessing.h"
 #include "ofxObjLoader.h"
+#include "ofxSyphon.h"
 
 class ofApp : public ofBaseApp{
 
@@ -49,4 +50,7 @@ class ofApp : public ofBaseApp{
         ofxDelaunay del;
         
         ofImage blob;
+    
+        ofxSyphonServer syphonServerDepth;
+        ofxSyphonServer syphonServerRGB;
 };
