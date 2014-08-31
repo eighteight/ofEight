@@ -1,5 +1,6 @@
 #include "ofApp.h"
-
+#define DEPTH_WIDTH 512
+#define DEPTH_HEIGHT 424
 //--------------------------------------------------------------
 void ofApp::setup(){
     if( !ofFile::doesFileExist("11to16.bin") ){
@@ -24,17 +25,19 @@ void ofApp::setup(){
     kinect.open();
     ////////
     
-    blob.allocate(640,480,OF_IMAGE_GRAYSCALE);
+    blob.allocate(DEPTH_WIDTH, DEPTH_HEIGHT, OF_IMAGE_GRAYSCALE);
     // fx
 	postFx.init(ofGetWidth(), ofGetHeight());
 	
 	postFx.createPass<BloomPass>();
 	postFx.createPass<FxaaPass>();
     
-    pointSkip = 200;
+    pointSkip = 40;
     
     syphonServerRGB.setName("kinectRGB");
     syphonServerDepth.setName("kinectDepth");
+    
+    isSaving = false;
     
 }
 
@@ -44,20 +47,16 @@ void ofApp::update(){
     if( kinect.isFrameNew() ){
         texDepth.loadData( kinect.getDepthPixels() );
         texRGB.loadData( kinect.getRgbPixels() );
-        return;
         ////effects
         del.reset();
-        
+
+		unsigned char* pix = new unsigned char[DEPTH_WIDTH*DEPTH_HEIGHT];
 		
-		unsigned char* pix = new unsigned char[640*480];
-		
-		unsigned char* gpix = new unsigned char[640*480];
-		
-		for(int x=0;x<640;x+=1) {
-			for(int y=0;y<480;y+=1) {
-				float distance = kinect.getDepthPixels()[y * 640 + x]; //   getDistanceAt(x, y);
+		for(int x=0; x < DEPTH_WIDTH; x+=1) {
+			for(int y=0; y < DEPTH_HEIGHT; y+=1) {
+				float distance = kinect.getDepthPixels()[y * DEPTH_WIDTH + x]; //   getDistanceAt(x, y);
 				
-				int pIndex = x + y * 640;
+				int pIndex = x + y * DEPTH_WIDTH;
 				pix[pIndex] = 0;
                 
 				if(distance > 100 && distance < 1100) {
@@ -67,19 +66,19 @@ void ofApp::update(){
 			}
 		}
 		
-		blob.setFromPixels(pix, 640, 480, OF_IMAGE_GRAYSCALE);
+		blob.setFromPixels(pix, DEPTH_WIDTH, DEPTH_HEIGHT, OF_IMAGE_GRAYSCALE);
 		
 		int numPoints = 0;
 		
-		for(int x=0;x<640;x+=pointSkip*2) {
-			for(int y=0;y<480;y+=pointSkip*2) {
-				int pIndex = x + 640 * y;
+		for(int x=0; x < DEPTH_WIDTH; x+=pointSkip*2) {
+			for(int y=0; y < DEPTH_HEIGHT; y+=pointSkip*2) {
+				int pIndex = x + DEPTH_WIDTH * y;
                 
 				if(blob.getPixels()[pIndex]> 0) {
-					ofVec3f wc(x,y,kinect.getDepthPixels()[y * 640 + x]);//kinect.getWorldCoordinateAt(x, y);
+					ofVec3f wc(x,y,kinect.getDepthPixels()[y * DEPTH_WIDTH + x]);//kinect.getWorldCoordinateAt(x, y);
 					
-					wc.x = x - 320.0;
-					wc.y = y - 240.0;
+					wc.x = x - DEPTH_WIDTH * 0.5;
+					wc.y = y - DEPTH_HEIGHT * 0.5;
 					
 					if(abs(wc.z) > 100 && abs(wc.z ) < 2000) {
 						
@@ -88,8 +87,8 @@ void ofApp::update(){
 						wc.x += ofSignedNoise(wc.x,wc.z)*noiseAmount;
 						wc.y += ofSignedNoise(wc.y,wc.z)*noiseAmount;
 						
-						wc.x = ofClamp(wc.x, -320,320);
-						wc.y = ofClamp(wc.y, -240,240);
+						wc.x = ofClamp(wc.x, - DEPTH_WIDTH * 0.5, DEPTH_WIDTH * 0.5);
+						wc.y = ofClamp(wc.y, - DEPTH_HEIGHT * 0.5, DEPTH_HEIGHT * 0.5);
 						
 						del.addPoint(wc);
 					}
@@ -98,7 +97,9 @@ void ofApp::update(){
                 
 			}
 		}
-        if (false){
+        
+        cout << "Delaunay points "<<numPoints<<endl;
+        if (true){
 		
 		if(numPoints >0)
             del.triangulate();
@@ -113,10 +114,7 @@ void ofApp::update(){
 			v.x = ofClamp(v.x, -319,319);
 			v.y = ofClamp(v.y, -239, 239);
             
-			ofColor c = kinect.getRgbPixels()[v.x+320.0, v.y+240.0];
-            
-			if(!useRealColors)
-                c = ofColor(255,0,0);
+			ofColor c = useRealColors ? kinect.getRgbPixels()[v.x+DEPTH_WIDTH * .5, v.y+DEPTH_HEIGHT*.5] : ofColor(255,0,0);
             
 			c.a = colorAlpha;
 			
@@ -124,13 +122,11 @@ void ofApp::update(){
 			del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3+1),c);
 			del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3+2),c);
 		}
-        
 
-        
-        
         convertedMesh.clear();
         wireframeMesh.clear();
         wireframeMesh.setMode(OF_PRIMITIVE_TRIANGLES);
+            cout<<"mesh points "<< del.triangleMesh.getNumVertices()<< endl;
         for(int i=0;i<del.triangleMesh.getNumIndices()/3;i+=1) {
             
             int indx1 = del.triangleMesh.getIndex(i*3);
@@ -141,13 +137,13 @@ void ofApp::update(){
             ofVec3f p3 = del.triangleMesh.getVertex(indx3);
             
             ofVec3f triangleCenter = (p1+p2+p3)/3.0;
-            triangleCenter.x += 320;
-            triangleCenter.y += 240;
+            triangleCenter.x += DEPTH_WIDTH * .5;
+            triangleCenter.y += DEPTH_HEIGHT* .5;
             
-            triangleCenter.x = floor(ofClamp(triangleCenter.x, 0,640));
-            triangleCenter.y = floor(ofClamp(triangleCenter.y, 0, 480));
+            triangleCenter.x = floor(ofClamp(triangleCenter.x, 0, DEPTH_WIDTH));
+            triangleCenter.y = floor(ofClamp(triangleCenter.y, 0, DEPTH_HEIGHT));
             
-            int pixIndex = triangleCenter.x + triangleCenter.y * 640;
+            int pixIndex = triangleCenter.x + triangleCenter.y * DEPTH_WIDTH;
             if(pix[pixIndex] > 0) {
                 
                 convertedMesh.addVertex(p1);
@@ -167,14 +163,17 @@ void ofApp::update(){
         }
         
         delete pix;
-        delete gpix;
+    }
+    
+    if (isSaving) {
+        ofxObjLoader::save("delaunay" + ofToString(ofGetFrameNum()), convertedMesh);
     }
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    texDepth.draw(10, 100);
-    texRGB.draw(10, 110 + texDepth.getHeight(), 1920/4, 1080/4);
+//    texDepth.draw(10, 100);
+//    texRGB.draw(10, 110 + texDepth.getHeight(), 1920/4, 1080/4);
     
     if (texRGB.isAllocated()) {
         syphonServerRGB.publishTexture(&texRGB);
@@ -183,12 +182,52 @@ void ofApp::draw(){
     if (texDepth.isAllocated()){
         syphonServerDepth.publishTexture(&texDepth);
     }
+
+    //panel.draw();
     
-    panel.draw();
+    ofBackground(219, 214, 217);
+
+    
+    ofPushMatrix();
+    
+	cam.begin();
+	cam.setScale(1,-1,1);
+    
+	ofSetColor(255,255,255);
+	ofTranslate(0, -80,1100);
+	ofFill();
+	
+	postFx.begin();
+	
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glShadeModel(GL_FLAT);
+	glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
+	convertedMesh.drawFaces();
+	glShadeModel(GL_SMOOTH);
+	glPopAttrib();
+	
+	if(useRealColors) {
+		ofSetColor(30,30,30, 255);
+	} else
+        ofSetColor(124,136,128,255);
+	
+	ofPushMatrix();
+	ofTranslate(0, 0,0.5);
+	wireframeMesh.drawWireframe();
+	ofPopMatrix();
+	cam.end();
+	ofPopMatrix();
+    
+	postFx.end();
+
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    
+    if (key == 's'){
+        isSaving = !isSaving;
+    }
 
 }
 

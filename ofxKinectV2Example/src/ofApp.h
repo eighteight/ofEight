@@ -46,7 +46,8 @@ class ofApp : public ofBaseApp{
         ofxPostProcessing postFx;
         ofMesh convertedMesh;
         ofMesh wireframeMesh;
-        
+        bool isSaving;
+    
         ofxDelaunay del;
         
         ofImage blob;
