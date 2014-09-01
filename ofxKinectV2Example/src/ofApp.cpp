@@ -51,9 +51,9 @@ void ofApp::update(){
         del.reset();
 
 		unsigned char* pix = new unsigned char[DEPTH_WIDTH*DEPTH_HEIGHT];
-		
-		for(int x=0; x < DEPTH_WIDTH; x+=1) {
-			for(int y=0; y < DEPTH_HEIGHT; y+=1) {
+		int skpDepth = 4;
+		for(int x=0; x < DEPTH_WIDTH; x+=skpDepth) {
+			for(int y=0; y < DEPTH_HEIGHT; y+=skpDepth) {
 				float distance = kinect.getDepthPixels()[y * DEPTH_WIDTH + x]; //   getDistanceAt(x, y);
 				
 				int pIndex = x + y * DEPTH_WIDTH;
@@ -104,24 +104,26 @@ void ofApp::update(){
 		if(numPoints >0)
             del.triangulate();
 		
-		for(int i=0;i<del.triangleMesh.getNumVertices();i++) {
-			del.triangleMesh.addColor(ofColor(0,0,0));
-		}
-		
-		for(int i=0;i<del.triangleMesh.getNumIndices()/3;i+=1) {
-			ofVec3f v = del.triangleMesh.getVertex(del.triangleMesh.getIndex(i*3));
-			
-			v.x = ofClamp(v.x, -319,319);
-			v.y = ofClamp(v.y, -239, 239);
+        if (false){
+            for(int i=0;i<del.triangleMesh.getNumVertices();i++) {
+                del.triangleMesh.addColor(ofColor(0,0,0));
+            }
             
-			ofColor c = useRealColors ? kinect.getRgbPixels()[v.x+DEPTH_WIDTH * .5, v.y+DEPTH_HEIGHT*.5] : ofColor(255,0,0);
-            
-			c.a = colorAlpha;
-			
-			del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3),c);
-			del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3+1),c);
-			del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3+2),c);
-		}
+            for(int i=0;i<del.triangleMesh.getNumIndices()/3;i+=1) {
+                ofVec3f v = del.triangleMesh.getVertex(del.triangleMesh.getIndex(i*3));
+                
+                v.x = ofClamp(v.x, -319,319);
+                v.y = ofClamp(v.y, -239, 239);
+                
+                ofColor c = useRealColors ? kinect.getRgbPixels()[v.x+DEPTH_WIDTH * .5, v.y+DEPTH_HEIGHT*.5] : ofColor(255,0,0);
+                
+                c.a = colorAlpha;
+                
+                del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3),c);
+                del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3+1),c);
+                del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3+2),c);
+            }
+        }
 
         convertedMesh.clear();
         wireframeMesh.clear();
@@ -147,13 +149,13 @@ void ofApp::update(){
             if(pix[pixIndex] > 0) {
                 
                 convertedMesh.addVertex(p1);
-                convertedMesh.addColor(del.triangleMesh.getColor(indx1));
+                //convertedMesh.addColor(del.triangleMesh.getColor(indx1));
                 
                 convertedMesh.addVertex(p2);
-                convertedMesh.addColor(del.triangleMesh.getColor(indx2));
+                //convertedMesh.addColor(del.triangleMesh.getColor(indx2));
                 
                 convertedMesh.addVertex(p3);
-                convertedMesh.addColor(del.triangleMesh.getColor(indx3));
+                //convertedMesh.addColor(del.triangleMesh.getColor(indx3));
                 
                 wireframeMesh.addVertex(p1);
                 wireframeMesh.addVertex(p2);
@@ -172,7 +174,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-//    texDepth.draw(10, 100);
+    texDepth.draw(10, 100);
 //    texRGB.draw(10, 110 + texDepth.getHeight(), 1920/4, 1080/4);
     
     if (texRGB.isAllocated()) {
@@ -182,6 +184,11 @@ void ofApp::draw(){
     if (texDepth.isAllocated()){
         syphonServerDepth.publishTexture(&texDepth);
     }
+    
+    
+    ofNoFill();
+    del.draw();
+    return;
 
     //panel.draw();
     

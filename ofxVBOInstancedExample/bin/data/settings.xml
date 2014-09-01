@@ -1,0 +1,9 @@
+<MAIN_SETTINGS>
+	<zNear>0</zNear>
+	<zFar>0</zFar>
+	<k>0.01</k>
+	<d>0.967</d>
+	<shouldRenderFBOs>0</shouldRenderFBOs>
+	<shouldRenderNormals>1</shouldRenderNormals>
+	<shouldUseFlatShading>1</shouldUseFlatShading>
+</MAIN_SETTINGS>

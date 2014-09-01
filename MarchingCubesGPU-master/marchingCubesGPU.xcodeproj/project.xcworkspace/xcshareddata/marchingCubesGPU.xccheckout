@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>AC32E8BF-6474-426D-AE39-B6C8ECE36484</string>
+	<key>IDESourceControlProjectName</key>
+	<string>marchingCubesGPU</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5B14E864-AF4C-48F3-8E6D-A0A185210A24</key>
+		<string>https://github.com/openframeworks/openFrameworks.git</string>
+		<key>C42AE2C7-6CC4-4FA2-9132-D49238ED246D</key>
+		<string>https://github.com/eighteight/ofEight.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>apps/ofEight/MarchingCubesGPU-master/marchingCubesGPU.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5B14E864-AF4C-48F3-8E6D-A0A185210A24</key>
+		<string>../../../../..</string>
+		<key>C42AE2C7-6CC4-4FA2-9132-D49238ED246D</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/eighteight/ofEight.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5B14E864-AF4C-48F3-8E6D-A0A185210A24</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C42AE2C7-6CC4-4FA2-9132-D49238ED246D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>oFeight</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5B14E864-AF4C-48F3-8E6D-A0A185210A24</string>
+			<key>IDESourceControlWCCName</key>
+			<string>openFrameworks</string>
+		</dict>
+	</array>
+</dict>
+</plist>
