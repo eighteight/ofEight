@@ -34,32 +34,63 @@ void ofApp::setup(){
     
     syphonServerRGB.setName("kinectRGB");
     syphonServerDepth.setName("kinectDepth");
+    syphonServerScreen.setName("screen");
     
     isSaving = false;
     
      pointSize = 3;
     
+    
+    ///
+    
+    // load an image from disk
+	img.loadImage("linzer.png");
+	
+	// we're going to load a ton of points into an ofMesh
+	vbomesh.setMode(OF_PRIMITIVE_POINTS);
+	
+	// loop through the image in the x and y axes
+	int skip = 4; // load a subset of the points
+	for(int y = 0; y < img.getHeight(); y += skip) {
+		for(int x = 0; x < img.getWidth(); x += skip) {
+			ofColor cur = img.getColor(x, y);
+			if(cur.a > 0) {
+				// the alpha value encodes depth, let's remap it to a good depth range
+				float z = ofMap(cur.a, 0, 255, -300, 300);
+				cur.a = 255;
+				vbomesh.addColor(cur);
+				ofVec3f pos(x, y, z);
+				vbomesh.addVertex(pos);
+			}
+		}
+	}
+    
+	ofEnableDepthTest();
+	glEnable(GL_POINT_SMOOTH); // use circular points instead of square points
+	glPointSize(3); // make the points bigger
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     kinect.update();
     if( kinect.isFrameNew() ){
-        texDepth.loadData( kinect.getDepthPixels() );
-        texRGB.loadData( kinect.getRgbPixels() );
-        //ofMesh mesh;
+        ofPixels depths = kinect.getDepthPixels();
+        ofPixels colors = kinect.getRgbPixels();
+        texDepth.loadData(depths);
+        texRGB.loadData(colors);
+
         vbomesh.clear();
         vbomesh.setMode(OF_PRIMITIVE_POINTS);
 
-
-		unsigned char* pix = new unsigned char[DEPTH_WIDTH*DEPTH_HEIGHT];
 		int skpDepth = 4;
 		for(int x=0; x < DEPTH_WIDTH; x+=skpDepth) {
 			for(int y=0; y < DEPTH_HEIGHT; y+=skpDepth) {
-				float distance = kinect.getDepthPixels()[y * DEPTH_WIDTH + x]; //   getDistanceAt(x, y);
+				float distance = depths[y * DEPTH_WIDTH + x]; //   getDistanceAt(x, y);
                 
-				if(distance > 100 && distance < 1100) {
+				if(distance > 100. && distance < 1100) {
+                    ofColor c = colors[y * DEPTH_WIDTH + x];
 					vbomesh.addVertex(ofVec3f(x, y, distance));
+                    vbomesh.addColor(c);
 				}
 			}
 		}
@@ -75,6 +106,13 @@ void ofApp::draw(){
 //    texDepth.draw(10, 100);
 //    texRGB.draw(10, 110 + texDepth.getHeight(), 1920/4, 1080/4);
     
+    ofSetColor(255, 255, 255);
+    
+    easyCam.begin();
+    drawPointCloud();
+    easyCam.end();
+    
+    
     if (texRGB.isAllocated()) {
         syphonServerRGB.publishTexture(&texRGB);
     }
@@ -83,13 +121,8 @@ void ofApp::draw(){
         syphonServerDepth.publishTexture(&texDepth);
     }
     
-    
-    ofSetColor(255, 255, 255);
-    
-    easyCam.begin();
-    drawPointCloud();
-    easyCam.end();
-    
+    syphonServerScreen.publishScreen();
+
 	// draw instructions
 	ofSetColor(255, 255, 255);
 	stringstream reportStream;
@@ -100,28 +133,20 @@ void ofApp::draw(){
 	ofDrawBitmapString(reportStream.str(),20,20);
 }
 
+void ofApp::exit(){
+}
 void ofApp::drawPointCloud() {
-    if (!texDepth.isAllocated()) return;
-    
-	ofMesh mesh;
-	mesh.setMode(OF_PRIMITIVE_POINTS);
-	int step = 4;
-	for(int y = 0; y < DEPTH_HEIGHT; y += step) {
-		for(int x = 0; x < DEPTH_WIDTH; x += step) {
-            float distance = kinect.getDepthPixels()[y * DEPTH_WIDTH + x];
-			if(distance > 0 && distance < 10000) {
-				//mesh.addColor(kinect.getColorAt(x,y));
-				mesh.addVertex(ofVec3f(x,y,distance));
-			}
-		}
-	}
-	glPointSize(2);
+    if (vbomesh.getNumVertices() == 0) return;
+
+    glPointSize(1);
 	ofPushMatrix();
 	// the projected points are 'upside down' and 'backwards'
 	ofScale(1, -1, -1);
 	//ofTranslate(0, 0, -1000); // center the points a bit
 	ofEnableDepthTest();
-	mesh.drawVertices();
+    //texDepth.bind();
+
+    vbomesh.draw();
 	ofDisableDepthTest();
 	ofPopMatrix();
     

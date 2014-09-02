@@ -16,6 +16,7 @@ class ofApp : public ofBaseApp{
 		void setup();
 		void update();
 		void draw();
+        void exit();
 
 		void keyPressed(int key);
 		void keyReleased(int key);
@@ -46,6 +47,7 @@ class ofApp : public ofBaseApp{
     
         ofxSyphonServer syphonServerDepth;
         ofxSyphonServer syphonServerRGB;
+        ofxSyphonServer syphonServerScreen;
     
         ofEasyCam easyCam;
         int near;
@@ -56,4 +58,6 @@ class ofApp : public ofBaseApp{
         bool wall;
         
         ofVboMesh vbomesh;
+    
+        ofImage img;
 };
