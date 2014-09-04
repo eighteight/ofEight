@@ -38,6 +38,7 @@ class ofApp : public ofBaseApp{
     
         ofxKinectV2 kinect;
         ofTexture texDepth;
+        ofTexture texIr;
         ofTexture texRGB;
     
     
@@ -54,4 +55,5 @@ class ofApp : public ofBaseApp{
     
         ofxSyphonServer syphonServerDepth;
         ofxSyphonServer syphonServerRGB;
+        ofxSyphonServer syphonServerIr;
 };

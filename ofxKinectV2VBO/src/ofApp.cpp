@@ -165,6 +165,7 @@ void ofApp::update(){
 			}
 		}
         
+        vbo.clear();
         vbo.setMesh(mesh, GL_STATIC_DRAW);
         if (isSaving) {
             ofxObjLoader::save("delaunay" + ofToString(ofGetFrameNum()), mesh);

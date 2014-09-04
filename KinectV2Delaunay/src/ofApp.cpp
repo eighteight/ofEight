@@ -36,6 +36,7 @@ void ofApp::setup(){
     
     syphonServerRGB.setName("kinectRGB");
     syphonServerDepth.setName("kinectDepth");
+    syphonServerIr.setName("kinectIr");
     
     isSaving = false;
     
@@ -49,6 +50,7 @@ void ofApp::update(){
         ofPixels colors = kinect.getRgbPixels();
         texDepth.loadData(depths);
         texRGB.loadData(colors);
+        texIr.loadData( kinect.getRawIrPixels() );
         ////effects
         del.reset();
 
@@ -181,6 +183,10 @@ void ofApp::draw(){
     
     if (texDepth.isAllocated()){
         syphonServerDepth.publishTexture(&texDepth);
+    }
+    
+    if (texIr.isAllocated()){
+        syphonServerIr.publishTexture(&texIr);
     }
     
 
