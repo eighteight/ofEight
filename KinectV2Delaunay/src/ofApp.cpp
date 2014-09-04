@@ -53,9 +53,9 @@ void ofApp::update(){
         del.reset();
 
 		unsigned char* pix = new unsigned char[DEPTH_WIDTH*DEPTH_HEIGHT];
-		int skpDepth = 1;
-		for(int x=0; x < DEPTH_WIDTH; x+=skpDepth) {
-			for(int y=0; y < DEPTH_HEIGHT; y+=skpDepth) {
+
+		for(int x=0; x < DEPTH_WIDTH; x+=1) {
+			for(int y=0; y < DEPTH_HEIGHT; y+=1) {
 				float distance = depths[y * DEPTH_WIDTH + x];
 				
 				int pIndex = x + y * DEPTH_WIDTH;
@@ -99,38 +99,31 @@ void ofApp::update(){
                 
 			}
 		}
+
+        del.triangulate();
+
+        for(int i=0;i<del.triangleMesh.getNumVertices();i++) {
+            del.triangleMesh.addColor(ofColor(0,0,0));
+        }
         
-        cout << "Delaunay points "<<numPoints<<endl;
-        if (true){
-		
-		if(numPoints >0)
-            del.triangulate();
-		
-        if (true){
-            for(int i=0;i<del.triangleMesh.getNumVertices();i++) {
-                del.triangleMesh.addColor(ofColor(0,0,0));
-            }
+        for(int i=0;i<del.triangleMesh.getNumIndices()/3;i+=1) {
+            ofVec3f v = del.triangleMesh.getVertex(del.triangleMesh.getIndex(i*3));
             
-            for(int i=0;i<del.triangleMesh.getNumIndices()/3;i+=1) {
-                ofVec3f v = del.triangleMesh.getVertex(del.triangleMesh.getIndex(i*3));
-                
-                v.x = ofClamp(v.x, -319,319);
-                v.y = ofClamp(v.y, -239, 239);
-                
-                ofColor c = useRealColors ? colors[v.x+DEPTH_WIDTH * .5, v.y+DEPTH_HEIGHT*.5] : ofColor(255,0,0);
-                
-                c.a = colorAlpha;
-                
-                del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3),c);
-                del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3+1),c);
-                del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3+2),c);
-            }
+            v.x = ofClamp(v.x, -319,319);
+            v.y = ofClamp(v.y, -239, 239);
+            
+            ofColor c = useRealColors ? colors[v.x+DEPTH_WIDTH * .5, v.y+DEPTH_HEIGHT*.5] : ofColor(255,0,0);
+            
+            c.a = colorAlpha;
+            
+            del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3),c);
+            del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3+1),c);
+            del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3+2),c);
         }
 
         convertedMesh.clear();
         wireframeMesh.clear();
         wireframeMesh.setMode(OF_PRIMITIVE_TRIANGLES);
-            cout<<"mesh points "<< del.triangleMesh.getNumVertices()<< endl;
         for(int i=0;i<del.triangleMesh.getNumIndices()/3;i+=1) {
             
             int indx1 = del.triangleMesh.getIndex(i*3);
@@ -151,19 +144,18 @@ void ofApp::update(){
             if(pix[pixIndex] > 0) {
                 
                 convertedMesh.addVertex(p1);
-                //convertedMesh.addColor(del.triangleMesh.getColor(indx1));
+                convertedMesh.addColor(del.triangleMesh.getColor(indx1));
                 
                 convertedMesh.addVertex(p2);
-                //convertedMesh.addColor(del.triangleMesh.getColor(indx2));
+                convertedMesh.addColor(del.triangleMesh.getColor(indx2));
                 
                 convertedMesh.addVertex(p3);
-                //convertedMesh.addColor(del.triangleMesh.getColor(indx3));
+                convertedMesh.addColor(del.triangleMesh.getColor(indx3));
                 
                 wireframeMesh.addVertex(p1);
                 wireframeMesh.addVertex(p2);
                 wireframeMesh.addVertex(p3);
             }
-        }
         }
         
         delete pix;
@@ -171,16 +163,16 @@ void ofApp::update(){
     
     if (isSaving) {
         ofDirectory dir("obj");
-
         if (!dir.exists())   dir.create();
         string aPath = dir.getAbsolutePath()+"/delaunay" + ofToString(ofGetFrameNum())+".obj";
         ofxObjLoader::save(dir.getAbsolutePath()+"/delaunay" + ofToString(ofGetFrameNum())+".obj", convertedMesh);
     }
+    ofSetWindowTitle(ofToString(ofGetFrameRate(), 0)+" fps");
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    texDepth.draw(10, 100);
+//    texDepth.draw(10, 100);
 //    texRGB.draw(10, 110 + texDepth.getHeight(), 1920/4, 1080/4);
     
     if (texRGB.isAllocated()) {
@@ -191,20 +183,14 @@ void ofApp::draw(){
         syphonServerDepth.publishTexture(&texDepth);
     }
     
-    
-    ofNoFill();
-//    del.draw();
-//    return;
 
-    panel.draw();
+	ofBackground(219, 214, 217);
+	//glEnable(GL_DEPTH_TEST);
     
-    ofBackground(219, 214, 217);
-
-    
-    ofPushMatrix();
+	ofPushMatrix();
     
 	cam.begin();
-	cam.setScale(1,-1,1);
+	cam.setScale(1,1,1);
     
 	ofSetColor(255,255,255);
 	//ofTranslate(0, -80,1100);
@@ -215,6 +201,7 @@ void ofApp::draw(){
 	glPushAttrib(GL_ALL_ATTRIB_BITS);
 	glShadeModel(GL_FLAT);
 	glProvokingVertex(GL_FIRST_VERTEX_CONVENTION);
+        //del.draw();
 	convertedMesh.drawFaces();
 	glShadeModel(GL_SMOOTH);
 	glPopAttrib();
@@ -233,9 +220,13 @@ void ofApp::draw(){
     
 	postFx.end();
     
-    ofSetColor(0);
-	string msg = "fps: " + ofToString(ofGetFrameRate(), 2);
-	ofDrawBitmapString(msg, 10, 20);
+	if(showGui) {
+        
+		ofPushStyle();
+		ofSetColor(255,255,255,255);
+		panel.draw();
+		ofPopStyle();
+	}
 
 }
 

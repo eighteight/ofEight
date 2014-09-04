@@ -44,8 +44,6 @@ void ofApp::update(){
 		
 		unsigned char* pix = new unsigned char[640*480];
 		
-		unsigned char* gpix = new unsigned char[640*480];
-		
 		for(int x=0;x<640;x+=1) {
 			for(int y=0;y<480;y+=1) {
 				float distance = kinect.getDistanceAt(x, y);
@@ -117,10 +115,7 @@ void ofApp::update(){
 			del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3+1),c);
 			del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3+2),c);
 		}
-        
-        
-        
-        
+
         convertedMesh.clear();
         wireframeMesh.clear();
         wireframeMesh.setMode(OF_PRIMITIVE_TRIANGLES);
@@ -159,7 +154,6 @@ void ofApp::update(){
         }
         
         delete pix;
-        delete gpix;
         
     }
 }

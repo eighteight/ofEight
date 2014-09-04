@@ -10,6 +10,8 @@
 #include "ofxObjLoader.h"
 #include "ofxSyphon.h"
 
+#include "ofxBullet.h"
+
 class ofApp : public ofBaseApp{
 
 	public:
@@ -28,6 +30,7 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
         void drawPointCloud();
+        void addPoint(float x, float y, float z);
 
         ofxPanel panel;
     	bool showGui;
@@ -57,7 +60,20 @@ class ofApp : public ofBaseApp{
         int pointSize;
         bool wall;
         
-        ofVboMesh vbomesh;
+        ofVbo vbo;
+        vector <ofVec3f> sizes;
+        vector <ofVec3f> points;
+		ofShader shader;
+        ofTexture pointImg;
     
-        ofImage img;
+    
+        ofxBulletWorldRigid			world;
+        ofxBulletBox				ground;
+        
+        ofxBulletSphere*			sphere;
+        ofxBulletBox*				box;
+        ofxBulletCone*				cone;
+        ofxBulletCapsule*			capsule;
+        ofxBulletCylinder*			cylinder;
+    
 };

@@ -10,6 +10,7 @@ void ofApp::setup(){
 
     ofBackground(30, 30, 30);
 
+
     panel.setup("distance in mm", "settings.xml", 540, 100);
     panel.add(kinect.minDistance);
     panel.add(kinect.maxDistance);
@@ -44,30 +45,78 @@ void ofApp::setup(){
     ///
     
     // load an image from disk
-	img.loadImage("linzer.png");
-	
-	// we're going to load a ton of points into an ofMesh
-	vbomesh.setMode(OF_PRIMITIVE_POINTS);
-	
-	// loop through the image in the x and y axes
-	int skip = 4; // load a subset of the points
-	for(int y = 0; y < img.getHeight(); y += skip) {
-		for(int x = 0; x < img.getWidth(); x += skip) {
-			ofColor cur = img.getColor(x, y);
-			if(cur.a > 0) {
-				// the alpha value encodes depth, let's remap it to a good depth range
-				float z = ofMap(cur.a, 0, 255, -300, 300);
-				cur.a = 255;
-				vbomesh.addColor(cur);
-				ofVec3f pos(x, y, z);
-				vbomesh.addVertex(pos);
-			}
-		}
-	}
+	//pointImg.loadImage("red-chair.png");
+    ofDisableArbTex();
+    ofLoadImage(pointImg, "red-chair.png");
+//	ofEnableDepthTest();
+//	glEnable(GL_POINT_SMOOTH); // use circular points instead of square points
+//	glPointSize(3); // make the points bigger
     
-	ofEnableDepthTest();
-	glEnable(GL_POINT_SMOOTH); // use circular points instead of square points
-	glPointSize(3); // make the points bigger
+    
+    // randomly add a point on a sphere
+	int   num = 500;
+	float radius = 1000;
+	for(int i = 0; i<num; i++ ) {
+		
+		float theta1 = ofRandom(0, TWO_PI);
+		float theta2 = ofRandom(0, TWO_PI);
+		
+		ofVec3f p;
+		p.x = cos( theta1 ) * cos( theta2 );
+		p.y = sin( theta1 );
+		p.z = cos( theta1 ) * sin( theta2 );
+		p *= radius;
+		
+		addPoint(p.x, p.y, p.z);
+        
+	}
+	
+	// upload the data to the vbo
+	int total = (int)points.size();
+	vbo.setVertexData(&points[0], total, GL_STATIC_DRAW);
+	vbo.setNormalData(&sizes[0], total, GL_STATIC_DRAW);
+
+    
+    
+    // load the shader
+#ifdef TARGET_OPENGLES
+    shader.load("shaders_gles/shader");
+#else
+    shader.load("shaders/shader");
+#endif
+    
+    
+    ///bullet
+    
+    world.setup();
+	world.enableGrabbing();
+	world.enableDebugDraw();
+	world.setCamera(&easyCam);
+	
+	sphere = new ofxBulletSphere();
+	sphere->create(world.world, ofVec3f(0, 0, 0), 0.1, .25);
+	sphere->add();
+	
+	box = new ofxBulletBox();
+	box->create(world.world, ofVec3f(7, 0, 0), .05, .5, .5, .5);
+	box->add();
+	
+	cone = new ofxBulletCone();
+	cone->create(world.world, ofVec3f(-1, -1, .2), .2, .4, 1.);
+	cone->add();
+	
+	capsule = new ofxBulletCapsule();
+	capsule->create(world.world, ofVec3f(1, -2, -.2), .4, .8, 1.2);
+	capsule->add();
+	
+	cylinder = new ofxBulletCylinder();
+	cylinder->create(world.world, ofVec3f(0, -2.4, 0), .8, .9, 1.8);
+	cylinder->add();
+	
+	ground.create( world.world, ofVec3f(0., 5.5, 0.), 0., 100.f, 1.f, 100.f );
+	ground.setProperties(.25, .95);
+	ground.add();
+
 }
 
 //--------------------------------------------------------------
@@ -78,9 +127,30 @@ void ofApp::update(){
         ofPixels colors = kinect.getRgbPixels();
         texDepth.loadData(depths);
         texRGB.loadData(colors);
+        int   num = 500;
+        float radius = 1000;
+        for(int i = 0; i<num; i++ ) {
+            
+            float theta1 = ofRandom(0, TWO_PI);
+            float theta2 = ofRandom(0, TWO_PI);
+            
+            ofVec3f p;
+            p.x = cos( theta1 ) * cos( theta2 );
+            p.y = sin( theta1 );
+            p.z = cos( theta1 ) * sin( theta2 );
+            p *= radius;
+            
+            addPoint(p.x, p.y, p.z);
+            
+        }
+        
+        // upload the data to the vbo
+        int total = (int)depths.size();
+        vbo.setVertexData(&points[0], total, GL_STATIC_DRAW);
+        vbo.setNormalData(&sizes[0], total, GL_STATIC_DRAW);
 
-        vbomesh.clear();
-        vbomesh.setMode(OF_PRIMITIVE_POINTS);
+        ofMesh mesh;
+        mesh.setMode(OF_PRIMITIVE_POINTS);
 
 		int skpDepth = 4;
 		for(int x=0; x < DEPTH_WIDTH; x+=skpDepth) {
@@ -89,28 +159,128 @@ void ofApp::update(){
                 
 				if(distance > 100. && distance < 1100) {
                     ofColor c = colors[y * DEPTH_WIDTH + x];
-					vbomesh.addVertex(ofVec3f(x, y, distance));
-                    vbomesh.addColor(c);
+					mesh.addVertex(ofVec3f(x, y, distance));
+                    mesh.addColor(c);
 				}
 			}
 		}
+        
+        vbo.setMesh(mesh, GL_STATIC_DRAW);
+        if (isSaving) {
+            ofxObjLoader::save("delaunay" + ofToString(ofGetFrameNum()), mesh);
+        }
     }
     
-    if (isSaving) {
-        ofxObjLoader::save("delaunay" + ofToString(ofGetFrameNum()), vbomesh);
-    }
+    
+    //bullet
+	world.update();
+	ofSetWindowTitle(ofToString(ofGetFrameRate(), 0));
+
+}
+
+//--------------------------------------------------------------
+void ofApp::addPoint(float x, float y, float z) {
+	ofVec3f p(x, y, z);
+	points.push_back(p);
+	
+	// we are passing the size in as a normal x position
+	float size = ofRandom(5, 50);
+	sizes.push_back(ofVec3f(size));
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 //    texDepth.draw(10, 100);
 //    texRGB.draw(10, 110 + texDepth.getHeight(), 1920/4, 1080/4);
-    
+    glDepthMask(GL_FALSE);
+
     ofSetColor(255, 255, 255);
+    // this makes everything look glowy :)
+	ofEnableBlendMode(OF_BLENDMODE_ADD);
+	ofEnablePointSprites();
+    // bind the shader and camera
+	// everything inside this function
+	// will be effected by the shader/camera
+	shader.begin();
+	easyCam.begin();
+	
+	// bind the texture so that when all the points
+	// are drawn they are replace with our dot image
+	pointImg.bind();
+	vbo.draw(GL_POINTS, 0, (int)points.size());
+	pointImg.unbind();
+	
+	easyCam.end();
+	shader.end();
+	
+	ofDisablePointSprites();
+	ofDisableBlendMode();
+	
+	// check to see if the points are
+	// sizing to the right size
+	ofEnableAlphaBlending();
+	easyCam.begin();
+	for (unsigned int i=0; i<points.size(); i++) {
+		ofSetColor(255, 80);
+		ofVec3f mid = points[i];
+		mid.normalize();
+		mid *= 300;
+		ofLine(points[i], mid);
+	}
+	easyCam.end();
+	
+	glDepthMask(GL_TRUE);
+	
+
+
     
+    
+    
+    
+    
+    
+    ////
     easyCam.begin();
     drawPointCloud();
     easyCam.end();
+    
+    
+    
+    glEnable( GL_DEPTH_TEST );
+	easyCam.begin();
+	
+	ofSetLineWidth(1.f);
+	ofSetColor(255, 0, 200);
+	world.drawDebug();
+	
+	ofSetColor(100, 100, 100);
+	ground.draw();
+	
+	ofSetColor(225, 225, 225);
+	sphere->draw();
+	
+	ofSetColor(225, 225, 225);
+	box->draw();
+	
+	ofSetColor(225, 225, 225);
+	cylinder->draw();
+	
+	ofSetColor(225, 225, 225);
+	capsule->draw();
+	
+	ofSetColor(225, 225, 225);
+	cone->draw();
+	
+	easyCam.end();
+
+    
+    
+    
+    return;    
+    
+    
+    
+    
     
     
     if (texRGB.isAllocated()) {
@@ -123,20 +293,16 @@ void ofApp::draw(){
     
     syphonServerScreen.publishScreen();
 
-	// draw instructions
-	ofSetColor(255, 255, 255);
-	stringstream reportStream;
-	reportStream
-    << "fps: " << ofGetFrameRate() << endl
-	<< "step = " << step << endl
-    << "pointSize = " << pointSize << endl;
-	ofDrawBitmapString(reportStream.str(),20,20);
+    if (showGui){
+        panel.draw();
+    }
+
 }
 
 void ofApp::exit(){
 }
 void ofApp::drawPointCloud() {
-    if (vbomesh.getNumVertices() == 0) return;
+    if (vbo.getNumVertices() == 0) return;
 
     glPointSize(1);
 	ofPushMatrix();
@@ -144,9 +310,9 @@ void ofApp::drawPointCloud() {
 	ofScale(1, -1, -1);
 	//ofTranslate(0, 0, -1000); // center the points a bit
 	ofEnableDepthTest();
-    //texDepth.bind();
+    //pointImg.bind();
 
-    vbomesh.draw();
+    //vbo.draw();
 	ofDisableDepthTest();
 	ofPopMatrix();
     
@@ -155,8 +321,8 @@ void ofApp::drawPointCloud() {
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
     
-    if (key == 's'){
-        isSaving = !isSaving;
+    if (key == 'g'){
+        showGui = !showGui;
     }
 
 }
