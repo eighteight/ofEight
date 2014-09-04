@@ -1,9 +1,0 @@
-<distance_in_mm>
-	<minDistance>300</minDistance>
-	<maxDistance>960</maxDistance>
-<distance_in_mm/>
-	<Noise_Amount>0</Noise_Amount>
-	<Point_Skip>200</Point_Skip>
-	<Real_Colors>0</Real_Colors>
-	<Color_Alpha>255</Color_Alpha>
-</distance_in_mm>
