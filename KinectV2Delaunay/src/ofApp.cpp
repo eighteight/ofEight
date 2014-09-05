@@ -50,7 +50,7 @@ void ofApp::update(){
         ofPixels colors = kinect.getRgbPixels();
         texDepth.loadData(depths);
         texRGB.loadData(colors);
-        texIr.loadData( kinect.getRawIrPixels() );
+        //texIr.loadData( kinect.getRawIrPixels() );
         ////effects
         del.reset();
 
@@ -86,13 +86,13 @@ void ofApp::update(){
 					
 					if(abs(wc.z) > 100 && abs(wc.z ) < 2000) {
 						
-						wc.z = -wc.z;
+//						wc.z = -wc.z;
 						
-						wc.x += ofSignedNoise(wc.x,wc.z)*noiseAmount;
-						wc.y += ofSignedNoise(wc.y,wc.z)*noiseAmount;
-						
-						wc.x = ofClamp(wc.x, - DEPTH_WIDTH * 0.5, DEPTH_WIDTH * 0.5);
-						wc.y = ofClamp(wc.y, - DEPTH_HEIGHT * 0.5, DEPTH_HEIGHT * 0.5);
+//						wc.x += ofSignedNoise(wc.x,wc.z)*noiseAmount;
+//						wc.y += ofSignedNoise(wc.y,wc.z)*noiseAmount;
+//						
+//						wc.x = ofClamp(wc.x, - DEPTH_WIDTH * 0.5, DEPTH_WIDTH * 0.5);
+//						wc.y = ofClamp(wc.y, - DEPTH_HEIGHT * 0.5, DEPTH_HEIGHT * 0.5);
 						
 						del.addPoint(wc);
 					}
@@ -109,13 +109,17 @@ void ofApp::update(){
         }
         
         for(int i=0;i<del.triangleMesh.getNumIndices()/3;i+=1) {
-            ofVec3f v = del.triangleMesh.getVertex(del.triangleMesh.getIndex(i*3));
-            
-            v.x = ofClamp(v.x, -319,319);
-            v.y = ofClamp(v.y, -239, 239);
-            
-            ofColor c = useRealColors ? colors[v.x+DEPTH_WIDTH * .5, v.y+DEPTH_HEIGHT*.5] : ofColor(255,0,0);
-            
+            ofColor c;
+            if (useRealColors) {
+                ofVec3f v = del.triangleMesh.getVertex(del.triangleMesh.getIndex(i*3));
+                
+                v.x = ofClamp(v.x, -319,319);
+                v.y = ofClamp(v.y, -239, 239);
+                
+                c = colors[v.x+DEPTH_WIDTH * .5, v.y+DEPTH_HEIGHT*.5];
+            } else {
+                c = ofColor(255,0,0);
+            }
             c.a = colorAlpha;
             
             del.triangleMesh.setColor(del.triangleMesh.getIndex(i*3),c);
@@ -185,9 +189,9 @@ void ofApp::draw(){
         syphonServerDepth.publishTexture(&texDepth);
     }
     
-    if (texIr.isAllocated()){
-        syphonServerIr.publishTexture(&texIr);
-    }
+//    if (texIr.isAllocated()){
+//        syphonServerIr.publishTexture(&texIr);
+//    }
     
 
 	ofBackground(219, 214, 217);
