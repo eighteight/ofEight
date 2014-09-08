@@ -56,4 +56,6 @@ class ofApp : public ofBaseApp{
         ofxSyphonServer syphonServerDepth;
         ofxSyphonServer syphonServerRGB;
         ofxSyphonServer syphonServerIr;
+    
+    	ofLight light;
 };

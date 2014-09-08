@@ -1,0 +1,67 @@
+<controls>
+    <Toggle_2_light_enabled>
+        <name>2 light enabled</name>
+        <value>0</value>
+    </Toggle_2_light_enabled>
+    <ComboBox_2_light_type>
+        <name>2 light type</name>
+        <value>0</value>
+    </ComboBox_2_light_type>
+    <SliderFloat_2_pos_x>
+        <name>2 pos x</name>
+        <value>0.000000000</value>
+    </SliderFloat_2_pos_x>
+    <SliderFloat_2_pos_y>
+        <name>2 pos y</name>
+        <value>0.000000000</value>
+    </SliderFloat_2_pos_y>
+    <SliderFloat_2_pos_z>
+        <name>2 pos z</name>
+        <value>0.000000000</value>
+    </SliderFloat_2_pos_z>
+    <SliderFloat_2_target_x>
+        <name>2 target x</name>
+        <value>0.000000000</value>
+    </SliderFloat_2_target_x>
+    <SliderFloat_2_target_y>
+        <name>2 target y</name>
+        <value>0.000000000</value>
+    </SliderFloat_2_target_y>
+    <SliderFloat_2_target_z>
+        <name>2 target z</name>
+        <value>0.000000000</value>
+    </SliderFloat_2_target_z>
+    <SliderFloat_2_conc>
+        <name>2 conc</name>
+        <value>0.000000000</value>
+    </SliderFloat_2_conc>
+    <SliderFloat_2_cutoff>
+        <name>2 cutoff</name>
+        <value>0.000000000</value>
+    </SliderFloat_2_cutoff>
+    <SliderFloat_2_attenuation_const>
+        <name>2 attenuation const</name>
+        <value>0.000000000</value>
+    </SliderFloat_2_attenuation_const>
+    <ColorPicker_2_colour_ambient>
+        <name>2 colour ambient</name>
+        <values_0>0.000000000</values_0>
+        <values_1>0.000000000</values_1>
+        <values_2>0.000000000</values_2>
+        <values_3>1.000000000</values_3>
+    </ColorPicker_2_colour_ambient>
+    <ColorPicker_2_colour_diffuse>
+        <name>2 colour diffuse</name>
+        <values_0>1.000000000</values_0>
+        <values_1>1.000000000</values_1>
+        <values_2>1.000000000</values_2>
+        <values_3>1.000000000</values_3>
+    </ColorPicker_2_colour_diffuse>
+    <ColorPicker_2_colour_specular>
+        <name>2 colour specular</name>
+        <values_0>1.000000000</values_0>
+        <values_1>1.000000000</values_1>
+        <values_2>1.000000000</values_2>
+        <values_3>1.000000000</values_3>
+    </ColorPicker_2_colour_specular>
+</controls>

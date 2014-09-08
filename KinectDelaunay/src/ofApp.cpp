@@ -161,13 +161,13 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofBackground(219, 214, 217);
+	ofBackground(0, 0, 0);
 	//glEnable(GL_DEPTH_TEST);
     
 	ofPushMatrix();
     
 	cam.begin();
-	cam.setScale(1,-1,1);
+	cam.setScale(1,1,1);
     
 	ofSetColor(255,255,255);
 	ofTranslate(0, -80,1100);
@@ -187,14 +187,15 @@ void ofApp::draw(){
 	} else
     ofSetColor(124,136,128,255);
 	
-	ofPushMatrix();
-	ofTranslate(0, 0,0.5);
-	wireframeMesh.drawWireframe();
-	ofPopMatrix();
+//	ofPushMatrix();
+//	ofTranslate(0, 0,0.5);
+//	wireframeMesh.drawWireframe();
+//	ofPopMatrix();
 	cam.end();
 	ofPopMatrix();
     
 	postFx.end();
+
     
 	if(showGui) {
         

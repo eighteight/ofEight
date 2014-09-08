@@ -40,6 +40,8 @@ void ofApp::setup(){
     
     isSaving = false;
     
+    light.enable();
+    
 }
 
 //--------------------------------------------------------------
@@ -48,6 +50,7 @@ void ofApp::update(){
     if( kinect.isFrameNew() ){
         ofPixels depths = kinect.getDepthPixels();
         ofPixels colors = kinect.getRgbPixels();
+        colors.getColor(2,0);
         texDepth.loadData(depths);
         texRGB.loadData(colors);
         //texIr.loadData( kinect.getRawIrPixels() );
@@ -116,7 +119,8 @@ void ofApp::update(){
                 v.x = ofClamp(v.x, -319,319);
                 v.y = ofClamp(v.y, -239, 239);
                 
-                c = colors[v.x+DEPTH_WIDTH * .5, v.y+DEPTH_HEIGHT*.5];
+                //c = colors[v.x+DEPTH_WIDTH * .5, v.y+DEPTH_HEIGHT*.5];
+                c = colors.getColor(v.x, v.y);
             } else {
                 c = ofColor(255,0,0);
             }
