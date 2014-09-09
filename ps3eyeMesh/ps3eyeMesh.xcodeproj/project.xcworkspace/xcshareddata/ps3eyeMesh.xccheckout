@@ -29,7 +29,7 @@
 		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>https://github.com/eighteight/ofEight.git</string>
+	<string>file://localhost/Users/vgusev/repos/openFrameworks/apps/oFeight/ps3eyeMesh/ps3eyeMesh.xcodeproj/project.xcworkspace/</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>110</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
