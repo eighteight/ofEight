@@ -26,6 +26,8 @@
 		AF2E078319BBB4BC0088E8DA /* ofxSyphonServerDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF2E076E19BBB4BC0088E8DA /* ofxSyphonServerDirectory.mm */; };
 		AF2E078A19BBB4EF0088E8DA /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AF2E076219BBB4BC0088E8DA /* Syphon.framework */; };
 		AFBACA3D19BBAE8600CF7419 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFBACA3C19BBAE8600CF7419 /* QuickTime.framework */; };
+		AFE334B719BEAA0200A5E783 /* glm.c in Sources */ = {isa = PBXBuildFile; fileRef = AFE3349719BEAA0200A5E783 /* glm.c */; };
+		AFE334B819BEAA0200A5E783 /* ofxObjLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AFE3349B19BEAA0200A5E783 /* ofxObjLoader.cpp */; };
 		B9DA57768B33F7C78565D998 /* MiscTools.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4C068762039E5B66A5822DF1 /* MiscTools.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
 		CD33672097FDA1FFBEDAA629 /* GenericDriver.m in Sources */ = {isa = PBXBuildFile; fileRef = 1A67B9CE9777841B26A67C23 /* GenericDriver.m */; };
@@ -117,6 +119,10 @@
 		AF2E076D19BBB4BC0088E8DA /* ofxSyphonServerDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSyphonServerDirectory.h; sourceTree = "<group>"; };
 		AF2E076E19BBB4BC0088E8DA /* ofxSyphonServerDirectory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServerDirectory.mm; sourceTree = "<group>"; };
 		AFBACA3C19BBAE8600CF7419 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = ../../../../../../../System/Library/Frameworks/QuickTime.framework; sourceTree = "<group>"; };
+		AFE3349719BEAA0200A5E783 /* glm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glm.c; sourceTree = "<group>"; };
+		AFE3349819BEAA0200A5E783 /* glm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glm.h; sourceTree = "<group>"; };
+		AFE3349B19BEAA0200A5E783 /* ofxObjLoader.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxObjLoader.cpp; sourceTree = "<group>"; };
+		AFE3349C19BEAA0200A5E783 /* ofxObjLoader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxObjLoader.h; sourceTree = "<group>"; };
 		B57E64EE6D9AF5E0A16FCD1E /* Resolvers.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = Resolvers.cpp; path = ../../../addons/ofxMacamPs3Eye/src/macam/Resolvers.cpp; sourceTree = SOURCE_ROOT; };
 		B6DE77B62F1E9D2BDE3BE888 /* Histogram.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 30; name = Histogram.m; path = ../../../addons/ofxMacamPs3Eye/src/macam/Histogram.m; sourceTree = SOURCE_ROOT; };
 		BBAB23BE13894E4700AA2426 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = ../../../libs/glut/lib/osx/GLUT.framework; sourceTree = "<group>"; };
@@ -278,9 +284,38 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		AFE3342019BEAA0000A5E783 /* ofxObjLoader */ = {
+			isa = PBXGroup;
+			children = (
+				AFE3349619BEAA0200A5E783 /* libs */,
+				AFE3349A19BEAA0200A5E783 /* src */,
+			);
+			name = ofxObjLoader;
+			path = ../../../addons/ofxObjLoader;
+			sourceTree = "<group>";
+		};
+		AFE3349619BEAA0200A5E783 /* libs */ = {
+			isa = PBXGroup;
+			children = (
+				AFE3349719BEAA0200A5E783 /* glm.c */,
+				AFE3349819BEAA0200A5E783 /* glm.h */,
+			);
+			path = libs;
+			sourceTree = "<group>";
+		};
+		AFE3349A19BEAA0200A5E783 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				AFE3349B19BEAA0200A5E783 /* ofxObjLoader.cpp */,
+				AFE3349C19BEAA0200A5E783 /* ofxObjLoader.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				AFE3342019BEAA0000A5E783 /* ofxObjLoader */,
 				AF2E071619BBB4BB0088E8DA /* ofxSyphon */,
 				13EBFBD5A535D9F601941AC0 /* ofxMacamPs3Eye */,
 			);
@@ -492,9 +527,11 @@
 				49A32C9017D805133EC68733 /* AGC.m in Sources */,
 				70D04CD0CF0891EBF497A21C /* BayerConverter.m in Sources */,
 				AF2E078119BBB4BC0088E8DA /* ofxSyphonClient.mm in Sources */,
+				AFE334B819BEAA0200A5E783 /* ofxObjLoader.cpp in Sources */,
 				F04CCCF871B1F43935BF762B /* ControllerInterface.m in Sources */,
 				A977196B829A665AAF57E123 /* FrameCounter.m in Sources */,
 				CD33672097FDA1FFBEDAA629 /* GenericDriver.m in Sources */,
+				AFE334B719BEAA0200A5E783 /* glm.c in Sources */,
 				AF2E078319BBB4BC0088E8DA /* ofxSyphonServerDirectory.mm in Sources */,
 				54246E0E70670038E43D95BC /* Histogram.m in Sources */,
 				7420F743C006B26B95FF9051 /* LookUpTable.m in Sources */,

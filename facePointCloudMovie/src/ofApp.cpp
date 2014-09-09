@@ -18,11 +18,10 @@ void ofApp::setup() {
 			if(refColor.a > 0) {
 				// the alpha value encodes depth, let's remap it to a good depth range
 				float z = ofMap(refColor.a, 0, 255, -300, 300);
-				refColor.a = 255;
+				refColor.a = 1;
 				mesh.addColor(refColor);
 				ofVec3f pos(x, y, z);
                 int indx = y*camera.width+x;
-                cout<<indx<<endl;
 				mesh.addVertex(pos);
 			}
 		}
@@ -79,7 +78,7 @@ void ofApp::update() {
 //--------------------------------------------------------------
 void ofApp::draw() {
 
-	ofBackgroundGradient(ofColor::gray, ofColor::black, OF_GRADIENT_CIRCULAR);
+	ofBackgroundGradient(ofColor::black, ofColor::black, OF_GRADIENT_CIRCULAR);
 	
 	// even points can overlap with each other, let's avoid that
 	cam.begin();

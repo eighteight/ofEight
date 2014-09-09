@@ -31,25 +31,19 @@ void ofApp::setup() {
 	int camHeight = 480;
 	
 	ps3eye.listDevices();
-	
-	//ps3eye.setDesiredFrameRate(60);
 	ps3eye.initGrabber(img.getWidth(),img.getHeight(), false);
-	
-//	ps3eye.setAutoGainAndShutter(false); // otherwise we can't set gain or shutter
-//	ps3eye.setGain(1.0);
-//	ps3eye.setShutter(1.0);
-//	ps3eye.setGamma(0.4);
-//	ps3eye.setBrightness(0.6);
-//	ps3eye.setContrast(1.0);
-//	ps3eye.setHue(0.5);
-//	
-//	ps3eye.setFlicker(1);
     
 	ofEnableDepthTest();
 	glEnable(GL_POINT_SMOOTH); // use circular points instead of square points
 	glPointSize(3); // make the points bigger
     
+    ofxObjLoader::load("sofa.obj", sofa, true);
+    sofa.enableColors();
+    sofa.enableTextures();
+    
     faceServer.setName("face");
+    
+    
 }
 
 //--------------------------------------------------------------
@@ -82,6 +76,7 @@ void ofApp::update() {
 void ofApp::draw() {
     
 	ofBackgroundGradient(ofColor::gray, ofColor::black, OF_GRADIENT_CIRCULAR);
+
     int factor = 2;
 	drawCam(factor);
     drawCam(.2);
@@ -93,6 +88,7 @@ void ofApp::draw() {
 //--------------------------------------------------------------
 void ofApp::drawCam(float factor){
     cam.begin();
+    sofa.draw();
 	ofScale(factor, -factor, factor); // flip the y axis and zoom in a bit
 	//ofRotateY(90);
 	ofTranslate(-img.getWidth() *.5, -img.getHeight() * 0.5);

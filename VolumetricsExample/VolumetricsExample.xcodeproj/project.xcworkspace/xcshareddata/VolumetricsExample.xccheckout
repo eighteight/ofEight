@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>02BCDAA1-0A19-4154-AF67-FCB948CB6C6B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>VolumetricsExample</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>807042A0-B8D2-412C-AFC0-A2BAED744CCC</key>
+		<string>https://github.com/openframeworks/openFrameworks.git</string>
+		<key>DF4EC768-1F20-4EE8-A0BF-CCA95E66A15F</key>
+		<string>https://github.com/eighteight/ofEight.git</string>
+		<key>EB430387-4C1A-4E1C-A827-92DD3E66754B</key>
+		<string>https://github.com/timscaffidi/ofxVolumetrics.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>apps/ofEight/VolumetricsExample/VolumetricsExample.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>807042A0-B8D2-412C-AFC0-A2BAED744CCC</key>
+		<string>../../../../..</string>
+		<key>DF4EC768-1F20-4EE8-A0BF-CCA95E66A15F</key>
+		<string>../../..</string>
+		<key>EB430387-4C1A-4E1C-A827-92DD3E66754B</key>
+		<string>../../../../../addons/ofxVolumetrics</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/eighteight/ofEight.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>807042A0-B8D2-412C-AFC0-A2BAED744CCC</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DF4EC768-1F20-4EE8-A0BF-CCA95E66A15F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofEight</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EB430387-4C1A-4E1C-A827-92DD3E66754B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxVolumetrics</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>807042A0-B8D2-412C-AFC0-A2BAED744CCC</string>
+			<key>IDESourceControlWCCName</key>
+			<string>openFrameworks</string>
+		</dict>
+	</array>
+</dict>
+</plist>

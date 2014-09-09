@@ -3,6 +3,7 @@
 #include "ofMain.h"
 #include "ofxMacamPs3Eye.h"
 #include "ofxSyphon.h"
+#include "ofxObjLoader.h"
 
 class ofApp : public ofBaseApp{
 
@@ -28,6 +29,8 @@ class ofApp : public ofBaseApp{
 
     ofxMacamPs3Eye      ps3eye;
     ofxSyphonServer     faceServer;
+    
+    ofMesh sofa;
 
 		
 };
