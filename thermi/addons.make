@@ -1,3 +1,0 @@
-ofxThermitrack
-ofxTuio
-ofxXmlSettings

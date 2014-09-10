@@ -112,6 +112,7 @@ void ofApp::setup() {
 void ofApp::update() {
     ps3eye.update();
 	if(ps3eye.isFrameNew()) {
+        faceServer.publishTexture(ps3eye.getTexture());
         mesh.clear();
         ofPixelsRef pix = ps3eye.getPixelsRef();
         int width = ps3eye.getWidth();
