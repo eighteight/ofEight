@@ -80,12 +80,12 @@ void ofApp::update(){
     
     ofImage syphonImg;
     tex.readToPixels(img);
-    syphonClient.unbind();
+
     
 	if(tex.isAllocated()) {
         mesh.clear();
-        int width = tex.getWidth();
-        int height = tex.getHeight();
+        int width = img.getWidth();
+        int height = img.getHeight();
         int skip = 4; // load a subset of the points
         for(int y = 0; y < height; y += skip) {
             for(int x = 0; x < width; x += skip) {
@@ -103,18 +103,21 @@ void ofApp::update(){
         }
 	}
     
+        syphonClient.unbind();
+    
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     
-    syphonClient.draw(100,100);
-    return;
+    syphonClient.draw(0,0,50,50);
+
 	camera.begin();
-	materialPlane.begin();
-	plane.draw();
-	ofDrawSphere(0,-300,0,10000);
-	materialPlane.end();
+
+//	materialPlane.begin();
+//	plane.draw();
+//	ofDrawSphere(0,-300,0,10000);
+//	materialPlane.end();
     
     float factor = 2.0;
 	ofScale(factor, -factor, factor); // flip the y axis and zoom in a bit
@@ -127,11 +130,7 @@ void ofApp::draw(){
     
     
     
-    areaLight.draw();
-
-    
-    
-	areaLight.draw();
+//	areaLight.draw();
 	camera.end();
 }
 
