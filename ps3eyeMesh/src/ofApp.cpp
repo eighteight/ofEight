@@ -60,7 +60,9 @@ void ofApp::setup() {
 	int camHeight = 480;
 	
 	ps3eye.listDevices();
-	ps3eye.initGrabber(img.getWidth(),img.getHeight(), false);
+	if (!ps3eye.initGrabber(img.getWidth(),img.getHeight(), false)){
+        cout<<"CAM not initialized"<<endl;
+    };
     return;
 	ofEnableDepthTest();
 	glEnable(GL_POINT_SMOOTH); // use circular points instead of square points
@@ -210,7 +212,7 @@ void ofApp::draw() {
 
 //--------------------------------------------------------------
 void ofApp::drawCam(float factor){
-        fogShader.begin();
+  //      fogShader.begin();
     cam.begin();
     //ofEnableBlendMode(OF_BLENDMODE_SCREEN);
 
