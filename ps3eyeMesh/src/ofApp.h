@@ -4,8 +4,6 @@
 #include "ofxMacamPs3Eye.h"
 #include "ofxSyphon.h"
 #include "ofxObjLoader.h"
-#include "ofxFog.h"
-#include "ofxGui.h"
 
 class ofApp : public ofBaseApp{
 
@@ -31,34 +29,11 @@ class ofApp : public ofBaseApp{
 
     ofxMacamPs3Eye      ps3eye;
     ofxSyphonServer     faceServer;
-    
+    ofxSyphonServer     camServer;
     ofMesh sofa;
     
-    ///////
-    ofxFog fog;
-    ofFloatColor fogColor;
+    Vec3f cubicInterpolate(cinder::Vec3f &p0, cinder::Vec3f &p1, cinder::Vec3f &p2, cinder::Vec3f &p3, float t);
     
-    ofShader fogShader;
-    ofLight light;
-    ofFloatColor lightAmbient;
-    ofFloatColor lightDiffuse;
-    ofVec3f lightPosition;
-    ofImage color;
-    ofxPanel gui;
-    bool bHide;
-    
-    ofxFloatSlider density;
-    ofxFloatSlider fog_start;
-    ofxFloatSlider fog_end;
-    ofxFloatSlider r, g, b;
-    ofxIntSlider fogFilter;
-    
-    
-    ////area light
-    ofLight areaLight;
-    ofPlanePrimitive plane;
-    ofEasyCam camera;
-    ofMaterial materialPlane;
-
+    bool isCameraGrabbing;
 		
 };

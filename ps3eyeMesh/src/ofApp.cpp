@@ -2,32 +2,6 @@
 #include <limits>
 //--------------------------------------------------------------
 void ofApp::setup() {
-    ofEnableLighting();
-	ofEnableDepthTest();
-	areaLight.setup();
-	areaLight.enable();
-	areaLight.setAreaLight(120,400);
-	//areaLight.setSpotlight(80,3);
-	areaLight.setAmbientColor(ofFloatColor(0.1,0.1,0.1));
-	areaLight.setAttenuation(1.0,0.0001,0.0001);
-	areaLight.setDiffuseColor(ofFloatColor(1,1,1));
-	areaLight.setSpecularColor(ofFloatColor(1,1,1));
-	areaLight.rotate(-90,ofVec3f(1,0,0));
-	areaLight.rotate(30,ofVec3f(0,0,1));
-	areaLight.setPosition(0,-200,0);
-    
-	ofBackground(0);
-	plane.set(20000,20000,2,2);
-	plane.rotate(-90,ofVec3f(1,0,0));
-	plane.move(ofVec3f(0,-300,0));
-	materialPlane.setAmbientColor(ofFloatColor(0.1,0.1,0.1,1.0));
-	materialPlane.setDiffuseColor(ofFloatColor(0.8,0.8,0.8,1.0));
-	materialPlane.setSpecularColor(ofFloatColor(0.8,0.8,0.8,1.0));
-    return;
-    
-    ///area light end
-
-	
     ofSetVerticalSync(true);
 
 	// load an image from disk
@@ -63,48 +37,9 @@ void ofApp::setup() {
 	if (!ps3eye.initGrabber(img.getWidth(),img.getHeight(), false)){
         cout<<"CAM not initialized"<<endl;
     };
-    return;
-	ofEnableDepthTest();
-	glEnable(GL_POINT_SMOOTH); // use circular points instead of square points
-	glPointSize(3); // make the points bigger
-    
-    ofxObjLoader::load("sofa.obj", sofa, true);
-    sofa.enableColors();
-    sofa.enableTextures();
-    
-    
-    gui.setup("fog control"); // most of the time you don't need a name
-    
-	gui.add(density.setup( "density", 0.0035f, 0.0f , 0.5f ));
-	gui.add(fog_start.setup( "fog start", 10.0f, 0.0f, 255.0f ));
-	gui.add(fog_end.setup( "fog end", 50.0f, 0.0f, 255.0f ));
-	gui.add(r.setup( "redColor", 0.1f, 0, 1 ));
-	gui.add(g.setup( "greenColor", 0.2f, 0, 1 ));
-	gui.add(b.setup( "blueColor", 0.5f, 0, 1 ));
-	gui.add(fogFilter.setup( "switch fog",1, 0,2));
-    
-    
-    ofDisableArbTex();
-    
-    ofEnableLighting();
-    
-    fogShader.load("shaders/FogShaderTex");
-    
-    color.loadImage("textures/pond1.jpg");
-    
-    fogShader.begin();
-    
-    
-    fogShader.setUniformTexture( "baseMap", color, color.getTextureReference().getTextureData().textureID );
-    
-    fogShader.end();
-    
-    
-    bHide = true;
-    fog.setup();
-    
-    ofSetWindowShape(camWidth,camHeight);
-    
+    camServer.setName("CAM");
+    faceServer.setName("FACE");
+    isCameraGrabbing = false;
     
 }
 
@@ -112,7 +47,7 @@ void ofApp::setup() {
 void ofApp::update() {
     ps3eye.update();
 	if(ps3eye.isFrameNew()) {
-        faceServer.publishTexture(ps3eye.getTexture());
+        isCameraGrabbing = true;
         mesh.clear();
         ofPixelsRef pix = ps3eye.getPixelsRef();
         int width = ps3eye.getWidth();
@@ -133,116 +68,66 @@ void ofApp::update() {
             }
         }
 	}
-    
-    return;
-    
-    
-    
-    fogColor.set(r,g,b) ;//= {r,g,b,1.0f};   // Fog Color
-    
-    
-    fog.setfogColor(fogColor);
-    fog.setFogMode(fogFilter);
-    fog.setDensity(density);
-    fog.setFogStartEnd(fog_start,fog_end);
-    fog.enableCoordinate(true);
-    fog.enable();
-
 }
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-    
-    camera.begin();
-	materialPlane.begin();
-	plane.draw();
-	ofDrawSphere(0,-300,0,10000);
-	materialPlane.end();
-	areaLight.draw();
-	camera.end();
-    
-    return;
-    
-    
-    
-    
-    
-    
-    
-    
-    ofEnableLighting();
-    
-    glClearDepth(1.0);
-    glEnable(GL_DEPTH_TEST);                       // Enables Depth Testing
-    glDepthFunc(GL_LEQUAL);                        // Type of Depth Test to perform
-    
-    
-    
-    glShadeModel(GL_SMOOTH);
-    
-    
-    glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-    
 
-    
-    int factor = 2;
-	drawCam(factor);
-    //drawCam(.2);
-    drawCam(0.02);
-//
-//    faceServer.publishScreen();
-    ofBox(100);
-    
-
-    ofDisableLighting();
-    glDisable(GL_DEPTH_TEST);
-    
-    
-    
-    if( bHide ){
-        
-        fog.disable();
-		gui.draw();
-        
+    if (isCameraGrabbing){
+        camServer.publishTexture(&ps3eye.getTextureReference());
     }
-    ofSetColor(220,10,0);
-    ofDrawBitmapString("I'm a string not coloured by the fog!", 10,720);
-
-    ofDrawBitmapString("I'm a string not coloured by the fog!", 10,720);
+    ofBackgroundGradient(ofColor::black, ofColor::black, OF_GRADIENT_CIRCULAR);
+    cam.begin();
+    //sofa.draw();
+	ofScale(2, -2, 2); // flip the y axis and zoom in a bit
+	//ofRotateY(90);
+	ofTranslate(-img.getWidth() *.5, -img.getHeight() * 0.5);
+	mesh.draw();
+	cam.end();
+    
+    
+    
+    cam.begin();
+    //sofa.draw();
+	ofScale(2, -2, 2); // flip the y axis and zoom in a bit
+	//ofRotateY(90);
+    ofTranslate(-img.getWidth() *.5, -img.getHeight() * 0.5, -img.getHeight() * 2.5);
+	mesh.draw();
+	cam.end();
+    
+    faceServer.publishScreen();
 }
 
 //--------------------------------------------------------------
 void ofApp::drawCam(float factor){
-  //      fogShader.begin();
     cam.begin();
-    //ofEnableBlendMode(OF_BLENDMODE_SCREEN);
-
-    sofa.draw();
-	ofScale(factor, -factor, factor); // flip the y axis and zoom in a bit
+    //sofa.draw();
+	ofScale(2, -2, 2); // flip the y axis and zoom in a bit
 	//ofRotateY(90);
-	ofTranslate(-img.getWidth() *.5, -img.getHeight() * 0.5);
+	ofTranslate(-img.getWidth() *.5, -img.getHeight() * 0.5, -img.getHeight() * factor*10);
 	mesh.draw();
-    //    ofDisableBlendMode();
-        fogShader.end();
 	cam.end();
 }
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-   	switch(key){
+    
+    cam.
+    switch(key){
         case OF_KEY_UP:
-            areaLight.move(0,10,0);
+            //areaLight.move(0,10,0);
             break;
         case OF_KEY_DOWN:
-            areaLight.move(0,-10,0);
+            //areaLight.move(0,-10,0);
             break;
         case OF_KEY_LEFT:
-            areaLight.rotate(1,0,0,1);
+            //areaLight.rotate(1,0,0,1);
             break;
         case OF_KEY_RIGHT:
-            areaLight.rotate(-1,0,0,1);
+            //areaLight.rotate(-1,0,0,1);
             break;
 	}
+
 }
 
 //--------------------------------------------------------------
