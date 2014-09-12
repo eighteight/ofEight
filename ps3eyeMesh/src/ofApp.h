@@ -32,7 +32,7 @@ class ofApp : public ofBaseApp{
     ofxSyphonServer     camServer;
     ofMesh sofa;
     
-    Vec3f cubicInterpolate(cinder::Vec3f &p0, cinder::Vec3f &p1, cinder::Vec3f &p2, cinder::Vec3f &p3, float t);
+    ofVec3f cubicInterpolate(ofVec3f &p0, ofVec3f &p1, ofVec3f &p2, ofVec3f &p3, float t);
     
     bool isCameraGrabbing;
 		

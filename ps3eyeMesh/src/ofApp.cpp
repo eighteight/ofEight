@@ -76,7 +76,10 @@ void ofApp::draw() {
     if (isCameraGrabbing){
         camServer.publishTexture(&ps3eye.getTextureReference());
     }
-    ofBackgroundGradient(ofColor::black, ofColor::black, OF_GRADIENT_CIRCULAR);
+    //ofBackgroundGradient(ofColor::black, ofColor::black, OF_GRADIENT_CIRCULAR);
+    ofBackgroundGradient(ofColor::gray, ofColor::black, OF_GRADIENT_CIRCULAR);
+	
+    
     cam.begin();
     //sofa.draw();
 	ofScale(2, -2, 2); // flip the y axis and zoom in a bit
@@ -109,10 +112,12 @@ void ofApp::drawCam(float factor){
 	cam.end();
 }
 
+ofVec3f ofApp::cubicInterpolate(ofVec3f &p0, ofVec3f &p1, ofVec3f &p2, ofVec3f &p3, float t){
+    
+}
+
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
-    
-    cam.
     switch(key){
         case OF_KEY_UP:
             //areaLight.move(0,10,0);
