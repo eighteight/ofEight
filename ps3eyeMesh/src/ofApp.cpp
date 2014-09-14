@@ -33,7 +33,7 @@ void ofApp::setup() {
 	}
 
 	ps3eye.listDevices();
-	if (!ps3eye.initGrabber(img.getWidth(),img.getHeight(), false)){
+	if (!ps3eye.initGrabber(WIDTH,HEIGHT, false)){
         cout<<"CAM not initialized"<<endl;
     }
 
@@ -111,6 +111,11 @@ void ofApp::setPS3EyeGUI(){
     led->setup("LED", true);
 	led->addListener(this, &ofApp::onLedChange);
 	gui.add(led);
+    
+    ofxToggle * resetCam = new ofxToggle();
+    resetCam->setup("Reset PS3EYE", true);
+    resetCam->addListener(this, &ofApp::onResetCamera);
+    //gui.add(resetCam);
 	
 	// Load initial values
     
@@ -400,4 +405,8 @@ void ofApp::onFlickerChange(int & value){
 //--------------------------------------------------------------
 void ofApp::onWhiteBalanceChange(int & value){
 	ps3eye.setWhiteBalance(value);
+}
+
+void ofApp::onResetCamera(bool &value){
+    ps3eye.initGrabber(WIDTH, HEIGHT, false);
 }

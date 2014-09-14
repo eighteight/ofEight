@@ -38,6 +38,7 @@ class ofApp : public ofBaseApp{
         void onLedChange(bool & value);
         void onFlickerChange(int & value);
         void onWhiteBalanceChange(int & value);
+        void onResetCamera(bool & value);
     
     ofEasyCam cam;
     ofVboMesh mesh;
