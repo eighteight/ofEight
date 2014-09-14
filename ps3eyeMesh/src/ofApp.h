@@ -51,10 +51,10 @@ class ofApp : public ofBaseApp{
     ofxSyphonServer     camServer;
 
 	ofxPanel gui, ps3EyeGui;
-	ofxSlider<int> colorAlpha;
+	ofxSlider<float> animationSpeed;
+	ofxSlider<float> easyCamFarClip;
 	ofxSlider<int> pointSize;
 	ofxToggle isEasyCamMoving;
-	ofxToggle roll;
     
     vector<ofVec3f> myLocations;
     float startTime;

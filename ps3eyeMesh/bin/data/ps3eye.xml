@@ -1,6 +1,6 @@
 <PS3Eye>
 	<Point_Size>3</Point_Size>
-	<Animate_Cam>1</Animate_Cam>
+	<Animate_Cam>0</Animate_Cam>
 	<Roll_Cam>0</Roll_Cam>
 	<Auto_Gain_and_Shutter>0</Auto_Gain_and_Shutter>
 	<Gain>0.5</Gain>
@@ -13,4 +13,6 @@
 	<White_Balance_Mode>4</White_Balance_Mode>
 	<LED>1</LED>
 <PS3Eye/>
+<Animate_Speed>0.0639</Animate_Speed>
+<Far_Clip>1982</Far_Clip>
 </PS3Eye>

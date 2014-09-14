@@ -4,10 +4,11 @@
 //--------------------------------------------------------------
 void ofApp::setup() {
     ofSetVerticalSync(true);
+    //ofSetFrameRate(30.0);
     setCamLocations();
     isEasyCamMoving = false;
 	// load an image from disk
-	img.loadImage("linzer-640x480.png");
+	img.loadImage("linzer-640x480-cleaned.png");
 	
 	// we're going to load a ton of points into an ofMesh
 	mesh.setMode(OF_PRIMITIVE_POINTS);
@@ -58,10 +59,10 @@ void ofApp::setPS3EyeGUI(){
     gui.setup("PS3Eye", "ps3eye.xml");
 	gui.setPosition(ofPoint(10,10));
 	gui.add(pointSize.setup("Point Size", 3, 1, 10));
+    gui.add(easyCamFarClip.setup("Far Clip", 1900, 200, 10000));
 	gui.add(isEasyCamMoving.setup("Animate Cam", false));
-	gui.add(roll.setup("Roll Cam", false));
-    
-	gui.loadFromFile("settings.xml");
+    gui.add(animationSpeed.setup("Animate Speed", 0.1, 0.01, 0.5));
+
     ofxToggle * autoGainAndShutter = new ofxToggle();
     autoGainAndShutter->setup("Auto Gain and Shutter", false);
     autoGainAndShutter->addListener(this, &ofApp::onAutoGainAndShutterChange);
@@ -150,16 +151,24 @@ void ofApp::setCamLocations(){
     startTime = ofGetElapsedTimef();
     myLocations.clear();
     myLocations.push_back(ofVec3f(0., 0., 665.));
-    myLocations.push_back(ofVec3f(0., 0, 0));
-    myLocations.push_back(ofVec3f(WIDTH, 0, -HEIGHT));
-    myLocations.push_back(ofVec3f(WIDTH, HEIGHT, 0.));
-    myLocations.push_back(ofVec3f(0, 0., 0));
-    myLocations.push_back(ofVec3f(-WIDTH, 0., HEIGHT));
+    myLocations.push_back(ofVec3f(0., 0., 0.));
+    myLocations.push_back(ofVec3f(0., 0., -1000.));
+    myLocations.push_back(ofVec3f(0, 0, -2000.));
+    myLocations.push_back(ofVec3f(0, 0, -3000.));
+    myLocations.push_back(ofVec3f(0, 0., -4000.));
+    myLocations.push_back(ofVec3f(0, 0., -5000.));
+    myLocations.push_back(ofVec3f(0, 0., -6000.));
+    myLocations.push_back(ofVec3f(-WIDTH, 0., -6000.));
+    myLocations.push_back(ofVec3f(0, 0., -4000.));
+//    myLocations.push_back(ofVec3f(0., 0., 0));
+//    myLocations.push_back(ofVec3f(WIDTH, 0, -HEIGHT));
+//    myLocations.push_back(ofVec3f(WIDTH, HEIGHT, 0.));
+//    myLocations.push_back(ofVec3f(0, 0., 0));
+//    myLocations.push_back(ofVec3f(-WIDTH, 0., HEIGHT));
 
     cam.setGlobalPosition(myLocations[0]);
-    cam.setFarClip(2000.);
+    cam.setFarClip(easyCamFarClip);
     cam.disableMouseInput();
-    float ff = cam.getFarClip();
     ////anim
     currentAnim = 0;
     animatable.setPosition(myLocations[0]);
@@ -188,8 +197,7 @@ void ofApp::updateCamPosition(){
         cout << currentAnim<<" GOAL: "<< end <<endl;
         animatable.setCurve(EASE_IN_EASE_OUT);
     }
-    
-    animatable.update( 0.1f/60.0f );
+    animatable.update( animationSpeed/60.0f );
 
     cam.setGlobalPosition(animatable.getCurrentPosition());
     //cam.lookAt(animatable.getTargetPosition());
@@ -245,6 +253,7 @@ void ofApp::update() {
         ofSetWindowTitle("NO Camera");
     
     glPointSize(pointSize);
+    cam.setFarClip(easyCamFarClip);
     
 }
 
@@ -258,7 +267,7 @@ void ofApp::draw() {
     ofEnableDepthTest();
 
     //ofBackgroundGradient(ofColor::black, ofColor::black, OF_GRADIENT_CIRCULAR);
-    ofBackgroundGradient(ofColor::blueSteel, ofColor::black, OF_GRADIENT_CIRCULAR);
+    ofBackgroundGradient(ofColor::black, ofColor::black, OF_GRADIENT_CIRCULAR);
 	
     cam.begin();
         for (int i = 1; i < myLocations.size(); i++){
@@ -266,7 +275,7 @@ void ofApp::draw() {
             //ofSphere(animatable.getCurrentPosition(),100);
 //            sofa.draw();
                 ofScale(2, -2, 2); // flip the y axis and zoom in a bit
-            if (roll){
+            if (isEasyCamMoving){
                 currentRotation += .002;
             }
             ofRotate(currentRotation, 0, 0, 1);
