@@ -15,7 +15,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "115"
             endingLineNumber = "115"
-            landmarkName = "ofApp::update()"
+            landmarkName = "ofApp::dragEvent(ofDragInfo dragInfo)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -31,7 +31,7 @@
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "113"
             endingLineNumber = "113"
-            landmarkName = "ofApp::update()"
+            landmarkName = "ofApp::dragEvent(ofDragInfo dragInfo)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

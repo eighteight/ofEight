@@ -4,6 +4,8 @@
 #include "ofxMacamPs3Eye.h"
 #include "ofxSyphon.h"
 #include "ofxObjLoader.h"
+#include "ofxGui.h"
+#include "ofxAnimatableOfPoint.h"
 
 class ofApp : public ofBaseApp{
 
@@ -22,18 +24,43 @@ class ofApp : public ofBaseApp{
 		void dragEvent(ofDragInfo dragInfo);
 		void gotMessage(ofMessage msg);
         void drawCam(float factor);
+        void updateCamPosition();
+        void setCamLocations();
+        void setPS3EyeGUI();
+    
+        void onAutoGainAndShutterChange(bool & value);
+        void onGainChange(float & value);
+        void onShutterChange(float & value);
+        void onGammaChange(float & value);
+        void onBrightnessChange(float & value);
+        void onContrastChange(float & value);
+        void onHueChange(float & value);
+        void onLedChange(bool & value);
+        void onFlickerChange(int & value);
+        void onWhiteBalanceChange(int & value);
     
     ofEasyCam cam;
     ofVboMesh mesh;
     ofImage img;
-
-    ofxMacamPs3Eye      ps3eye;
-    ofxSyphonServer     faceServer;
-    ofxSyphonServer     camServer;
     ofMesh sofa;
     
-    ofVec3f cubicInterpolate(ofVec3f &p0, ofVec3f &p1, ofVec3f &p2, ofVec3f &p3, float t);
+    ofxMacamPs3Eye      ps3eye;
     
+    ofxSyphonServer     faceServer;
+    ofxSyphonServer     camServer;
+
+	ofxPanel gui, ps3EyeGui;
+	ofxSlider<int> colorAlpha;
+	ofxSlider<int> pointSize;
+	ofxToggle isEasyCamMoving;
+	ofxToggle roll;
+    
+    vector<ofVec3f> myLocations;
+    float startTime;
     bool isCameraGrabbing;
+
+    ofxAnimatableOfPoint animatable;
+    int currentAnim;
+    float currentRotation;
 		
 };

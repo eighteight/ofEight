@@ -25,6 +25,10 @@
 		AF2E078219BBB4BC0088E8DA /* ofxSyphonServer.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF2E076C19BBB4BC0088E8DA /* ofxSyphonServer.mm */; };
 		AF2E078319BBB4BC0088E8DA /* ofxSyphonServerDirectory.mm in Sources */ = {isa = PBXBuildFile; fileRef = AF2E076E19BBB4BC0088E8DA /* ofxSyphonServerDirectory.mm */; };
 		AF2E078A19BBB4EF0088E8DA /* Syphon.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = AF2E076219BBB4BC0088E8DA /* Syphon.framework */; };
+		AF60CA7619C4E00A0066C09A /* ofxAnimatable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF60CA6C19C4E00A0066C09A /* ofxAnimatable.cpp */; };
+		AF60CA7719C4E00A0066C09A /* ofxAnimatableFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF60CA6E19C4E00A0066C09A /* ofxAnimatableFloat.cpp */; };
+		AF60CA7819C4E00A0066C09A /* ofxAnimatableOfColor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF60CA7019C4E00A0066C09A /* ofxAnimatableOfColor.cpp */; };
+		AF60CA7919C4E00A0066C09A /* ofxAnimatableOfPoint.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AF60CA7219C4E00A0066C09A /* ofxAnimatableOfPoint.cpp */; };
 		AFBACA3D19BBAE8600CF7419 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFBACA3C19BBAE8600CF7419 /* QuickTime.framework */; };
 		AFE334B719BEAA0200A5E783 /* glm.c in Sources */ = {isa = PBXBuildFile; fileRef = AFE3349719BEAA0200A5E783 /* glm.c */; };
 		AFE334B819BEAA0200A5E783 /* ofxObjLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = AFE3349B19BEAA0200A5E783 /* ofxObjLoader.cpp */; };
@@ -127,6 +131,15 @@
 		AF2E076C19BBB4BC0088E8DA /* ofxSyphonServer.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServer.mm; sourceTree = "<group>"; };
 		AF2E076D19BBB4BC0088E8DA /* ofxSyphonServerDirectory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxSyphonServerDirectory.h; sourceTree = "<group>"; };
 		AF2E076E19BBB4BC0088E8DA /* ofxSyphonServerDirectory.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ofxSyphonServerDirectory.mm; sourceTree = "<group>"; };
+		AF60CA6A19C4E00A0066C09A /* ReadMe.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = ReadMe.md; sourceTree = "<group>"; };
+		AF60CA6C19C4E00A0066C09A /* ofxAnimatable.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatable.cpp; sourceTree = "<group>"; };
+		AF60CA6D19C4E00A0066C09A /* ofxAnimatable.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAnimatable.h; sourceTree = "<group>"; };
+		AF60CA6E19C4E00A0066C09A /* ofxAnimatableFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatableFloat.cpp; sourceTree = "<group>"; };
+		AF60CA6F19C4E00A0066C09A /* ofxAnimatableFloat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAnimatableFloat.h; sourceTree = "<group>"; };
+		AF60CA7019C4E00A0066C09A /* ofxAnimatableOfColor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatableOfColor.cpp; sourceTree = "<group>"; };
+		AF60CA7119C4E00A0066C09A /* ofxAnimatableOfColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAnimatableOfColor.h; sourceTree = "<group>"; };
+		AF60CA7219C4E00A0066C09A /* ofxAnimatableOfPoint.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxAnimatableOfPoint.cpp; sourceTree = "<group>"; };
+		AF60CA7319C4E00A0066C09A /* ofxAnimatableOfPoint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxAnimatableOfPoint.h; sourceTree = "<group>"; };
 		AFBACA3C19BBAE8600CF7419 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = ../../../../../../../System/Library/Frameworks/QuickTime.framework; sourceTree = "<group>"; };
 		AFE3349719BEAA0200A5E783 /* glm.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = glm.c; sourceTree = "<group>"; };
 		AFE3349819BEAA0200A5E783 /* glm.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = glm.h; sourceTree = "<group>"; };
@@ -312,6 +325,31 @@
 			path = src;
 			sourceTree = "<group>";
 		};
+		AF60CA6319C4E00A0066C09A /* ofxAnimatable */ = {
+			isa = PBXGroup;
+			children = (
+				AF60CA6A19C4E00A0066C09A /* ReadMe.md */,
+				AF60CA6B19C4E00A0066C09A /* src */,
+			);
+			name = ofxAnimatable;
+			path = ../../../addons/ofxAnimatable;
+			sourceTree = "<group>";
+		};
+		AF60CA6B19C4E00A0066C09A /* src */ = {
+			isa = PBXGroup;
+			children = (
+				AF60CA6C19C4E00A0066C09A /* ofxAnimatable.cpp */,
+				AF60CA6D19C4E00A0066C09A /* ofxAnimatable.h */,
+				AF60CA6E19C4E00A0066C09A /* ofxAnimatableFloat.cpp */,
+				AF60CA6F19C4E00A0066C09A /* ofxAnimatableFloat.h */,
+				AF60CA7019C4E00A0066C09A /* ofxAnimatableOfColor.cpp */,
+				AF60CA7119C4E00A0066C09A /* ofxAnimatableOfColor.h */,
+				AF60CA7219C4E00A0066C09A /* ofxAnimatableOfPoint.cpp */,
+				AF60CA7319C4E00A0066C09A /* ofxAnimatableOfPoint.h */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
 		AFE3342019BEAA0000A5E783 /* ofxObjLoader */ = {
 			isa = PBXGroup;
 			children = (
@@ -343,6 +381,7 @@
 		BB4B014C10F69532006C3DED /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				AF60CA6319C4E00A0066C09A /* ofxAnimatable */,
 				E6E5CDC919BF52870073245C /* ofxGui */,
 				E6511F6219BF4191009C6C95 /* ofxFog */,
 				AFE3342019BEAA0000A5E783 /* ofxObjLoader */,
@@ -624,12 +663,15 @@
 				54246E0E70670038E43D95BC /* Histogram.m in Sources */,
 				7420F743C006B26B95FF9051 /* LookUpTable.m in Sources */,
 				E6E5CDDC19BF52870073245C /* ofxBaseGui.cpp in Sources */,
+				AF60CA7719C4E00A0066C09A /* ofxAnimatableFloat.cpp in Sources */,
 				ADF8B0EA6A6B24734C9AA58C /* MiniGraphicsTools.cpp in Sources */,
 				B9DA57768B33F7C78565D998 /* MiscTools.cpp in Sources */,
 				F3E713688B294518F741B7E9 /* MyCameraCentral.m in Sources */,
 				AF2E078019BBB4BC0088E8DA /* SyphonNameboundClient.m in Sources */,
+				AF60CA7919C4E00A0066C09A /* ofxAnimatableOfPoint.cpp in Sources */,
 				859C20916AF9A4F8D4A929F6 /* MyCameraDriver.m in Sources */,
 				A6E663C9C7F2B67585FCA31A /* MyCameraInfo.m in Sources */,
+				AF60CA7619C4E00A0066C09A /* ofxAnimatable.cpp in Sources */,
 				4C223A5AC3B77923C42438F7 /* OV534Driver.m in Sources */,
 				56C1461D4D6DF6D99FCB8A9A /* Resolvers.cpp in Sources */,
 				90965E88EDD92E0D10B07FE2 /* Sensor.m in Sources */,
@@ -637,6 +679,7 @@
 				E6511F7B19BF4192009C6C95 /* ofxFog.cpp in Sources */,
 				3321B96C9659105F44350A6C /* PS3EyeWindowAppDelegate.m in Sources */,
 				AF2E078219BBB4BC0088E8DA /* ofxSyphonServer.mm in Sources */,
+				AF60CA7819C4E00A0066C09A /* ofxAnimatableOfColor.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
