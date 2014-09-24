@@ -17,14 +17,12 @@ void ofApp::setup() {
 	int skip = 4; // load a subset of the points
     int width = img.getHeight();
     int height = img.getHeight();
-    float maxZ = .0;
 	for(int y = 0; y <HEIGHT; y += skip) {
 		for(int x = 0; x < WIDTH; x += skip) {
 			ofColor cur = img.getColor(x, y);
 			if(cur.a > 0) {
 				// the alpha value encodes depth, let's remap it to a good depth range
 				float z = ofMap(cur.a, 0, 255, -300, 300);
-                if (abs(z)>maxZ) maxZ = abs(z);
 				cur.a = 255;
 				mesh.addColor(cur);
 				ofVec3f pos(x, y, z);
@@ -155,16 +153,11 @@ void ofApp::setCamLocations(){
     myLocations.push_back(ofVec3f(0., 0., -1000.));
     myLocations.push_back(ofVec3f(0, 0, -2000.));
     myLocations.push_back(ofVec3f(0, 0, -3000.));
-    myLocations.push_back(ofVec3f(0, 0., -4000.));
-    myLocations.push_back(ofVec3f(0, 0., -5000.));
-    myLocations.push_back(ofVec3f(0, 0., -6000.));
-    myLocations.push_back(ofVec3f(-WIDTH, 0., -6000.));
-    myLocations.push_back(ofVec3f(0, 0., -4000.));
-//    myLocations.push_back(ofVec3f(0., 0., 0));
-//    myLocations.push_back(ofVec3f(WIDTH, 0, -HEIGHT));
-//    myLocations.push_back(ofVec3f(WIDTH, HEIGHT, 0.));
-//    myLocations.push_back(ofVec3f(0, 0., 0));
-//    myLocations.push_back(ofVec3f(-WIDTH, 0., HEIGHT));
+    myLocations.push_back(ofVec3f(0, 0., -2000.1));
+    myLocations.push_back(ofVec3f(0, 0., -1000.1));
+    myLocations.push_back(ofVec3f(0, 0., .1));
+//    myLocations.push_back(ofVec3f(-WIDTH, 0., -6000.));
+//    myLocations.push_back(ofVec3f(0, 0., -4000.));
 
     cam.setGlobalPosition(myLocations[0]);
     cam.setFarClip(easyCamFarClip);
@@ -173,7 +166,7 @@ void ofApp::setCamLocations(){
     currentAnim = 0;
     animatable.setPosition(myLocations[0]);
     animatable.animateTo(myLocations[1]);
-    animatable.setCurve(EASE_IN_EASE_OUT);
+    animatable.setCurve(LINEAR);
     
     currentRotation = 0.;
 }
@@ -187,22 +180,21 @@ void ofApp::updateCamPosition(){
         if (animatable.getTargetPosition() ==  myLocations[myLocations.size() - 1]){
             end = myLocations[0];
             currentAnim = -1;
+            animatable.setCurve(EASE_IN_EASE_OUT);
         } else {
             currentAnim++;
             end = myLocations[currentAnim+1];
+            animatable.setCurve(LINEAR);
         }
         animatable = ofxAnimatableOfPoint();
         animatable.setPosition(start);
         animatable.animateTo(end);
         cout << currentAnim<<" GOAL: "<< end <<endl;
-        animatable.setCurve(EASE_IN_EASE_OUT);
+
     }
     animatable.update( animationSpeed/60.0f );
 
     cam.setGlobalPosition(animatable.getCurrentPosition());
-    //cam.lookAt(animatable.getTargetPosition());
-    //cam.setTarget(animatable.getCurrentPosition());
-
 }
 
 //--------------------------------------------------------------
@@ -276,7 +268,7 @@ void ofApp::draw() {
 //            sofa.draw();
                 ofScale(2, -2, 2); // flip the y axis and zoom in a bit
             if (isEasyCamMoving){
-                currentRotation += .002;
+                currentRotation += .0025;
             }
             ofRotate(currentRotation, 0, 0, 1);
             ofTranslate(myLocations[i].x-img.getWidth() *.5, myLocations[i].y-img.getHeight() * 0.5, myLocations[i].z );

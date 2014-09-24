@@ -10,39 +10,99 @@
 	<string>ps3eyeMesh</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>0D595C21DFA5D4EC5221D6427FA56FF0E2C67E07</key>
+		<string>https://github.com/eighteight/ofEight.git</string>
+		<key>2DE9C8846D9375EAACFABA8963120E8E7719BAF5</key>
+		<string>https://github.com/openframeworks/openFrameworks.git</string>
 		<key>316AC943-956C-4D5F-B784-A8C950E2D3F7</key>
 		<string>https://github.com/openframeworks/openFrameworks.git</string>
+		<key>32C9357E6BFA4C30CF0000521A92DF84B7FBC79F</key>
+		<string>https://github.com/armadillu/ofxAnimatable.git</string>
 		<key>6C911666-4508-4596-8011-3DA8AB2AEDAF</key>
 		<string>https://github.com/paulobarcelos/ofxMacamPs3Eye.git</string>
+		<key>8B732DA6471F61653FC2B35F66CE49E00BD50686</key>
+		<string>https://github.com/satoruhiga/ofxObjLoader.git</string>
+		<key>C4D877563F41998D7FBE0F67A47F151AD87815E2</key>
+		<string>https://github.com/kalwalt/ofxFog</string>
 		<key>DE304BB7-07EE-4A4B-9459-BB5EDF9A22EA</key>
 		<string>https://github.com/eighteight/ofEight.git</string>
+		<key>F477E52075B09F975A1F455542C246CE19C19CA2</key>
+		<string>https://github.com/paulobarcelos/ofxMacamPs3Eye.git</string>
+		<key>F4CCB893AFADB97238A965FD2F28717F1CAAE613</key>
+		<string>https://github.com/astellato/ofxSyphon.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>apps/ofEight/ps3eyeMesh/ps3eyeMesh.xcodeproj/project.xcworkspace</string>
+	<string>ps3eyeMesh/ps3eyeMesh.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>316AC943-956C-4D5F-B784-A8C950E2D3F7</key>
-		<string>../../../../..</string>
-		<key>6C911666-4508-4596-8011-3DA8AB2AEDAF</key>
-		<string>../../../../../addons/ofxMacamPs3Eye</string>
-		<key>DE304BB7-07EE-4A4B-9459-BB5EDF9A22EA</key>
+		<key>0D595C21DFA5D4EC5221D6427FA56FF0E2C67E07</key>
 		<string>../../..</string>
+		<key>2DE9C8846D9375EAACFABA8963120E8E7719BAF5</key>
+		<string>../../../..</string>
+		<key>316AC943-956C-4D5F-B784-A8C950E2D3F7</key>
+		<string>../../../../openFrameworks</string>
+		<key>32C9357E6BFA4C30CF0000521A92DF84B7FBC79F</key>
+		<string>../../../../addons/ofxAnimatable</string>
+		<key>6C911666-4508-4596-8011-3DA8AB2AEDAF</key>
+		<string>../../../../openFrameworks/addons/ofxMacamPs3Eye</string>
+		<key>8B732DA6471F61653FC2B35F66CE49E00BD50686</key>
+		<string>../../../../addons/ofxObjLoader</string>
+		<key>C4D877563F41998D7FBE0F67A47F151AD87815E2</key>
+		<string>../../../../addons/ofxFog</string>
+		<key>DE304BB7-07EE-4A4B-9459-BB5EDF9A22EA</key>
+		<string>../../../..</string>
+		<key>F477E52075B09F975A1F455542C246CE19C19CA2</key>
+		<string>../../../../addons/ofxMacamPs3Eye</string>
+		<key>F4CCB893AFADB97238A965FD2F28717F1CAAE613</key>
+		<string>../../../../addons/ofxSyphon</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>file://localhost/Users/vgusev/repos/openFrameworks/apps/oFeight/ps3eyeMesh/ps3eyeMesh.xcodeproj/project.xcworkspace/</string>
+	<string>https://github.com/eighteight/ofEight.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>316AC943-956C-4D5F-B784-A8C950E2D3F7</string>
+	<string>0D595C21DFA5D4EC5221D6427FA56FF0E2C67E07</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2DE9C8846D9375EAACFABA8963120E8E7719BAF5</string>
+			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
 			<string>DE304BB7-07EE-4A4B-9459-BB5EDF9A22EA</string>
 			<key>IDESourceControlWCCName</key>
+			<string></string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>0D595C21DFA5D4EC5221D6427FA56FF0E2C67E07</string>
+			<key>IDESourceControlWCCName</key>
 			<string>ofEight</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>32C9357E6BFA4C30CF0000521A92DF84B7FBC79F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxAnimatable</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>C4D877563F41998D7FBE0F67A47F151AD87815E2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxFog</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
@@ -51,6 +111,30 @@
 			<string>6C911666-4508-4596-8011-3DA8AB2AEDAF</string>
 			<key>IDESourceControlWCCName</key>
 			<string>ofxMacamPs3Eye</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F477E52075B09F975A1F455542C246CE19C19CA2</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxMacamPs3Eye</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>8B732DA6471F61653FC2B35F66CE49E00BD50686</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxObjLoader</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F4CCB893AFADB97238A965FD2F28717F1CAAE613</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ofxSyphon</string>
 		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
