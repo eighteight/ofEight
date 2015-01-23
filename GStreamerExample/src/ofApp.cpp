@@ -2,6 +2,12 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
+    
+    
+    fingerMovie.load("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov");
+	fingerMovie.play();
+    
+    return;
     grabber.initGrabber(640,480);
     remoteVideo.allocate(640,480,GL_RGB);
     
@@ -68,6 +74,9 @@ void ofApp::exit(){
 
 //--------------------------------------------------------------
 void ofApp::update(){
+    
+    fingerMovie.update();
+    return;
     grabber.update();
     if(grabber.isFrameNew()){
         server.newFrame(grabber.getPixelsRef());
@@ -81,9 +90,14 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofSetColor(255);
-    remoteVideo.draw(0,0);
-    grabber.draw(400,300,240,180);
+    
+    ofSetHexColor(0xFFFFFF);
+    
+    fingerMovie.draw(20,20);
+    return;
+//    ofSetColor(255);
+//    remoteVideo.draw(0,0);
+//    grabber.draw(400,300,240,180);
     gui.draw();
 }
 

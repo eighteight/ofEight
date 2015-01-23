@@ -67,6 +67,20 @@
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E4B69E200A3A1BDC003C02F2 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1D0A3A1BDC003C02F2 /* main.cpp */; };
 		E4B69E210A3A1BDC003C02F2 /* ofApp.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E4B69E1E0A3A1BDC003C02F2 /* ofApp.cpp */; };
+		E69049A11A72D5DB00996F22 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E690499E1A72D5DB00996F22 /* Accelerate.framework */; };
+		E69049A21A72D5DB00996F22 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E690499F1A72D5DB00996F22 /* CoreVideo.framework */; };
+		E69049A31A72D5DB00996F22 /* QTKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69049A01A72D5DB00996F22 /* QTKit.framework */; };
+		E69049A51A72D63600996F22 /* GLUT.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69049A41A72D63500996F22 /* GLUT.framework */; };
+		E69049A71A72D64C00996F22 /* AGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69049A61A72D64C00996F22 /* AGL.framework */; };
+		E69049A91A72D65F00996F22 /* ApplicationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69049A81A72D65F00996F22 /* ApplicationServices.framework */; };
+		E69049AB1A72D66C00996F22 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69049AA1A72D66C00996F22 /* CoreFoundation.framework */; };
+		E69049AD1A72D68100996F22 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69049AC1A72D68100996F22 /* AudioToolbox.framework */; };
+		E69049AF1A72D69300996F22 /* CoreAudio.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69049AE1A72D69300996F22 /* CoreAudio.framework */; };
+		E69049B11A72D6C100996F22 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69049B01A72D6C100996F22 /* CoreServices.framework */; };
+		E69049B31A72D6D000996F22 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69049B21A72D6D000996F22 /* OpenGL.framework */; };
+		E69049B51A72D6DE00996F22 /* QuickTime.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E69049B41A72D6DE00996F22 /* QuickTime.framework */; };
+		E69049C01A72F39300996F22 /* ofGstVideoGrabber.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E69049BC1A72F39300996F22 /* ofGstVideoGrabber.cpp */; };
+		E69049C11A72F39300996F22 /* ofGstVideoPlayer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E69049BE1A72F39300996F22 /* ofGstVideoPlayer.cpp */; };
 		FFE8FF878DB8E10310F0617A /* ofxGstXMPPRTP.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 525F8CDA7D477D2EFE140A4E /* ofxGstXMPPRTP.cpp */; };
 /* End PBXBuildFile section */
 
@@ -183,11 +197,6 @@
 		AF24EDF61A70BCDE00EF3A28 /* ofxNiceAgent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxNiceAgent.h; sourceTree = "<group>"; };
 		AF24EDF71A70BCDE00EF3A28 /* ofxNiceStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxNiceStream.cpp; sourceTree = "<group>"; };
 		AF24EDF81A70BCDE00EF3A28 /* ofxNiceStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxNiceStream.h; sourceTree = "<group>"; };
-		AF24EE0F1A70BCF200EF3A28 /* .cproject */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = .cproject; sourceTree = "<group>"; };
-		AF24EE101A70BCF200EF3A28 /* .gitignore */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
-		AF24EE111A70BCF200EF3A28 /* .project */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = .project; sourceTree = "<group>"; };
-		AF24EE131A70BCF200EF3A28 /* language.settings.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = language.settings.xml; sourceTree = "<group>"; };
-		AF24EE141A70BCF200EF3A28 /* addon_config.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = addon_config.mk; sourceTree = "<group>"; };
 		AF24EE261A70BCF200EF3A28 /* strophe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strophe.h; sourceTree = "<group>"; };
 		AF24EE271A70BCF200EF3A28 /* strophepp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = strophepp.h; sourceTree = "<group>"; };
 		AF24EE2E1A70BCF200EF3A28 /* strophe.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = strophe.a; sourceTree = "<group>"; };
@@ -204,7 +213,6 @@
 		AF24EE571A70BD4200EF3A28 /* ofxDepthOctree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDepthOctree.h; sourceTree = "<group>"; };
 		AF24EE581A70BD4200EF3A28 /* ofxDepthStreamCompression.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxDepthStreamCompression.cpp; sourceTree = "<group>"; };
 		AF24EE591A70BD4200EF3A28 /* ofxDepthStreamCompression.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxDepthStreamCompression.h; sourceTree = "<group>"; };
-		AF24EE611A70BD9F00EF3A28 /* addon_config.mk */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = addon_config.mk; sourceTree = "<group>"; };
 		AF24EE641A70BD9F00EF3A28 /* APACHE20 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = APACHE20; sourceTree = "<group>"; };
 		AF24EE651A70BD9F00EF3A28 /* CONTRIB */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = CONTRIB; sourceTree = "<group>"; };
 		AF24EE661A70BD9F00EF3A28 /* GPL2 */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = GPL2; sourceTree = "<group>"; };
@@ -277,6 +285,22 @@
 		E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = "openFrameworks-Info.plist"; sourceTree = "<group>"; };
 		E4EB691F138AFCF100A09F29 /* CoreOF.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = CoreOF.xcconfig; path = ../../../libs/openFrameworksCompiled/project/osx/CoreOF.xcconfig; sourceTree = SOURCE_ROOT; };
 		E4EB6923138AFD0F00A09F29 /* Project.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Project.xcconfig; sourceTree = "<group>"; };
+		E690499E1A72D5DB00996F22 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
+		E690499F1A72D5DB00996F22 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		E69049A01A72D5DB00996F22 /* QTKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QTKit.framework; path = System/Library/Frameworks/QTKit.framework; sourceTree = SDKROOT; };
+		E69049A41A72D63500996F22 /* GLUT.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GLUT.framework; path = System/Library/Frameworks/GLUT.framework; sourceTree = SDKROOT; };
+		E69049A61A72D64C00996F22 /* AGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AGL.framework; path = System/Library/Frameworks/AGL.framework; sourceTree = SDKROOT; };
+		E69049A81A72D65F00996F22 /* ApplicationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ApplicationServices.framework; path = System/Library/Frameworks/ApplicationServices.framework; sourceTree = SDKROOT; };
+		E69049AA1A72D66C00996F22 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		E69049AC1A72D68100996F22 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		E69049AE1A72D69300996F22 /* CoreAudio.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreAudio.framework; path = System/Library/Frameworks/CoreAudio.framework; sourceTree = SDKROOT; };
+		E69049B01A72D6C100996F22 /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		E69049B21A72D6D000996F22 /* OpenGL.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGL.framework; path = System/Library/Frameworks/OpenGL.framework; sourceTree = SDKROOT; };
+		E69049B41A72D6DE00996F22 /* QuickTime.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickTime.framework; path = System/Library/Frameworks/QuickTime.framework; sourceTree = SDKROOT; };
+		E69049BC1A72F39300996F22 /* ofGstVideoGrabber.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofGstVideoGrabber.cpp; path = ../../../../libs/openFrameworks/video/ofGstVideoGrabber.cpp; sourceTree = "<group>"; };
+		E69049BD1A72F39300996F22 /* ofGstVideoGrabber.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofGstVideoGrabber.h; path = ../../../../libs/openFrameworks/video/ofGstVideoGrabber.h; sourceTree = "<group>"; };
+		E69049BE1A72F39300996F22 /* ofGstVideoPlayer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ofGstVideoPlayer.cpp; path = ../../../../libs/openFrameworks/video/ofGstVideoPlayer.cpp; sourceTree = "<group>"; };
+		E69049BF1A72F39300996F22 /* ofGstVideoPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ofGstVideoPlayer.h; path = ../../../../libs/openFrameworks/video/ofGstVideoPlayer.h; sourceTree = "<group>"; };
 		E6DEF695B88BA5FAACEAA937 /* UdpSocket.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = UdpSocket.cpp; path = ../../../addons/ofxOsc/libs/oscpack/src/ip/posix/UdpSocket.cpp; sourceTree = SOURCE_ROOT; };
 		ECED1ACDF3A11EC66B86FE6C /* ofxGstOscDoubleBuffer.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGstOscDoubleBuffer.h; path = ../../../addons/ofxGstRTP/src/ofxGstOscDoubleBuffer.h; sourceTree = SOURCE_ROOT; };
 		EFAEEB2DB91B0DC398AF209E /* ofxGstXMPPRTP.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxGstXMPPRTP.h; path = ../../../addons/ofxGstRTP/src/ofxGstXMPPRTP.h; sourceTree = SOURCE_ROOT; };
@@ -289,6 +313,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E69049B51A72D6DE00996F22 /* QuickTime.framework in Frameworks */,
+				E69049B31A72D6D000996F22 /* OpenGL.framework in Frameworks */,
+				E69049B11A72D6C100996F22 /* CoreServices.framework in Frameworks */,
+				E69049AB1A72D66C00996F22 /* CoreFoundation.framework in Frameworks */,
+				E69049AF1A72D69300996F22 /* CoreAudio.framework in Frameworks */,
+				E69049AD1A72D68100996F22 /* AudioToolbox.framework in Frameworks */,
+				E69049A91A72D65F00996F22 /* ApplicationServices.framework in Frameworks */,
+				E69049A71A72D64C00996F22 /* AGL.framework in Frameworks */,
+				E69049A51A72D63600996F22 /* GLUT.framework in Frameworks */,
+				E69049A11A72D5DB00996F22 /* Accelerate.framework in Frameworks */,
+				E69049A21A72D5DB00996F22 /* CoreVideo.framework in Frameworks */,
+				E69049A31A72D5DB00996F22 /* QTKit.framework in Frameworks */,
 				AF24EDFF1A70BCDE00EF3A28 /* nice.a in Frameworks */,
 				AF24EDFD1A70BCDE00EF3A28 /* gstnice.a in Frameworks */,
 				AF24EE391A70BCF200EF3A28 /* strophe.a in Frameworks */,
@@ -528,24 +564,11 @@
 		AF24EE0E1A70BCF200EF3A28 /* ofxXMPP */ = {
 			isa = PBXGroup;
 			children = (
-				AF24EE0F1A70BCF200EF3A28 /* .cproject */,
-				AF24EE101A70BCF200EF3A28 /* .gitignore */,
-				AF24EE111A70BCF200EF3A28 /* .project */,
-				AF24EE121A70BCF200EF3A28 /* .settings */,
-				AF24EE141A70BCF200EF3A28 /* addon_config.mk */,
 				AF24EE231A70BCF200EF3A28 /* libs */,
 				AF24EE311A70BCF200EF3A28 /* src */,
 			);
 			name = ofxXMPP;
 			path = ../../../addons/ofxXMPP;
-			sourceTree = "<group>";
-		};
-		AF24EE121A70BCF200EF3A28 /* .settings */ = {
-			isa = PBXGroup;
-			children = (
-				AF24EE131A70BCF200EF3A28 /* language.settings.xml */,
-			);
-			path = .settings;
 			sourceTree = "<group>";
 		};
 		AF24EE231A70BCF200EF3A28 /* libs */ = {
@@ -637,7 +660,6 @@
 		AF24EE601A70BD9F00EF3A28 /* ofxKinect */ = {
 			isa = PBXGroup;
 			children = (
-				AF24EE611A70BD9F00EF3A28 /* addon_config.mk */,
 				AF24EE621A70BD9F00EF3A28 /* libs */,
 				AF24EED31A70BDA000EF3A28 /* LICENSE.txt */,
 				AF24EED41A70BDA000EF3A28 /* README.md */,
@@ -885,6 +907,18 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				E69049B41A72D6DE00996F22 /* QuickTime.framework */,
+				E69049B21A72D6D000996F22 /* OpenGL.framework */,
+				E69049B01A72D6C100996F22 /* CoreServices.framework */,
+				E69049AE1A72D69300996F22 /* CoreAudio.framework */,
+				E69049AC1A72D68100996F22 /* AudioToolbox.framework */,
+				E69049AA1A72D66C00996F22 /* CoreFoundation.framework */,
+				E69049A81A72D65F00996F22 /* ApplicationServices.framework */,
+				E69049A61A72D64C00996F22 /* AGL.framework */,
+				E69049A41A72D63500996F22 /* GLUT.framework */,
+				E690499E1A72D5DB00996F22 /* Accelerate.framework */,
+				E690499F1A72D5DB00996F22 /* CoreVideo.framework */,
+				E69049A01A72D5DB00996F22 /* QTKit.framework */,
 				E4B6FCAD0C3E899E008CF71C /* openFrameworks-Info.plist */,
 				E4EB6923138AFD0F00A09F29 /* Project.xcconfig */,
 				E4B69E1C0A3A1BDC003C02F2 /* src */,
@@ -898,6 +932,10 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E69049BC1A72F39300996F22 /* ofGstVideoGrabber.cpp */,
+				E69049BD1A72F39300996F22 /* ofGstVideoGrabber.h */,
+				E69049BE1A72F39300996F22 /* ofGstVideoPlayer.cpp */,
+				E69049BF1A72F39300996F22 /* ofGstVideoPlayer.h */,
 				AF3709AD1A720F2700C97514 /* ofGstUtils.cpp */,
 				AF3709AE1A720F2700C97514 /* ofGstUtils.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
@@ -1044,9 +1082,11 @@
 				AF24EEF01A70BDA000EF3A28 /* ofxKinectExtras.cpp in Sources */,
 				AF24EEE61A70BDA000EF3A28 /* loader.c in Sources */,
 				640279EE111671BD026CB013 /* ofxOscReceiver.cpp in Sources */,
+				E69049C11A72F39300996F22 /* ofGstVideoPlayer.cpp in Sources */,
 				8F5205AEF8861EF234F0651A /* ofxOscSender.cpp in Sources */,
 				ADE367465D2A8EBAD4C7A8D9 /* IpEndpointName.cpp in Sources */,
 				AF24EE3B1A70BCF200EF3A28 /* ofxXMPP.cpp in Sources */,
+				E69049C01A72F39300996F22 /* ofGstVideoGrabber.cpp in Sources */,
 				67FE4C7B15C2F0478C8126C2 /* NetworkingUtils.cpp in Sources */,
 				AF24EEE71A70BDA000EF3A28 /* registration.c in Sources */,
 				AF24EEE51A70BDA000EF3A28 /* keep_alive.c in Sources */,

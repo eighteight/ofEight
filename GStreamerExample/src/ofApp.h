@@ -13,7 +13,7 @@
 #include "ofxGui.h"
 
 #define DO_ECHO_CANCEL 0
-
+#define OF_VIDEO_CAPTURE_GSTREAMER
 #if DO_ECHO_CANCEL
 #include "ofxEchoCancel.h"
 #endif
@@ -43,6 +43,8 @@ public:
     ofTexture remoteVideo;
     
     ofxPanel gui;
+    
+    ofVideoPlayer 		fingerMovie;
 #if DO_ECHO_CANCEL
     ofxEchoCancel echoCancel;
 #endif
