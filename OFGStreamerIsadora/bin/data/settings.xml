@@ -1,0 +1,10 @@
+<group>
+	<gst_rtp_client>
+		<latency>0</latency>
+		<drop>0</drop>
+	</gst_rtp_client>
+	<gst_rtp_server>
+		<video_bitrate__kbps_>6000</video_bitrate__kbps_>
+		<audio_bitrate__bps_>650000</audio_bitrate__bps_>
+	</gst_rtp_server>
+</group>
