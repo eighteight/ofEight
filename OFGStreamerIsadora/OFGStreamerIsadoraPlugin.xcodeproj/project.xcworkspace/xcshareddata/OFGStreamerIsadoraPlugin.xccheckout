@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>F7B1EFA1-A12D-4169-93F8-7C017F932CAD</string>
+	<key>IDESourceControlProjectName</key>
+	<string>OFGStreamerIsadoraPlugin</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3933F473-7155-48BF-A946-3DCAA2AEC152</key>
+		<string>https://github.com/openframeworks/openFrameworks</string>
+		<key>88E019DE-D05E-4738-A1F4-A35F8AC04DD5</key>
+		<string>https://github.com/eighteight/ofEight.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>apps/oFeight/OFGStreamerIsadora/OFGStreamerIsadoraPlugin.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3933F473-7155-48BF-A946-3DCAA2AEC152</key>
+		<string>../../../../..</string>
+		<key>88E019DE-D05E-4738-A1F4-A35F8AC04DD5</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/eighteight/ofEight.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3933F473-7155-48BF-A946-3DCAA2AEC152</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>88E019DE-D05E-4738-A1F4-A35F8AC04DD5</string>
+			<key>IDESourceControlWCCName</key>
+			<string>oFeight</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3933F473-7155-48BF-A946-3DCAA2AEC152</string>
+			<key>IDESourceControlWCCName</key>
+			<string>openFrameworks</string>
+		</dict>
+	</array>
+</dict>
+</plist>

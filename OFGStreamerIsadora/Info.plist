@@ -9,14 +9,18 @@
 	<key>CFBundleIconFile</key>
 	<string>isadora_plugin</string>
 	<key>CFBundleIdentifier</key>
-	<string>cc.openFrameworks.ofapp</string>
+	<string>ru.scriptum.OFGStreamerIsadoraPlugin</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundlePackageType</key>
 	<string>BNDL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
 	<key>CFBundleSignature</key>
 	<string>iZaP</string>
 	<key>CFBundleVersion</key>
 	<string>1.0</string>
+	<key>CSResourcesFileMapped</key>
+	<true/>
 </dict>
 </plist>

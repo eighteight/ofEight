@@ -48,15 +48,12 @@
 // INCLUDES
 // ---------------------------------------------------------------------------------
 #include "ofVideoPlayer.h"
+#include "ofPixels.h"
 
 #include "IsadoraTypes.h"
 #include "IsadoraCallbacks.h"
 #include "ImageBufferUtil.h"
 #include "PluginDrawUtil.h"
-
-// GSTREAMER
-#include <gst/gst.h>
-#include <gst/app/gstappsink.h>
 
 // STANDARD INCLUDES
 #include <string.h>
@@ -171,8 +168,7 @@ typedef struct {
 	float					mBlueAmount;		// ### Demo Plugin - value = -1.0 to +1.0
     String*                 mRtsp;                // RTSP url to get the stream from
 	Boolean					mBypass;
-    GstBus                  *mBus;
-    ofVideoPlayer           fingerMovie;
+    ofVideoPlayer*          fingerMovie;
 	
 } PluginInfo;
 
@@ -201,7 +197,7 @@ static const OSType	kActorClass 	= kGroupVideo;
 // all plugin codes that begin with an underline, an at-sign, and a pound sign
 // (e.g., '_', '@', and '#'.)
 
-static const OSType	kActorID		= FOUR_CHAR_CODE('7m7A');
+static const OSType	kActorID		= FOUR_CHAR_CODE('7m7B');
 
 // ### ACTOR NAME
 // The name of the actor. This is the name that will be shown in the User Interface.
@@ -292,13 +288,6 @@ const char* sHelpStrings[] =
 };
 
 
-static gboolean appsink_plugin_init (GstPlugin * plugin)
-{
-    gst_element_register (plugin, "appsink", GST_RANK_NONE, GST_TYPE_APP_SINK);
-    
-    return TRUE;
-}
-
 // ---------------------------------------------------------------------------------
 //		¥ CreateActor
 // ---------------------------------------------------------------------------------
@@ -326,6 +315,9 @@ CreateActor(
 	info->mImageBufferMap.mInputBufferCount = 1;
 	info->mImageBufferMap.mOutputBufferCount = 1;
 	CreateImageBufferMap(ip, &info->mImageBufferMap);
+    
+    info->fingerMovie = new ofVideoPlayer();
+    info->fingerMovie->setUseTexture(false);
 }
 
 // ---------------------------------------------------------------------------------
@@ -406,9 +398,8 @@ ActivateActor(
 				kWantVideoFrameTick,
 				(long) inActorInfo);
             
-            
-            info->fingerMovie.load("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov");
-            info->fingerMovie.play();
+            info->fingerMovie->load("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov");
+            info->fingerMovie->play();
 
 		}
 		
@@ -433,6 +424,7 @@ ActivateActor(
 		// you are not active.
 		DisposeOwnedImageBuffers(ip, &info->mImageBufferMap);
 		ClearSourceBuffers(ip, &info->mImageBufferMap);
+        info->fingerMovie->stop();
 	}
 }
 
@@ -711,78 +703,6 @@ GetActorInfo(
 }
 
 
-
-//gstreamer
-//static GstFlowReturn process_sample(std::shared_ptr<GstSample> sample, ImageBufferPtr outBuf, PluginInfo* info){
-//
-//	GstBuffer * _buffer = gst_sample_get_buffer(sample.get());
-//    
-//	/* TODO: get GL and EGL buffers.
-//     GstVideoGLTextureUploadMeta *upload_meta = gst_buffer_get_video_gl_texture_upload_meta (_buffer);
-//     if(upload_meta){
-//     cout << "got gl upload meta" << endl;
-//     return GST_FLOW_OK;
-//     }*/
-//    
-//    UInt32* outData = static_cast<UInt32*>(outBuf->mBaseAddress);
-//	UInt32 outStride = outBuf->mRowBytes - outBuf->mWidth * sizeof(UInt32);
-//    
-//    GstMapInfo mapinfo;
-//	gst_buffer_map (_buffer, &mapinfo, GST_MAP_READ);
-//	guint size = mapinfo.size;
-//    
-//    memcpy(outData, mapinfo.data, size);
-//	int stride = 0;
-////	if(pixels.isAllocated() && pixels.getTotalBytes()!=(int)size){
-////		GstVideoInfo vinfo = getVideoInfo(sample.get());
-////		stride = vinfo.stride[0];
-////        
-////		if(stride == (pixels.getWidth() * pixels.getBytesPerPixel())) {
-////			ofLogError("ofGstVideoUtils") << "buffer_cb(): error on new buffer, buffer size: " << size << "!= init size: " << pixels.getTotalBytes();
-////			return GST_FLOW_ERROR;
-////		}
-////	}
-//	mutex.lock();
-//	buffer = sample;
-//    
-//    
-//    
-//    if(stride > 0) {
-//        outData.setFromAlignedPixels(mapinfo.data,pixels.getWidth(),pixels.getHeight(),pixels.getPixelFormat(),stride);
-//        
-//
-//    } else {
-//        backPixels.setFromExternalPixels(mapinfo.data,pixels.getWidth(),pixels.getHeight(),pixels.getPixelFormat());
-//        eventPixels.setFromExternalPixels(mapinfo.data,pixels.getWidth(),pixels.getHeight(),pixels.getPixelFormat());
-//    }
-//    
-//	if(pixels.isAllocated()){
-//		if(stride > 0) {
-//			backPixels.setFromAlignedPixels(mapinfo.data,pixels.getWidth(),pixels.getHeight(),pixels.getPixelFormat(),stride);
-//		} else {
-//			backPixels.setFromExternalPixels(mapinfo.data,pixels.getWidth(),pixels.getHeight(),pixels.getPixelFormat());
-//			eventPixels.setFromExternalPixels(mapinfo.data,pixels.getWidth(),pixels.getHeight(),pixels.getPixelFormat());
-//		}
-//        
-//		bBackPixelsChanged=true;
-//		mutex.unlock();
-//		if(stride == 0) {
-//			ofNotifyEvent(prerollEvent,eventPixels);
-//		}
-//	}else{
-//		mutex.unlock();
-//		if(appsink){
-//			appsink->on_stream_prepared();
-//		}else{
-//			GstVideoInfo vinfo = getVideoInfo(sample.get());
-//			allocate(vinfo.width,vinfo.height,getOFFormat(vinfo.finfo->format));
-//		}
-//	}
-//	gst_buffer_unmap(_buffer, &mapinfo);
-//	return GST_FLOW_OK;
-//}
-
-
 // ---------------------------------------------------------------------------------
 //		¥ ProcessVideoFrame
 // ---------------------------------------------------------------------------------
@@ -812,6 +732,23 @@ ProcessVideoFrame(
 	
 	// for each row
 	SInt16 row = 0;
+    info->fingerMovie->update();
+    
+    ofPixels pxls = info->fingerMovie->getPixels();
+    
+    int channelCount = info->fingerMovie->getPixelsRef().getNumChannels();
+    int w = info->fingerMovie->getWidth();
+    int h = info->fingerMovie->getHeight();
+    // remove getData()
+//    for(int y = 0; y < h; y++) {
+//        unsigned char * cursor = info->fingerMovie->getPixels() + ((w * channelCount) * y);
+//        for(int x = 0; x < w - 1; x++) {
+//    
+//            //unsigned char* pxData = pxls.getConstPixelsIter()Data();
+//        }
+//    }
+
+    
 	while (row < outBuf->mHeight) {
 		
 		// and for each column in that row
@@ -914,6 +851,33 @@ ReceiveMessage(
 	ImageBufferPtr img1 = GetImageBufferPtr(ip, &info->mImageBufferMap, 0);
 	ImageBufferPtr out = GetOutputImageBufferPtr(&info->mImageBufferMap, 0);
 
+    info->fingerMovie->update();
+    
+    if (info->fingerMovie->isFrameNew() && info->mNeedsDraw && out != nil){
+        bool drawFrame = false;
+        if (out->mBitDepth == 32) {
+			ProcessVideoFrame(ip, info, img1, out);
+			drawFrame = true;
+		}
+        
+        // if the drawFrame flag got set, then we need to output the
+		// new video data to our output port here.
+		
+		if (drawFrame) {
+			
+			// IMPORTANT: We have changed the data in the output buffer
+			// so we need to increment the data change count so that
+			// those looking at our data will know that there is new
+			// data in the buffer
+			
+			out->mInfo.mDataChangeCount++;
+			v.u.data = out;
+			
+			// send the new video frame to the video output property
+			SetOutputPropertyValue_(ip, info->mActorInfoPtr, kOutputVideo, &v);
+		}
+    }
+    
 	// if we don't have a valid output buffer
 
 	if (info->mImageBufferMap.mOutputBuffersValid == false) {
@@ -953,7 +917,6 @@ ReceiveMessage(
 		
 		// we only process 32 bit data in this plugin
 		if (out->mBitDepth == 32) {
-            //process_sample(sample, out, info);
 			ProcessVideoFrame(ip, info, img1, out);
 			drawFrame = true;
 		}
