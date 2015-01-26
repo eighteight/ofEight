@@ -221,7 +221,6 @@ static const char* sPropertyDefinitionString =
 
 // INPUT PROPERTY DEFINITIONS
 //	TYPE 	PROPERTY NAME	ID		DATATYPE	DISPLAY FMT			MIN		MAX		INIT VALUE
-	"INPROP video_in		vin		data		video				*		*		0\r"
 	"INPROP red				red		float		number				-100	100		0\r"
 	"INPROP green			grn		float		number				-100	100		0\r"
 	"INPROP blue			blu		float		number				-100	100		0\r"
@@ -239,8 +238,7 @@ static const char* sPropertyDefinitionString =
 
 enum
 {
-	kInputVideoIn = 1,
-	kInputRed,
+	kInputRed = 1,
 	kInputGreen,
 	kInputBlue,
 	kInputBypass,
@@ -499,24 +497,6 @@ HandlePropertyChangeValue(
 	// ValueCommon.h for details about the contents of this structure.
 	
 	switch (inPropertyIndex1) {
-	case kInputVideoIn:
-		{
-			// if bypass is off, then we store the incoming video frame reference
-			// into our image buffer -- it will be processed when our ReceiveMessage
-			// function next receives a kWantVideoFrameTick message
-			if (info->mBypass == false) {
-				SetImageBufferValue(ip, &info->mImageBufferMap, 0, GetDataValueOfType(inNewValue, kImageBufferDataType, ImageBufferPtr));
-				// set mNeedsDraw flag to ensure that new video image is drawn
-				info->mNeedsDraw |= true;
-			
-			// if bypass is on, we simply send the incoming video frame reference
-			// on to the output -- bypassing all processing entirely.
-			} else {
-				SetOutputPropertyValue_(ip, inActorInfo, kOutputVideo, inNewValue);
-			}
-		}
-		break;
-	
 	// ### The red, green and blue inputs are all processed in the same way:
 	// the floating point value is in the u.fvalue member of the Value struct
 	// pointed to by inNewValue. Because the min and max values specfieid in
@@ -714,11 +694,10 @@ static void
 ProcessVideoFrame(
 	IsadoraParameters*	/* ip */,	// not used in this function, but needed to call PluginAssert_
 	PluginInfo*			info,
-	ImageBufferPtr		srcBuf,
 	ImageBufferPtr		outBuf)
 {
-	UInt32* srcData = static_cast<UInt32*>(srcBuf->mBaseAddress);
-	UInt32 srcStride = srcBuf->mRowBytes - srcBuf->mWidth * sizeof(UInt32);
+	UInt32* srcData;// = static_cast<UInt32*>(srcBuf->mBaseAddress);
+	UInt32 srcStride;// = srcBuf->mRowBytes - srcBuf->mWidth * sizeof(UInt32);
 
 	UInt32* outData = static_cast<UInt32*>(outBuf->mBaseAddress);
 	UInt32 outStride = outBuf->mRowBytes - outBuf->mWidth * sizeof(UInt32);
@@ -848,7 +827,6 @@ ReceiveMessage(
 	UpdateImageBufferMap(ip, &info->mImageBufferMap);
 	
 	// use GetImageBufferPtr to get the input and output buffers
-	ImageBufferPtr img1 = GetImageBufferPtr(ip, &info->mImageBufferMap, 0);
 	ImageBufferPtr out = GetOutputImageBufferPtr(&info->mImageBufferMap, 0);
 
     info->fingerMovie->update();
@@ -856,7 +834,7 @@ ReceiveMessage(
     if (info->fingerMovie->isFrameNew() && info->mNeedsDraw && out != nil){
         bool drawFrame = false;
         if (out->mBitDepth == 32) {
-			ProcessVideoFrame(ip, info, img1, out);
+			ProcessVideoFrame(ip, info, out);
 			drawFrame = true;
 		}
         
@@ -900,7 +878,7 @@ ReceiveMessage(
 	// 2) the input image buffer (img1) is not nil
 	// 3) the output image buffer (out) is not nil
 	
-	} else if (info->mNeedsDraw && img1 != nil && out != nil) {
+	} else if (info->mNeedsDraw && out != nil) {
 
 		// call EnterVideoProcessing_ so that Isadora will accumulate the
 		// amount of time spent processing the video data - this is not
@@ -917,7 +895,7 @@ ReceiveMessage(
 		
 		// we only process 32 bit data in this plugin
 		if (out->mBitDepth == 32) {
-			ProcessVideoFrame(ip, info, img1, out);
+			ProcessVideoFrame(ip, info, out);
 			drawFrame = true;
 		}
 		
