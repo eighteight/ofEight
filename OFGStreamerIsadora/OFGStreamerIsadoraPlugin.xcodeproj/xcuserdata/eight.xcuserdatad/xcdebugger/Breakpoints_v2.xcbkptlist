@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "1"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IsadoraPlugin.cp"
+            timestampString = "444033912.417125"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "644"
+            endingLineNumber = "644"
+            landmarkName = "ReceiveMessage( IsadoraParameters* ip, MessageMask /* inMessageMask */, // the message that caused this ReceiveMessage to be called -- one of the kWant... constants PortIndex /* inIndex1 */, // for MIDI messages, the port from which the message arrived. n/a otherwise const MsgData* /* inData */, // the data associated with this message UInt32 /* inLen */, // the length of the data associated with this message long inRefCon)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IsadoraPlugin.cp"
+            timestampString = "444036507.666964"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "677"
+            endingLineNumber = "677"
+            landmarkName = "ReceiveMessage( IsadoraParameters* ip, MessageMask /* inMessageMask */, // the message that caused this ReceiveMessage to be called -- one of the kWant... constants PortIndex /* inIndex1 */, // for MIDI messages, the port from which the message arrived. n/a otherwise const MsgData* /* inData */, // the data associated with this message UInt32 /* inLen */, // the length of the data associated with this message long inRefCon)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IsadoraPlugin.cp"
+            timestampString = "444083617.818573"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "632"
+            endingLineNumber = "632"
+            landmarkName = "ReceiveMessage( IsadoraParameters* ip, MessageMask /* inMessageMask */, // the message that caused this ReceiveMessage to be called -- one of the kWant... constants PortIndex /* inIndex1 */, // for MIDI messages, the port from which the message arrived. n/a otherwise const MsgData* /* inData */, // the data associated with this message UInt32 /* inLen */, // the length of the data associated with this message long inRefCon)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AFC497451A773C2F00460A47 /* libgstreamer-1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AFC497441A773C2F00460A47 /* libgstreamer-1.0.a */; };
 		E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E4328148138ABC890047C5CB /* openFrameworksDebug.a */; };
 		E69049A11A72D5DB00996F22 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E690499E1A72D5DB00996F22 /* Accelerate.framework */; };
 		E69049A21A72D5DB00996F22 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E690499F1A72D5DB00996F22 /* CoreVideo.framework */; };
@@ -58,6 +59,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		AFC497441A773C2F00460A47 /* libgstreamer-1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "libgstreamer-1.0.a"; path = "../../../../../../../Library/Frameworks/GStreamer.framework/Versions/1.0/lib/libgstreamer-1.0.a"; sourceTree = "<group>"; };
 		E4328143138ABC890047C5CB /* openFrameworksLib.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = openFrameworksLib.xcodeproj; path = ../../../libs/openFrameworksCompiled/project/osx/openFrameworksLib.xcodeproj; sourceTree = SOURCE_ROOT; };
 		E4B69B5B0A3A1756003C02F2 /* OFGStreamerIsadoraPlugin.izzyplug */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OFGStreamerIsadoraPlugin.izzyplug; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B6FCAD0C3E899E008CF71C /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 30; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 				E69049A31A72D5DB00996F22 /* QTKit.framework in Frameworks */,
 				E4328149138ABC9F0047C5CB /* openFrameworksDebug.a in Frameworks */,
 				E6E0C50B1A745A2C007540EB /* IsadoraLib.a in Frameworks */,
+				AFC497451A773C2F00460A47 /* libgstreamer-1.0.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -122,6 +125,7 @@
 		E4B69B4A0A3A1720003C02F2 = {
 			isa = PBXGroup;
 			children = (
+				AFC497441A773C2F00460A47 /* libgstreamer-1.0.a */,
 				E6B6EB0A1A7477F000CBDC33 /* Resources */,
 				E6B6EB081A7472DB00CBDC33 /* Carbon.framework */,
 				E6E0C50A1A745A2C007540EB /* IsadoraLib.a */,
@@ -313,7 +317,7 @@
 					"-lpthread",
 					"-mtune=native",
 				);
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				VALID_ARCHS = i386;
 			};
 			name = Debug;
@@ -355,7 +359,7 @@
 					"-lpthread",
 					"-mtune=native",
 				);
-				SDKROOT = macosx10.8;
+				SDKROOT = macosx;
 				VALID_ARCHS = i386;
 			};
 			name = Release;
@@ -393,6 +397,7 @@
 					"/Users/eight/repos/openFrameworks/addons/ofxKinect/libs/libusb-win32/lib/vs",
 					"/Users/eight/repos/openFrameworks/addons/ofxKinect/libs/libusb-win32/lib/win_cb",
 					/Developer/IsadoraSDK/IsadoraLib,
+					"$(LOCAL_LIBRARY_DIR)/Frameworks/GStreamer.framework/Versions/1.0/lib",
 				);
 				OF_CORE_LIBS = "$(LIB_POCO_1) $(LIB_POCO_2) $(LIB_POCO_3) $(LIB_POCO_4) $(LIB_POCO_5) $(LIB_POCO_6) $(LIB_POCO_7) $(LIB_POCO_8) $(LIB_POCO_9) $(LIB_POCO_10) $(LIB_TESS) $(LIB_GLEW) $(LIB_CAIRO1) $(LIB_CAIRO2) $(LIB_CAIRO3) $(LIB_RTAUDIO) $(LIB_OPENSSL1) $(LIB_OPENSSL2) $(LIB_GLFW) $(LIB_FREEIMAGE) $(LIB_FREETYPE) $(LIB_FMODEX)";
 				PRODUCT_NAME = OFGStreamerIsadoraPlugin;
@@ -434,6 +439,7 @@
 					"/Users/eight/repos/openFrameworks/addons/ofxKinect/libs/libusb-win32/lib/vs",
 					"/Users/eight/repos/openFrameworks/addons/ofxKinect/libs/libusb-win32/lib/win_cb",
 					/Developer/IsadoraSDK/IsadoraLib,
+					"$(LOCAL_LIBRARY_DIR)/Frameworks/GStreamer.framework/Versions/1.0/lib",
 				);
 				OF_CORE_LIBS = "$(LIB_POCO_1) $(LIB_POCO_2) $(LIB_POCO_3) $(LIB_POCO_4) $(LIB_POCO_5) $(LIB_POCO_6) $(LIB_POCO_7) $(LIB_POCO_8) $(LIB_POCO_9) $(LIB_POCO_10) $(LIB_TESS) $(LIB_GLEW) $(LIB_CAIRO1) $(LIB_CAIRO2) $(LIB_CAIRO3) $(LIB_RTAUDIO) $(LIB_OPENSSL1) $(LIB_OPENSSL2) $(LIB_GLFW) $(LIB_FREEIMAGE) $(LIB_FREETYPE) $(LIB_FMODEX)";
 				PRODUCT_NAME = OFGStreamerIsadoraPlugin;

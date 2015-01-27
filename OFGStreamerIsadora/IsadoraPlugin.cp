@@ -159,16 +159,12 @@ typedef struct {
 	ActorInfo*				mActorInfoPtr;		// our ActorInfo Pointer - set during create actor function
 	MessageReceiverRef		mMessageReceiver;	// pointer to our message receiver reference
 	Boolean					mNeedsDraw;			// set to true when the video output needs to be drawn
+
+//	ImageBufferMap			mImageBufferMap;	// used by most video plugins -- see about ImageBufferMaps above
 	
-	
-	ImageBufferMap			mImageBufferMap;	// used by most video plugins -- see about ImageBufferMaps above
-	
-	float					mRedAmount;			// ### Demo Plugin - value = -1.0 to +1.0
-	float					mGreenAmount;		// ### Demo Plugin - value = -1.0 to +1.0
-	float					mBlueAmount;		// ### Demo Plugin - value = -1.0 to +1.0
     String*                 mRtsp;                // RTSP url to get the stream from
-	Boolean					mBypass;
     ofVideoPlayer*          fingerMovie;
+    ImageBufferPtr			imgOut;
 	
 } PluginInfo;
 
@@ -221,10 +217,6 @@ static const char* sPropertyDefinitionString =
 
 // INPUT PROPERTY DEFINITIONS
 //	TYPE 	PROPERTY NAME	ID		DATATYPE	DISPLAY FMT			MIN		MAX		INIT VALUE
-	"INPROP red				red		float		number				-100	100		0\r"
-	"INPROP green			grn		float		number				-100	100		0\r"
-	"INPROP blue			blu		float		number				-100	100		0\r"
-	"INPROP	bypass			byps	bool		onoff				0		1		0\r"
 	"INPROP	rtsp			rtsp	string		text				*		*		rtsp://\r"
 // OUTPUT PROPERTY DEFINITIONS
 //	TYPE 	 PROPERTY NAME	ID		DATATYPE	DISPLAY FMT			MIN		MAX		INIT VALUE
@@ -238,11 +230,7 @@ static const char* sPropertyDefinitionString =
 
 enum
 {
-	kInputRed = 1,
-	kInputGreen,
-	kInputBlue,
-	kInputBypass,
-    kInputRtsp,
+    kInputRtsp = 1,
 	
 	kOutputVideo = 1
 };
@@ -266,19 +254,6 @@ enum
 const char* sHelpStrings[] =
 {
 	"Streams video from network using gstreamer.",
-
-	"The video source that will be colorized.",
-	
-	"The amount by which the red component of the image will be changed. Values greater than zero "
-		"increase the amount of red, values less than zero descrease it.",
-
-	"The amount by which the green component of the image will be changed. Values greater than zero "
-		"increase the amount of green, values less than zero descrease it.",
-
-	"The amount by which the blue component of the image will be changed. Values greater than zero "
-		"increase the amount of blue, values less than zero descrease it.",
-		
-	"Bypasses this effect when set to 'on'. When 'off' the effect functions normally.",
     
     "RTSP url of the stream server",
 	
@@ -310,9 +285,7 @@ CreateActor(
 	
 	// set number of input and output buffers in our buffer map
 	// and then initialize it
-	info->mImageBufferMap.mInputBufferCount = 1;
-	info->mImageBufferMap.mOutputBufferCount = 1;
-	CreateImageBufferMap(ip, &info->mImageBufferMap);
+    info->imgOut = ImageBuffer_MakeImageBuffer(240,160,k32ARGBPixelFormat);
     
     info->fingerMovie = new ofVideoPlayer();
     info->fingerMovie->setUseTexture(false);
@@ -335,7 +308,7 @@ DisposeActor(
 	// ### destruction of private member variables
 	
 	// destroy our image buffer map
-	DisposeImageBufferMap(ip, &info->mImageBufferMap);
+	//DisposeImageBufferMap(ip, &info->mImageBufferMap);
 
 	// destroy the PluginInfo struct allocated with IzzyMallocClear_ the CreateActor function
 	PluginAssert_(ip, ioActorInfo->mActorDataPtr != nil);
@@ -380,27 +353,22 @@ ActivateActor(
 		// from ReceiveMessage callback.
 		
 		MessageReceiveFunction* msgRcvFunc = ReceiveMessage;
-		
-		// if the "bypass" flag is off, then we want to receive messages
-		if (info->mBypass == false) {
 			
-			// we should not already have a message receiver
-			PluginAssert_(ip, info->mMessageReceiver == nil);
-			
-			// create a message receiver that will be notified of
-			// video frame ticks
-			info->mMessageReceiver = CreateMessageReceiver_(
-				ip,
-				msgRcvFunc,
-				0,
-				kWantVideoFrameTick,
-				(long) inActorInfo);
-            
-            info->fingerMovie->load("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov");
-            info->fingerMovie->play();
+        // we should not already have a message receiver
+        PluginAssert_(ip, info->mMessageReceiver == nil);
+        
+        // create a message receiver that will be notified of
+        // video frame ticks
+        info->mMessageReceiver = CreateMessageReceiver_(
+            ip,
+            msgRcvFunc,
+            0,
+            kWantVideoFrameTick,
+            (long) inActorInfo);
+        
+        info->fingerMovie->load("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov");
+        info->fingerMovie->play();
 
-		}
-		
 		// set the needs draw flag so that we will be drawn as soon
 		// as possible
 		info->mNeedsDraw = true;
@@ -420,8 +388,8 @@ ActivateActor(
 		
 		// ### dispose any data that you don't need when 
 		// you are not active.
-		DisposeOwnedImageBuffers(ip, &info->mImageBufferMap);
-		ClearSourceBuffers(ip, &info->mImageBufferMap);
+		//DisposeOwnedImageBuffers(ip, &info->mImageBufferMap);
+		//ClearSourceBuffers(ip, &info->mImageBufferMap);
         info->fingerMovie->stop();
 	}
 }
@@ -502,33 +470,6 @@ HandlePropertyChangeValue(
 	// pointed to by inNewValue. Because the min and max values specfieid in
 	// the Property Definition string was -100 to +100, the resulting value
 	// here is -1.0 to +1.0.
-	
-	case kInputRed:
-		{
-			// set new red amount, as value between 0.0 and 1.0
-			info->mRedAmount = inNewValue->u.fvalue / 100.0;
-			// set mNeedsDraw flag to ensure that new video image is drawn
-			info->mNeedsDraw = true;
-		}
-		break;
-	
-	case kInputGreen:
-		{
-			// set new green amount, as value between 0.0 and 1.0
-			info->mGreenAmount = inNewValue->u.fvalue / 100.0;
-			// set mNeedsDraw flag to ensure that new video image is drawn
-			info->mNeedsDraw = true;
-		}
-		break;
-	
-	case kInputBlue:
-		{
-			// set new blue amount, as value between 0.0 and 1.0
-			info->mBlueAmount = inNewValue->u.fvalue / 100.0;
-			// set mNeedsDraw flag to ensure that new video image is drawn
-			info->mNeedsDraw = true;
-		}
-		break;
     case kInputRtsp:
         {
             // set new blue amount, as value between 0.0 and 1.0
@@ -537,44 +478,7 @@ HandlePropertyChangeValue(
             info->mNeedsDraw = true;
         }
         break;
-            
-	
-	// When the bypass input property is set to 0 (off = default) this
-	// actor processes the video normally. When it is set to 1 (on) all
-	// processing is bypassed and the input video is passed directly
-	// to the output.
-	case kInputBypass:
-		// store member variable for on/off
-		info->mBypass = (inNewValue->u.ivalue != 0);
-		
-		// if "bypass" is going from on to off, we need to
-		// reallocate our message receiver so that we will
-		// start receiving video frame tick messages again
-		if (info->mBypass == false) {
-			if (info->mMessageReceiver == nil) {
-				info->mMessageReceiver = CreateActorMessageReceiver_(
-					ip,
-					inActorInfo,
-					ReceiveMessage,
-					0,
-					kWantVideoFrameTick,
-					(long) inActorInfo);
-			}
-			
-		// if "bypass" is going from off to on, then we want to
-		// stop processing video. We dispose our message receiver
-		// here to save processing power -- when bypass is "on" the
-		// incoming video is sent directly to the output -- see the
-		// case kInputVideoIn above.
-		} else {
-			if (info->mMessageReceiver != nil) {
-				DisposeMessageReceiver_(ip, info->mMessageReceiver);
-				info->mMessageReceiver = nil;
-				info->mNeedsDraw |= true;
-			}
-		}
-		break;
-	}
+    }
 }
 
 
@@ -682,114 +586,6 @@ GetActorInfo(
 	outActorParams->mMouseTrackInActorDefinedAreaProc	= NULL;
 }
 
-
-// ---------------------------------------------------------------------------------
-//		¥ ProcessVideoFrame
-// ---------------------------------------------------------------------------------
-//	### This is the code that does the actual processing of a video frame. Modify
-// this code to create your own filter.
-//
-
-static void
-ProcessVideoFrame(
-	IsadoraParameters*	/* ip */,	// not used in this function, but needed to call PluginAssert_
-	PluginInfo*			info,
-	ImageBufferPtr		outBuf)
-{
-	UInt32* srcData;// = static_cast<UInt32*>(srcBuf->mBaseAddress);
-	UInt32 srcStride;// = srcBuf->mRowBytes - srcBuf->mWidth * sizeof(UInt32);
-
-	UInt32* outData = static_cast<UInt32*>(outBuf->mBaseAddress);
-	UInt32 outStride = outBuf->mRowBytes - outBuf->mWidth * sizeof(UInt32);
-	
-	// ### this is where your video processing code would go
-	// here, we are increasing or decreasing the red, green,
-	// and blue components of the video image.
-	SInt16 redFactor = static_cast<SInt16>(256.0 * info->mRedAmount);
-	SInt16 greenFactor = static_cast<SInt16>(256.0 * info->mGreenAmount);
-	SInt16 blueFactor = static_cast<SInt16>(256.0 * info->mBlueAmount);
-	
-	// for each row
-	SInt16 row = 0;
-    info->fingerMovie->update();
-    
-    ofPixels pxls = info->fingerMovie->getPixels();
-    
-    int channelCount = info->fingerMovie->getPixelsRef().getNumChannels();
-    int w = info->fingerMovie->getWidth();
-    int h = info->fingerMovie->getHeight();
-    // remove getData()
-//    for(int y = 0; y < h; y++) {
-//        unsigned char * cursor = info->fingerMovie->getPixels() + ((w * channelCount) * y);
-//        for(int x = 0; x < w - 1; x++) {
-//    
-//            //unsigned char* pxData = pxls.getConstPixelsIter()Data();
-//        }
-//    }
-
-    
-	while (row < outBuf->mHeight) {
-		
-		// and for each column in that row
-		SInt16 col = 0;
-		while (col < outBuf->mWidth) {
-		
-			// IMRORTANT: For Mac/Windows cross-platform compatbility,
-			// make sure to use the RED_, GREEN_ and BLUE_ macros to
-			// extract pixels from a the raw data, and use RGB_ to 
-			// combine them back.
-			//
-			// On the Mac, the pixels are arranged 00RRGGBB with
-			// the blue in the low 8 bits.
-			// Under Quicktime for Windows, the data is arranged
-			// BBGGRR00 - in reverse order. Using the macros is
-			// a easy way to ensure your code will operate on 
-			// both platforms.
-			//
-			
-			SInt16 red = RED_(*srcData);
-			SInt16 green = GREEN_(*srcData);
-			SInt16 blue = BLUE_(*srcData);
-			
-			// adjust the colors
-			red += (red * redFactor) / 256;
-			if (red < 0)
-				red = 0;
-			else if (red > 255)
-				red = 255;
-			
-			green += (green * greenFactor) / 256;
-			if (green < 0)
-				green = 0;
-			else if (green > 255)
-				green = 255;
-			
-			blue += (blue * blueFactor) / 256;
-			if (blue < 0)
-				blue = 0;
-			else if (blue > 255)
-				blue = 255;
-
-			*(outData) = ARGB_(255, red, green, blue);
-			
-			// increment src and out pixel
-			srcData++;
-			outData++;
-			
-			// increment column count
-			col++;
-		}
-
-		// skip to the next line of video, using the
-		// stride values computed above
-		srcData = (UInt32*)((char*) srcData + srcStride);
-		outData = (UInt32*)((char*) outData + outStride);
-		
-		// increment row count
-		row++;
-	}
-}
-
 // ---------------------------------------------------------------------------------
 //		¥ ReceiveMessage
 // ---------------------------------------------------------------------------------
@@ -820,104 +616,131 @@ ReceiveMessage(
 
 	// set a flag to remember if we had an output buffer before we
 	// called UpdateImageBufferMap
-	Boolean wasOutputBuffer = info->mImageBufferMap.mOutputBuffersValid;
+	//Boolean wasOutputBuffer = info->mImageBufferMap.mOutputBuffersValid;
 	
 	// ensure that the ImageBufferMap is up valid for the
 	// current input Image Buffer
-	UpdateImageBufferMap(ip, &info->mImageBufferMap);
+//	UpdateImageBufferMap(ip, &info->mImageBufferMap);
 	
 	// use GetImageBufferPtr to get the input and output buffers
-	ImageBufferPtr out = GetOutputImageBufferPtr(&info->mImageBufferMap, 0);
+//	ImageBufferPtr out = GetOutputImageBufferPtr(&info->mImageBufferMap, 0);
 
     info->fingerMovie->update();
     
-    if (info->fingerMovie->isFrameNew() && info->mNeedsDraw && out != nil){
-        bool drawFrame = false;
-        if (out->mBitDepth == 32) {
-			ProcessVideoFrame(ip, info, out);
-			drawFrame = true;
-		}
+    ImageBufferPtr imgOut = info->imgOut;//GetOutputImageBufferPtr(&info->mImageBufferMap, 0);
+    
+    if (info->fingerMovie->isFrameNew() && imgOut != nil) {
+        // call EnterVideoProcessing_ so that Isadora will accumulate the
+        // amount of time spent processing the video data - this is not
+        // requried by highly recommended so that the VPO value in the
+        // Status Window stays accurate.
+        UInt64 vpStart = EnterVideoProcessing_(ip);
+        
+        // clear the mNeedsDraw flag
+        info->mNeedsDraw = false;
+        
+        // assume for the moment that we won't draw the frame
+        // set this value to true if we change the output
+        Boolean drawFrame = false;
+        int srcStride = 16;
+        int outStride = 16;
+        // we only process 32 bit data in this plugin
+        if (imgOut->mBitDepth == 32) {
+            UInt32* outData = static_cast<UInt32*>(imgOut->mBaseAddress);
+            const unsigned char* pixels = info->fingerMovie->getPixels();
+            ////
+            int cnt = 0;
+            // for each row
+            SInt16 row = 0;
+            while (row < imgOut->mHeight) {
+                // and for each column in that row
+                SInt16 col = 0;
+                while (col < imgOut->mWidth) {
+                    
+                    // IMRORTANT: For Mac/Windows cross-platform compatbility,
+                    // make sure to use the RED_, GREEN_ and BLUE_ macros to
+                    // extract pixels from a the raw data, and use RGB_ to
+                    // combine them back.
+                    //
+                    // On the Mac, the pixels are arranged 00RRGGBB with
+                    // the blue in the low 8 bits.
+                    // Under Quicktime for Windows, the data is arranged
+                    // BBGGRR00 - in reverse order. Using the macros is
+                    // a easy way to ensure your code will operate on
+                    // both platforms.
+                    //
+                    
+//                    SInt16 red = RED_(*pixels);
+//                    SInt16 green = GREEN_(*pixels);
+//                    SInt16 blue = BLUE_(*pixels);
+                    
+                    SInt16 red		= (SInt16)(pixels[cnt++]);
+                    SInt16 green	= (SInt16)(pixels[cnt++]);
+                    SInt16 blue	= (SInt16)(pixels[cnt++]);
+                    //std::cout << red << " " << green << " "<<blue<<std::endl;
+                    *(outData) = ARGB_(255, red, green, blue);
+                    
+                    // increment src and out pixel
+                    outData++;
+                    
+                    // increment column count
+                    col++;
+                }
+                
+                // skip to the next line of video, using the
+                // stride values computed above
+                //pixels = (UInt32*)((char*) pixels + srcStride);
+                outData = (UInt32*)((char*) outData + outStride);
+                
+                // increment row count
+                row++;
+            }
+
+            
+            
+//            SInt16 red = 250;
+//            SInt16 green = 78;
+//            SInt16 blue = 24;
+//            int outStride = 16;
+//            
+//            int cnt = 0;
+//            const unsigned char* pixels = info->fingerMovie->getPixels();
+//            int chanNum = info->fingerMovie->getPixels().getNumChannels();
+//            int w = imgOut->mWidth;
+//            int h = imgOut->mHeight;
+//            int l = w * h;
+//            for (int i = 0 ; i < l ; i++){
+//                red		= (SInt16)(pixels[cnt++]);
+//                green	= (SInt16)(pixels[cnt++]);
+//                blue	= (SInt16)(pixels[cnt++]);
+//                ////			cnt++;
+//                *(outDataVideo) = ARGB_(255, red, green, blue);
+//                outDataVideo++;
+//                //if (cnt % w * 3 == 0) outDataVideo = (UInt32*)((char*) outDataVideo + outStride);
+//            }
+
+            drawFrame = true;
+        }
         
         // if the drawFrame flag got set, then we need to output the
-		// new video data to our output port here.
-		
-		if (drawFrame) {
-			
-			// IMPORTANT: We have changed the data in the output buffer
-			// so we need to increment the data change count so that
-			// those looking at our data will know that there is new
-			// data in the buffer
-			
-			out->mInfo.mDataChangeCount++;
-			v.u.data = out;
-			
-			// send the new video frame to the video output property
-			SetOutputPropertyValue_(ip, info->mActorInfoPtr, kOutputVideo, &v);
-		}
+        // new video data to our output port here.
+        
+        if (drawFrame) {
+            
+            // IMPORTANT: We have changed the data in the output buffer
+            // so we need to increment the data change count so that
+            // those looking at our data will know that there is new
+            // data in the buffer
+            
+            imgOut->mInfo.mDataChangeCount++;
+            v.u.data = imgOut;
+            // send the new video frame to the video output property
+            SetOutputPropertyValue_(ip, info->mActorInfoPtr, kOutputVideo, &v);
+            
+        }
+        
+        // make sure to compliment EnterVideoProcessing_ with 
+        // and ExitVideoProcessing_ call
+        ExitVideoProcessing_(ip, vpStart);
     }
-    
-	// if we don't have a valid output buffer
-
-	if (info->mImageBufferMap.mOutputBuffersValid == false) {
-		
-		// if there was an output buffer preivously, we need to 
-		// send a 'nil' buffer to let other modules know that 
-		// our ouptut is now invalid
-		if (wasOutputBuffer) {
-			v.u.data = nil;
-			SetOutputPropertyValue_(ip, actorInfo, kOutputVideo, &v);
-		}
-
-	// otherwise, if our mNeedsDraw flag is true, and if we have both
-	// and input buffer and an output buffer, then we can proceed to 
-	// process the video image
-	// 
-	// we only draw the image if the following are true:
-	// 1) the mNeedsDraw variable is set to true (this is set in the
-	//    InputPropertyChangeValue callback above.)
-	// 2) the input image buffer (img1) is not nil
-	// 3) the output image buffer (out) is not nil
-	
-	} else if (info->mNeedsDraw && out != nil) {
-
-		// call EnterVideoProcessing_ so that Isadora will accumulate the
-		// amount of time spent processing the video data - this is not
-		// requried by highly recommended so that the VPO value in the
-		// Status Window stays accurate.
-		UInt64 vpStart = EnterVideoProcessing_(ip);
-		
-		// clear the mNeedsDraw flag
-		info->mNeedsDraw = false;
-	
-		// assume for the moment that we won't draw the frame
-		// set this value to true if we change the output
-		Boolean drawFrame = false;
-		
-		// we only process 32 bit data in this plugin
-		if (out->mBitDepth == 32) {
-			ProcessVideoFrame(ip, info, out);
-			drawFrame = true;
-		}
-		
-		// if the drawFrame flag got set, then we need to output the
-		// new video data to our output port here.
-		
-		if (drawFrame) {
-			
-			// IMPORTANT: We have changed the data in the output buffer
-			// so we need to increment the data change count so that
-			// those looking at our data will know that there is new
-			// data in the buffer
-			
-			out->mInfo.mDataChangeCount++;
-			v.u.data = out;
-			
-			// send the new video frame to the video output property
-			SetOutputPropertyValue_(ip, info->mActorInfoPtr, kOutputVideo, &v);
-		}
-		
-		// make sure to compliment EnterVideoProcessing_ with 
-		// and ExitVideoProcessing_ call
-		ExitVideoProcessing_(ip, vpStart);
-	}
 }
