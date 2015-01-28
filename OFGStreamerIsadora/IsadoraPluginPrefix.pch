@@ -1,5 +1,0 @@
-//
-// Prefix header for all source files of the 'IsadoraDemoPlugin' target in the 'IsadoraDemoPlugin' project.
-//
-
-#include <Carbon/Carbon.h>
