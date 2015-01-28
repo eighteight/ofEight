@@ -10,12 +10,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IsadoraPlugin.cp"
-            timestampString = "444033912.417125"
+            timestampString = "444120288.901346"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "644"
-            endingLineNumber = "644"
-            landmarkName = "ReceiveMessage( IsadoraParameters* ip, MessageMask /* inMessageMask */, // the message that caused this ReceiveMessage to be called -- one of the kWant... constants PortIndex /* inIndex1 */, // for MIDI messages, the port from which the message arrived. n/a otherwise const MsgData* /* inData */, // the data associated with this message UInt32 /* inLen */, // the length of the data associated with this message long inRefCon)"
+            startingLineNumber = "373"
+            endingLineNumber = "373"
+            landmarkName = "ActivateActor( IsadoraParameters* ip, ActorInfo* inActorInfo, // pointer to this actor&apos;s ActorInfo struct - unique to each instance of an actor Boolean inActivate)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -26,12 +26,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IsadoraPlugin.cp"
-            timestampString = "444036507.666964"
+            timestampString = "444120288.901346"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "677"
-            endingLineNumber = "677"
-            landmarkName = "ReceiveMessage( IsadoraParameters* ip, MessageMask /* inMessageMask */, // the message that caused this ReceiveMessage to be called -- one of the kWant... constants PortIndex /* inIndex1 */, // for MIDI messages, the port from which the message arrived. n/a otherwise const MsgData* /* inData */, // the data associated with this message UInt32 /* inLen */, // the length of the data associated with this message long inRefCon)"
+            startingLineNumber = "487"
+            endingLineNumber = "487"
+            landmarkName = "HandlePropertyChangeValue( IsadoraParameters* ip, ActorInfo* inActorInfo, PropertyIndex inPropertyIndex1, // the one-based index of the property than changed values ValuePtr /* inOldValue */, // the property&apos;s old value ValuePtr inNewValue, // the property&apos;s new value Boolean"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -42,12 +42,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "IsadoraPlugin.cp"
-            timestampString = "444083617.818573"
+            timestampString = "444120284.167689"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "632"
-            endingLineNumber = "632"
-            landmarkName = "ReceiveMessage( IsadoraParameters* ip, MessageMask /* inMessageMask */, // the message that caused this ReceiveMessage to be called -- one of the kWant... constants PortIndex /* inIndex1 */, // for MIDI messages, the port from which the message arrived. n/a otherwise const MsgData* /* inData */, // the data associated with this message UInt32 /* inLen */, // the length of the data associated with this message long inRefCon)"
+            startingLineNumber = "283"
+            endingLineNumber = "283"
+            landmarkName = "CreateActor( IsadoraParameters* ip, ActorInfo* ioActorInfo)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "IsadoraPlugin.cp"
+            timestampString = "444120352.889339"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "470"
+            endingLineNumber = "470"
+            landmarkName = "HandlePropertyChangeValue( IsadoraParameters* ip, ActorInfo* inActorInfo, PropertyIndex inPropertyIndex1, // the one-based index of the property than changed values ValuePtr /* inOldValue */, // the property&apos;s old value ValuePtr inNewValue, // the property&apos;s new value Boolean"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

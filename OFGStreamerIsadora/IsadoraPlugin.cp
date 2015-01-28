@@ -162,7 +162,7 @@ typedef struct {
 
 //	ImageBufferMap			mImageBufferMap;	// used by most video plugins -- see about ImageBufferMaps above
 	
-    String*                 mRtsp;                // RTSP url to get the stream from
+    String*                 mURL;                // url to get the stream from
     ofVideoPlayer*          fingerMovie;
     ImageBufferPtr			imgOut;
 	
@@ -217,7 +217,9 @@ static const char* sPropertyDefinitionString =
 
 // INPUT PROPERTY DEFINITIONS
 //	TYPE 	PROPERTY NAME	ID		DATATYPE	DISPLAY FMT			MIN		MAX		INIT VALUE
-	"INPROP	rtsp			rtsp	string		text				*		*		rtsp://\r"
+	"INPROP	url			     url	string		text				*		*		url://\r"
+    "INPROP volume           vol    int         range               0	   100		100\r"
+
 // OUTPUT PROPERTY DEFINITIONS
 //	TYPE 	 PROPERTY NAME	ID		DATATYPE	DISPLAY FMT			MIN		MAX		INIT VALUE
 	"OUTPROP video_out		vout	data		video				*		*		0\r";
@@ -230,7 +232,8 @@ static const char* sPropertyDefinitionString =
 
 enum
 {
-    kInputRtsp = 1,
+    kInputURL = 1,
+    kInputVolume,
 	
 	kOutputVideo = 1
 };
@@ -255,7 +258,9 @@ const char* sHelpStrings[] =
 {
 	"Streams video from network using gstreamer.",
     
-    "RTSP url of the stream server",
+    "url of the stream server",
+    
+    "audio volume of the stream",
 	
 	"The colorized video output."
 };
@@ -365,13 +370,16 @@ ActivateActor(
             0,
             kWantVideoFrameTick,
             (long) inActorInfo);
-        
-        info->fingerMovie->load("rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov");
-        info->fingerMovie->play();
+        if (info->mURL != nil) {
+            info->fingerMovie->load(info->mURL->strData);//"rtsp://wowzaec2demo.streamlock.net/vod/mp4:BigBuckBunny_115k.mov");
+            info->fingerMovie->play();
 
-		// set the needs draw flag so that we will be drawn as soon
-		// as possible
-		info->mNeedsDraw = true;
+            // set the needs draw flag so that we will be drawn as soon
+            // as possible
+            info->mNeedsDraw = true;
+        } else {
+            info->mNeedsDraw = false;
+        }
 	
 	// ------------------------
 	// DEACTIVATE
@@ -390,6 +398,10 @@ ActivateActor(
 		// you are not active.
 		//DisposeOwnedImageBuffers(ip, &info->mImageBufferMap);
 		//ClearSourceBuffers(ip, &info->mImageBufferMap);
+        
+        if (info->imgOut != nil){
+            info->imgOut = nil;
+        }
         info->fingerMovie->stop();
 	}
 }
@@ -470,15 +482,24 @@ HandlePropertyChangeValue(
 	// pointed to by inNewValue. Because the min and max values specfieid in
 	// the Property Definition string was -100 to +100, the resulting value
 	// here is -1.0 to +1.0.
-    case kInputRtsp:
-        {
-            // set new blue amount, as value between 0.0 and 1.0
-            info->mRtsp = inNewValue->u.str;
-            // set mNeedsDraw flag to ensure that new video image is drawn
-            info->mNeedsDraw = true;
+        case kInputURL:
+            {
+                info->mURL = inNewValue->u.str;
+                info->fingerMovie->load(info->mURL->strData);
+                info->fingerMovie->play();
+                
+                // set the needs draw flag so that we will be drawn as soon
+                // as possible
+                info->mNeedsDraw = true;
+            }
+            break;
+            case kInputVolume:
+            {
+                info->fingerMovie->setVolume(inNewValue->u.fvalue / 100.0);
+                info->mNeedsDraw = true;
+            }
         }
-        break;
-    }
+
 }
 
 
@@ -627,17 +648,21 @@ ReceiveMessage(
 
     info->fingerMovie->update();
     
+    if (info->fingerMovie->isPlaying() && (info->fingerMovie->getWidth() != info->imgOut->mWidth || info->fingerMovie->getHeight() != info->imgOut->mHeight)){
+        info->imgOut = ImageBuffer_MakeImageBuffer(info->fingerMovie->getWidth(),info->fingerMovie->getHeight(),k32ARGBPixelFormat);
+    }
+    
     ImageBufferPtr imgOut = info->imgOut;//GetOutputImageBufferPtr(&info->mImageBufferMap, 0);
     
-    if (info->fingerMovie->isFrameNew() && imgOut != nil) {
+    if (info->fingerMovie->isFrameNew() && info->mNeedsDraw && imgOut != nil) {
         // call EnterVideoProcessing_ so that Isadora will accumulate the
         // amount of time spent processing the video data - this is not
         // requried by highly recommended so that the VPO value in the
         // Status Window stays accurate.
         UInt64 vpStart = EnterVideoProcessing_(ip);
         
-        // clear the mNeedsDraw flag
-        info->mNeedsDraw = false;
+//        // clear the mNeedsDraw flag
+//        info->mNeedsDraw = false;
         
         // assume for the moment that we won't draw the frame
         // set this value to true if we change the output
