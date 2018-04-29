@@ -1,0 +1,4 @@
+﻿C:\Program Files (x86)\MSBuild\Microsoft.Cpp\v4.0\V140\Microsoft.CppBuild.targets(392,5): warning MSB8028: The intermediate directory (obj\Release\) contains files shared from another project (oscReceiveExample.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  oscReceiveExample.vcxproj -> C:\Users\eight_io\devel\of_v0.9.8_vs_release\examples\addons\oscToDrawRibbons\bin\oscToDrawRibbons.exe
+  
+  	                   9	C:\Users\eight_io\devel\of_v0.9.8_vs_release\export\vs\Win32\
