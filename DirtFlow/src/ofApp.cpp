@@ -8,14 +8,22 @@ void ofApp::setup()
     gui.setup(dirtSim.getUniformInfo());
     
     fbo.allocate(ofGetWidth(), ofGetHeight());
-    
+    cout << ofGetWidth() << " " << ofGetHeight() << endl;
     brushDir.open("brushes");
     brushDir.listDir();
-    brushes.resize(brushDir.size());
+    //brushes.resize(brushDir.size());
+    int j = 0;
     for (int i = 0; i < brushDir.size(); i++)
     {
-        string path = brushDir.getFile(i).getAbsolutePath();
-        ofLoadImage(brushes.at(i), path);
+        ofFile f = brushDir.getFile(i);
+        if (!f.isDirectory()) {
+            cout<< f.getFileName()<<endl;
+            ofTexture txt;
+            brushes.push_back(txt);
+            ofLoadImage(brushes.at(j), f.getAbsolutePath());
+            brushList.push_back(f);
+            j++;
+        }
     }
     brushDir.close();
     
@@ -69,7 +77,7 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
     for (auto &&path:dragInfo.files) {
         ofFile file(path);
         int i = 0;
-        for (auto exFile: brushDir.getFiles()){
+        for (auto exFile: brushList){
             if (exFile.getFileName() == file.getFileName()){
                 currBrush = i;
                 setBrush(currBrush);
@@ -79,6 +87,8 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
         }
         file.copyTo("brushes", true, true);
         brushDir.open("brushes");
+        
+        brushList.push_back(file);
         
         brushes.resize(brushes.size()+1);
         ofLoadImage(brushes.at(brushes.size()-1),path);
@@ -93,12 +103,12 @@ void ofApp::keyPressed(int key)
         currBrush ++;
         currBrush = currBrush >= brushes.size() ? 0 : currBrush;
         setBrush(currBrush);
-        ofSetWindowTitle(currDrawMode + ": " + brushDir.getName(currBrush));
+        ofSetWindowTitle(currDrawMode + ": " + brushList.at(currBrush).getFileName());
     } else if (key == OF_KEY_RIGHT) {
         currBrush --;
         currBrush = currBrush < 0 ? brushes.size() -1 : currBrush;
         setBrush(currBrush);
-        ofSetWindowTitle(currDrawMode + ": " + brushDir.getName(currBrush));
+        ofSetWindowTitle(currDrawMode + ": " + brushList.at(currBrush).getFileName());
     }
     
     if(key & OF_KEY_MODIFIER){
@@ -163,7 +173,7 @@ void ofApp::keyPressed(int key)
             //ofColor c = getInkColor(ang, 255, depth);
             ofPushStyle();
             ofSetColor(c);
-            ofCircle(ofRandomWidth(), ofRandomHeight(), rad);
+            ofEllipse(ofRandomWidth(), ofRandomHeight(), rad, rad * 2.0);
             ofPopStyle();
         }
         fbo.end();
@@ -233,19 +243,19 @@ void ofApp::keyPressed(int key)
         ofSaveFrame();
     }
     
-    ofSetWindowTitle(currDrawMode + ": " + brushDir.getName(currBrush));
+    //ofSetWindowTitle(currDrawMode + ": " + brushDir.getName(currBrush));
 }
 
 void ofApp::setBrush(int brsh) {
     if (brsh >= brushes.size()) return;
     //ofColor c = ofColor(ofRandom(255), ofRandom(255), ofRandom(255));
-    ofColor c = ofColor(ofRandom(240,255), ofRandom(140,180), ofRandom(30,90));
-    float depth = ofRandom(50, 100);
+    ofColor c = ofColor(ofRandom(110,120), ofRandom(76,86), ofRandom(32,37));
+    float depth = ofRandom(10, 100);
     
     ofSetRectMode(OF_RECTMODE_CENTER);
     dirtSim.begin();
     ofPushMatrix();
-    ofTranslate(ofRandomWidth(), ofRandomHeight(), ofRandom(0, -1500));
+    ofTranslate(ofRandomWidth(), ofRandomHeight(), ofRandom(-100, -1500));
     ofPushStyle();
     ofSetColor(getInkColor(c.getHueAngle(), 255, 255));
     brushes.at(brsh).draw(0, 0);

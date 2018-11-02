@@ -32,6 +32,7 @@ private:
     ofxInkSim dirtSim;
     bool isControlKey;
     ofDirectory brushDir;
+    vector<ofFile> brushList;
     string currDrawMode;
     int currBrush;
     ofImage base;
