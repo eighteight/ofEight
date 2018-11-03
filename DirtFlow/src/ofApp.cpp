@@ -9,9 +9,10 @@ void ofApp::setup()
     
     fbo.allocate(ofGetWidth(), ofGetHeight());
     cout << ofGetWidth() << " " << ofGetHeight() << endl;
+    ofDirectory brushDir;
     brushDir.open("brushes");
     brushDir.listDir();
-    //brushes.resize(brushDir.size());
+
     int j = 0;
     for (int i = 0; i < brushDir.size(); i++)
     {
@@ -86,7 +87,6 @@ void ofApp::dragEvent(ofDragInfo dragInfo){
             i++;
         }
         file.copyTo("brushes", true, true);
-        brushDir.open("brushes");
         
         brushList.push_back(file);
         
@@ -165,15 +165,21 @@ void ofApp::keyPressed(int key)
             if (ang > 360)
                 ang -= 360;
             
-            float rad = ofRandom(2, 10);
             float depth = 255;//ofMap(rad, 2, 10, 255, 200, true);
             
             ofColor cTemp = ofColor(ofRandom(240,255), ofRandom(140,180), ofRandom(30,90));
-            ofColor c = getInkColor(cTemp.getHueAngle(), 255, 255);
             //ofColor c = getInkColor(ang, 255, depth);
             ofPushStyle();
-            ofSetColor(c);
-            ofEllipse(ofRandomWidth(), ofRandomHeight(), rad, rad * 2.0);
+            ofSetColor(isNegative ? cTemp : getInkColor(cTemp.getHueAngle(), 255, 255));
+            int which = ((int)ofRandom(1,10)) % 2;
+            float rad = ofRandom(1, 5);
+            if (which == 0) {
+                ofEllipse(ofRandomWidth(), ofRandomHeight(), rad, rad * 5.0);
+            } else {
+                
+                ofEllipse(ofRandomWidth(), ofRandomHeight(), rad*5.0, rad);
+            }
+            
             ofPopStyle();
         }
         fbo.end();
@@ -243,7 +249,11 @@ void ofApp::keyPressed(int key)
         ofSaveFrame();
     }
     
-    //ofSetWindowTitle(currDrawMode + ": " + brushDir.getName(currBrush));
+    if (key == 'n'){
+        isNegative = !isNegative;
+    }
+    
+    ofSetWindowTitle(currDrawMode + ": " + brushList.at(currBrush).getFileName());
 }
 
 void ofApp::setBrush(int brsh) {
@@ -257,9 +267,9 @@ void ofApp::setBrush(int brsh) {
     ofPushMatrix();
     ofTranslate(ofRandomWidth(), ofRandomHeight(), ofRandom(-100, -1500));
     ofPushStyle();
-    ofSetColor(getInkColor(c.getHueAngle(), 255, 255));
+    ofSetColor(isNegative ? c : getInkColor(c.getHueAngle(), 255, 255));
     brushes.at(brsh).draw(0, 0);
-    //brush = brushes
+
     ofPopStyle();
     ofPopMatrix();
     dirtSim.end();

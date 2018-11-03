@@ -31,13 +31,14 @@ private:
     
     ofxInkSim dirtSim;
     bool isControlKey;
-    ofDirectory brushDir;
     vector<ofFile> brushList;
     string currDrawMode;
     int currBrush;
     ofImage base;
     ofxPSBlend psBlend;
     int blendMode;
+    
+    bool isNegative = false;
     
     ofFbo fbo;
     vector<ofTexture> brushes;
